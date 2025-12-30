@@ -49,6 +49,24 @@ const CustomCursor = ({ isDark, isVisible }: { isDark: boolean; isVisible: boole
   );
 };
 
+const ThemeTransition = ({ isVisible, targetTheme }: { isVisible: boolean; targetTheme: "light" | "dark" | null }) => {
+  return (
+    <AnimatePresence>
+      {isVisible && targetTheme && (
+        <motion.div
+          initial={{ clipPath: "circle(0% at 50% 50%)" }}
+          animate={{ clipPath: "circle(150% at 50% 50%)" }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+          className={`fixed inset-0 z-[9999] pointer-events-none ${
+            targetTheme === "dark" ? "bg-[#0a0a0a]" : "bg-white"
+          }`}
+        />
+      )}
+    </AnimatePresence>
+  );
+};
+
 // --- COMPONENTE HERO (A Lua e Nuvens) ---
 // (Incorporado aqui para facilitar, mas pode ser separado depois)
 const HeroSection = ({ theme, toggleTheme }: { theme: "light" | "dark", toggleTheme: () => void }) => {
@@ -101,21 +119,8 @@ const HeroSection = ({ theme, toggleTheme }: { theme: "light" | "dark", toggleTh
 
   const parallaxStars = useParallax(0.1);
 
-  const [isMobileTransition, setIsMobileTransition] = useState(false);
-
   const handleThemeToggle = () => {
-    // Verifica se é mobile (menor que 768px)
-    if (typeof window !== 'undefined' && window.innerWidth < 768) {
-      setIsMobileTransition(true);
-      setTimeout(() => {
-        toggleTheme(); // Troca o tema enquanto o ícone está invisível
-        setTimeout(() => {
-          setIsMobileTransition(false); // Traz o novo ícone de volta
-        }, 50);
-      }, 500); // Tempo da animação de saída
-    } else {
-      toggleTheme();
-    }
+    toggleTheme();
   };
 
   // Cores dinâmicas baseadas no tema
@@ -208,7 +213,7 @@ const HeroSection = ({ theme, toggleTheme }: { theme: "light" | "dark", toggleTh
               className="absolute z-20 flex items-center justify-center pointer-events-none" 
               style={useParallax(0.5)}
             >
-              <div className={`relative flex items-center justify-center pointer-events-auto cursor-pointer transition-all duration-500 ease-in-out ${isMobileTransition ? "scale-0 opacity-0 rotate-90" : "scale-100 opacity-100 rotate-0"} md:hover:scale-105`} onClick={handleThemeToggle}>
+              <div className={`relative flex items-center justify-center pointer-events-auto cursor-pointer transition-all duration-500 ease-in-out scale-100 opacity-100 rotate-0 md:hover:scale-105`} onClick={handleThemeToggle}>
               
               {/* Efeito de Brilho/Círculos */}
               <div className={`absolute w-[110%] h-[110%] rounded-full border opacity-60 animate-[spin_60s_linear_infinite] transition-colors duration-700 ${isDark ? "border-white/10" : "border-yellow-500/40"}`} />
@@ -294,6 +299,8 @@ const HeroSection = ({ theme, toggleTheme }: { theme: "light" | "dark", toggleTh
 // --- PÁGINA PRINCIPAL ---
 export default function Home() {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [targetTheme, setTargetTheme] = useState<"light" | "dark" | null>(null);
   const [lang, setLang] = useState<Language>("pt");
   const [isLoading, setIsLoading] = useState(true);
   const [isDesktopOpen, setDesktopOpen] = useState(false);
@@ -316,6 +323,21 @@ export default function Home() {
     setDesktopOpen(true);
   };
 
+  const handleThemeSwitch = () => {
+    if (isTransitioning) return;
+    const next = theme === 'dark' ? 'light' : 'dark';
+    setTargetTheme(next);
+    setIsTransitioning(true);
+    
+    setTimeout(() => {
+      setTheme(next);
+    }, 400); // Troca o tema na metade da animação (quando a tela está coberta)
+
+    setTimeout(() => {
+      setIsTransitioning(false);
+      setTargetTheme(null);
+    }, 1000); // Tempo total para finalizar a transição
+  };
 
 
   useEffect(() => {
@@ -370,6 +392,9 @@ export default function Home() {
       {/* Bloqueio de Rotação para Mobile */}
       <RotationLock />
 
+      {/* Animação de Transição de Tema */}
+      <ThemeTransition isVisible={isTransitioning} targetTheme={targetTheme} />
+
       <NavigationDots />
 
       {/* 1. TEXTURA DE RUÍDO */}
@@ -382,7 +407,7 @@ export default function Home() {
       
       {/* 1. HERO */}
       <div id="top">
-        <HeroSection theme={theme} toggleTheme={() => setTheme(theme === 'dark' ? 'light' : 'dark')} />
+        <HeroSection theme={theme} toggleTheme={handleThemeSwitch} />
       </div>
 
       {/* 2. ABOUT SECTION */}
