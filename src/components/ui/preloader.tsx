@@ -1,0 +1,18 @@
+"use client";
+
+import { motion } from "framer-motion";
+
+export function Preloader() {
+  return (
+    <motion.div
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-background"
+    >
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-12 h-12 border border-foreground/10 border-t-foreground rounded-full animate-spin" />
+      </div>
+    </motion.div>
+  );
+}

@@ -1,26 +1,66 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-serif: var(--font-serif);
+
+  --color-background: rgb(var(--background));
+  --color-foreground: rgb(var(--foreground));
+  --color-secondary-bg: rgb(var(--secondary-bg));
+  --color-muted-foreground: rgb(var(--muted-foreground));
+  --color-border: rgb(var(--border));
+  --color-accent: rgb(var(--accent));
+  --color-accent-light: rgb(var(--accent-light));
+  --color-selection-bg: rgb(var(--selection-bg));
+  --color-selection-text: rgb(var(--selection-text));
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* --- TEMA CLARO (LIGHT) --- */
+:root, [data-theme='light'] {
+  --background: 255 255 255;     /* #FFFFFF - Branco puro */
+  --foreground: 26 26 26;        /* #1a1a1a - Quase preto */
+  --secondary-bg: 245 245 245;   /* #F5F5F5 - Contraste sutil */
+  --muted-foreground: 115 115 115;
+  --border: 212 212 212;         /* #d4d4d4 */
+  --accent: 65 105 225;          /* Azul royal */
+  --accent-light: 45 212 191;
+  --selection-bg: 26 26 26;
+  --selection-text: 234 234 234;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* --- TEMA ESCURO (DARK) --- */
+[data-theme='dark'] {
+  --background: 17 17 17;        /* #111 - Preto suave */
+  --foreground: 234 234 234;     /* #EAEAEA - Branco sujo */
+  --secondary-bg: 28 28 28;      /* #1C1C1C */
+  --muted-foreground: 161 161 170;
+  --border: 63 63 70;
+  --accent: 100 149 237;         /* Azul cornflower para modo escuro */
+  --accent-light: 20 220 240;
+  --selection-bg: 45 212 191;
+  --selection-text: 17 17 17;
 }
 
+/* O resto do arquivo (html, body, animations) continua igual... */
+html, body {
+  background-color: rgb(var(--background)); 
+  color: rgb(var(--foreground));
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+/* ... mantenha suas animações e noise-overlay aqui ... */
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }

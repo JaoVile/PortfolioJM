@@ -34,3 +34,45 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+```
+portfolio-joao
+├─ app
+│  ├─ favicon.ico
+│  ├─ globals.css
+│  ├─ layout.tsx
+│  └─ page.tsx
+├─ eslint.config.mjs
+├─ next.config.ts
+├─ package-lock.json
+├─ package.json
+├─ postcss.config.mjs
+├─ public
+│  ├─ cv.pdf
+│  ├─ eu.jpg
+│  └─ projects
+│     ├─ renova.png
+│     └─ solar.png
+├─ README.md
+├─ src
+│  ├─ components
+│  │  ├─ HeroParallax.tsx
+│  │  ├─ projects-grid.tsx
+│  │  ├─ SmoothScroll.tsx
+│  │  ├─ ThemeScript.tsx
+│  │  └─ ui
+│  │     ├─ CloudIcons.tsx
+│  │     ├─ CursorFollower.tsx
+│  │     ├─ desktop.tsx
+│  │     ├─ footer.tsx
+│  │     ├─ global-nav.tsx
+│  │     ├─ HeroKuon.tsx
+│  │     ├─ navigation-dots.tsx
+│  │     ├─ preloader.tsx
+│  │     └─ reveal.tsx
+│  └─ lib
+│     └─ translations.tsx
+└─ tsconfig.json
+
+```
