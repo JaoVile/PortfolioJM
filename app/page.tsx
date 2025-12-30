@@ -17,7 +17,6 @@ import { BranchVisualMobile } from "../src/components/ui/BranchVisualMobile";
 import { ContactAnimation } from "../src/components/ui/ContactAnimation";
 import { Footer } from "../src/components/ui/footer";
 import { RotationLock } from "../src/components/ui/RotationLock";
-import { MobileConnect } from "../src/components/ui/mobile-connect";
 import { PROJECTS } from "@/lib/projects";
 
 // --- COMPONENTES VISUAIS EXTRAS ---
@@ -378,9 +377,6 @@ export default function Home() {
       
       {/* 3. CURSOR CUSTOMIZADO */}
       <CustomCursor isDark={theme === 'dark'} isVisible={isCursorVisible} />
-
-      {/* 4. CONEXÃO MOBILE (QR CODE) */}
-      <MobileConnect />
 
       <GlobalNav lang={lang} theme={theme} setTheme={setTheme} />
       
