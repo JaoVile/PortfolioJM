@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 // Importe as nuvens que acabamos de criar
-import { Cloud1, Cloud2, Cloud3 } from "./CloudIcons"; 
+import { Cloud1, Cloud2, Cloud3 } from "./ui/CloudIcons"; 
 
 export default function HeroParallax() {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
