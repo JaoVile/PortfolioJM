@@ -368,7 +368,7 @@ export function OSDesktop({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={onClose}
-      className={`fixed inset-0 z-[9999] flex items-center justify-center ${
+      className={`fixed inset-0 z-9999 flex items-center justify-center ${
         isDark ? "bg-black/90" : "bg-zinc-100/80"
       } backdrop-blur-sm md:p-8 p-0`}
     >
@@ -714,7 +714,7 @@ export function OSDesktop({
               {activeTab === "skills" && (
                 <motion.div key="skills" variants={contentVariant} initial="hidden" animate="visible" exit="exit" className="max-w-5xl mx-auto">
                    <h2 className={`text-3xl md:text-5xl font-serif mb-8 ${isDark ? "text-white" : "text-black"}`}>Competências Técnicas</h2>
-                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
                       <SkillBox icon={<Cpu/>} title="Front-end" items={SKILLS_DATA.frontend} isDark={isDark}/>
                       <SkillBox icon={<Terminal/>} title="Back-end" items={SKILLS_DATA.backend} isDark={isDark}/>
                       <SkillBox icon={<Database/>} title="Bancos de Dados" items={SKILLS_DATA.databases} isDark={isDark}/>
