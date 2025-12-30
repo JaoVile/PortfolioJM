@@ -7,18 +7,18 @@ import { LenisContext } from "@/context/LenisContext";
 import { Cloud1, Cloud2, Cloud3 } from "@/components/ui/CloudIcons";
 import { ArrowUpRight, Download, Github, Linkedin, Instagram, Phone } from "lucide-react";
 import { motion, useScroll, useTransform, useSpring, AnimatePresence, useMotionValue } from "framer-motion";
-import { GlobalNav } from "../src/components/ui/global-nav";
-import { translations, Language } from "../src/lib/translations";
-import { Preloader } from "../src/components/ui/preloader";
-import { NavigationDots } from "../src/components/ui/navigation-dots";
-import { BranchVisual } from "../src/components/ui/BranchVisual";
-import { BranchVisualMobile } from "../src/components/ui/BranchVisualMobile";
-import { ContactAnimation } from "../src/components/ui/ContactAnimation";
-import { Footer } from "../src/components/ui/footer";
-import { RotationLock } from "../src/components/ui/RotationLock";
+import { GlobalNav } from "@/components/ui/global-nav";
+import { translations, Language } from "@/lib/translations";
+import { Preloader } from "@/components/ui/preloader";
+import { NavigationDots } from "@/components/ui/navigation-dots";
+import { BranchVisual } from "@/components/ui/BranchVisual";
+import { BranchVisualMobile } from "@/components/ui/BranchVisualMobile";
+import { ContactAnimation } from "@/components/ui/ContactAnimation";
+import { Footer } from "@/components/ui/footer";
+import { RotationLock } from "@/components/ui/RotationLock";
 import { PROJECTS } from "@/lib/projects";
 
-const OSDesktop = dynamic(() => import("../src/components/ui/desktop").then(mod => mod.OSDesktop), { ssr: false });
+const OSDesktop = dynamic(() => import("@/components/ui/desktop").then(mod => mod.OSDesktop), { ssr: false });
 
 // --- COMPONENTES VISUAIS EXTRAS ---
 
@@ -124,6 +124,16 @@ const HeroSection = ({ theme, toggleTheme }: { theme: "light" | "dark", toggleTh
   };
 
   const parallaxStars = useParallax(0.1);
+  const parallax015 = useParallax(0.15);
+  const parallax03 = useParallax(0.3);
+  const parallax035 = useParallax(0.35);
+  const parallax04 = useParallax(0.4);
+  const parallax05 = useParallax(0.5);
+  const parallax06 = useParallax(0.6);
+  const parallax065 = useParallax(0.65);
+  const parallax07 = useParallax(0.7);
+  const parallax08 = useParallax(0.8);
+  const parallax09 = useParallax(0.9);
 
   return (
     <motion.section 
@@ -150,7 +160,7 @@ const HeroSection = ({ theme, toggleTheme }: { theme: "light" | "dark", toggleTh
                             <div key={i} className="absolute bg-white rounded-full animate-pulse" style={{ top: star.top, left: star.left, width: star.width, height: star.height, opacity: star.opacity, animationDuration: star.animationDuration }} />
                         ))}
                     </motion.div>}
-                    <motion.div className="absolute inset-[-10%] z-0 opacity-20 pointer-events-none" style={useParallax(0.15)}>
+                    <motion.div className="absolute inset-[-10%] z-0 opacity-20 pointer-events-none" style={parallax015}>
                         <svg className="w-full h-full" viewBox="0 0 100 100" overflow="visible">
                             <circle cx="10" cy="20" r="0.5" fill={isDark ? "white" : "#1a1a1a"} />
                             <circle cx="90" cy="80" r="0.5" fill={isDark ? "white" : "#1a1a1a"} />
@@ -159,10 +169,10 @@ const HeroSection = ({ theme, toggleTheme }: { theme: "light" | "dark", toggleTh
                             <path d="M 20 80 L 30 90 M 30 80 L 20 90" stroke={isDark ? "white" : "#1a1a1a"} strokeWidth="0.1" />
                         </svg>
                     </motion.div>
-                    <motion.div className="absolute -top-10 -left-20 z-10 opacity-30" style={useParallax(0.3)}><Cloud3 className={`w-80 h-56 blur-0 md:blur-[2px] transition-colors duration-700 ${isDark ? "text-gray-600" : "text-white md:drop-shadow-md"}`} /></motion.div>
-                    <motion.div className="absolute -top-32 right-0 z-10 opacity-20" style={useParallax(0.35)}><Cloud2 className={`w-64 h-40 blur-0 md:blur-[2px] transition-colors duration-700 ${isDark ? "text-gray-700" : "text-sky-50"}`} /></motion.div>
-                    <motion.div className="absolute -bottom-20 -right-20 z-10 opacity-30" style={useParallax(0.4)}><Cloud1 className={`w-125 h-87.5 blur-0 md:blur-[1px] transition-colors duration-700 ${isDark ? "text-gray-500" : "text-white"}`} /></motion.div>
-                    <motion.div className="absolute z-20 flex items-center justify-center pointer-events-none" style={useParallax(0.5)}>
+                    <motion.div className="absolute -top-10 -left-20 z-10 opacity-30" style={parallax03}><Cloud3 className={`w-80 h-56 blur-0 md:blur-[2px] transition-colors duration-700 ${isDark ? "text-gray-600" : "text-white md:drop-shadow-md"}`} /></motion.div>
+                    <motion.div className="absolute -top-32 right-0 z-10 opacity-20" style={parallax035}><Cloud2 className={`w-64 h-40 blur-0 md:blur-[2px] transition-colors duration-700 ${isDark ? "text-gray-700" : "text-sky-50"}`} /></motion.div>
+                    <motion.div className="absolute -bottom-20 -right-20 z-10 opacity-30" style={parallax04}><Cloud1 className={`w-125 h-87.5 blur-0 md:blur-[1px] transition-colors duration-700 ${isDark ? "text-gray-500" : "text-white"}`} /></motion.div>
+                    <motion.div className="absolute z-20 flex items-center justify-center pointer-events-none" style={parallax05}>
                         <div className={`relative flex items-center justify-center pointer-events-auto cursor-pointer transition-all duration-500 ease-in-out scale-100 opacity-100 rotate-0 md:hover:scale-105`} onClick={toggleTheme}>
                             <div className={`absolute w-[110%] h-[110%] rounded-full border opacity-60 animate-[spin_60s_linear_infinite] transition-colors duration-700 ${isDark ? "border-white/10" : "border-yellow-500/40"}`} />
                             <div className={`absolute w-[130%] h-[130%] rounded-full border opacity-40 animate-[spin_40s_linear_infinite_reverse] border-dashed transition-colors duration-700 ${isDark ? "border-white/5" : "border-yellow-400/40"}`} />
@@ -187,11 +197,11 @@ const HeroSection = ({ theme, toggleTheme }: { theme: "light" | "dark", toggleTh
                             </div>
                         </div>
                     </motion.div>
-                    <motion.div className="absolute top-[10%] -left-[40%] z-30 opacity-80 pointer-events-none" style={useParallax(0.6)}><Cloud2 className={`w-60 h-37.5 md:w-100 md:h-62.5 blur-0 md:blur-[1px] transition-colors duration-700 ${isDark ? "text-white/10" : "text-white md:drop-shadow-lg"}`} /></motion.div>
-                    <motion.div className="absolute top-[30%] -right-[50%] z-30 opacity-70 pointer-events-none" style={useParallax(0.65)}><Cloud1 className={`w-75 h-50 blur-0 md:blur-[1px] transition-colors duration-700 ${isDark ? "text-white/10" : "text-white md:drop-shadow-md"}`} /></motion.div>
-                    <motion.div className="absolute -bottom-[10%] -right-[30%] z-30 opacity-60 pointer-events-none" style={useParallax(0.7)}><Cloud3 className={`w-100 h-70 transition-colors duration-700 ${isDark ? "text-white/20" : "text-white/90 md:drop-shadow-lg"}`} /></motion.div>
-                    <motion.div className="absolute top-[60%] -left-[20%] z-40 opacity-40 pointer-events-none" style={useParallax(0.8)}><Cloud1 className={`w-150 h-100 blur-none md:blur-sm transition-colors duration-700 ${isDark ? "text-white/5" : "text-white/70"}`} /></motion.div>
-                    <motion.div className="absolute -bottom-[30%] left-[10%] z-40 opacity-30 pointer-events-none" style={useParallax(0.9)}><Cloud2 className={`w-137.5 h-87.5 blur-sm md:blur-md transition-colors duration-700 ${isDark ? "text-white/5" : "text-white/60"}`} /></motion.div>
+                    <motion.div className="absolute top-[10%] -left-[40%] z-30 opacity-80 pointer-events-none" style={parallax06}><Cloud2 className={`w-60 h-37.5 md:w-100 md:h-62.5 blur-0 md:blur-[1px] transition-colors duration-700 ${isDark ? "text-white/10" : "text-white md:drop-shadow-lg"}`} /></motion.div>
+                    <motion.div className="absolute top-[30%] -right-[50%] z-30 opacity-70 pointer-events-none" style={parallax065}><Cloud1 className={`w-75 h-50 blur-0 md:blur-[1px] transition-colors duration-700 ${isDark ? "text-white/10" : "text-white md:drop-shadow-md"}`} /></motion.div>
+                    <motion.div className="absolute -bottom-[10%] -right-[30%] z-30 opacity-60 pointer-events-none" style={parallax07}><Cloud3 className={`w-100 h-70 transition-colors duration-700 ${isDark ? "text-white/20" : "text-white/90 md:drop-shadow-lg"}`} /></motion.div>
+                    <motion.div className="absolute top-[60%] -left-[20%] z-40 opacity-40 pointer-events-none" style={parallax08}><Cloud1 className={`w-150 h-100 blur-none md:blur-sm transition-colors duration-700 ${isDark ? "text-white/5" : "text-white/70"}`} /></motion.div>
+                    <motion.div className="absolute -bottom-[30%] left-[10%] z-40 opacity-30 pointer-events-none" style={parallax09}><Cloud2 className={`w-137.5 h-87.5 blur-sm md:blur-md transition-colors duration-700 ${isDark ? "text-white/5" : "text-white/60"}`} /></motion.div>
                 </motion.div>
             </div>
         </div>
