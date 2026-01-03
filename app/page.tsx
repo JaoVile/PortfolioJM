@@ -235,7 +235,7 @@ const AboutSection = ({ theme, openDesktop }: { theme: "light" | "dark"; openDes
                         SAIBA MAIS
                         <span className={`block h-px w-12 group-hover:w-20 transition-all ${theme === 'dark' ? 'bg-white' : 'bg-black'}`}></span>
                     </button>
-                    <a href="/cv.pdf" target="_blank" className={`flex items-center gap-2 text-sm tracking-widest border px-6 py-3 rounded-full transition-all hover:scale-105 ${theme === 'dark' ? 'border-white/20 hover:bg-white hover:text-black' : 'border-black/20 hover:bg-black hover:text-white'}`}>
+                    <a href="/Resume_Joao_Marcos_Vilela.pdf" download className={`flex items-center gap-2 text-sm tracking-widest border px-6 py-3 rounded-full transition-all hover:scale-105 ${theme === 'dark' ? 'border-white/20 hover:bg-white hover:text-black' : 'border-black/20 hover:bg-black hover:text-white'}`}>
                         <Download size={16} />
                         DOWNLOAD CV
                     </a>

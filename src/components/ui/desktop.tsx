@@ -62,6 +62,10 @@ const SKILLS_DATA = {
     { name: "HTML5", description: "Linguagem de marcação padrão para a criação de páginas web, definindo a estrutura e o conteúdo semântico." },
     { name: "CSS3", description: "Linguagem de folha de estilos usada para descrever a apresentação de um documento escrito em HTML, controlando layout, cores e fontes." },
     { name: "Tailwind CSS", description: "Framework CSS utility-first que permite construir designs customizados rapidamente sem sair do HTML, aplicando classes utilitárias." },
+    { name: "Framer", description: "Ferramenta de design e prototipagem que permite criar interfaces interativas com animações e transições complexas, integrando-se ao React." },
+    { name: "Web Performance", description: "Otimização da velocidade e responsividade de sites, focando em métricas como Core Web Vitals para melhorar a experiência do usuário." },
+    { name: "UX", description: "Princípios de design focados em criar produtos digitais que sejam fáceis de usar, eficientes e agradáveis para o usuário final." },
+    { name: "PWA", description: "Aplicações web que utilizam tecnologias modernas para oferecer uma experiência semelhante a de aplicativos nativos, incluindo funcionalidades offline." },
   ],
   backend: [
     { name: "Python", description: "Linguagem de programação versátil e de alto nível, conhecida por sua sintaxe clara e legibilidade, amplamente usada em desenvolvimento web e ciência de dados." },
@@ -70,6 +74,14 @@ const SKILLS_DATA = {
     { name: "Java", description: "Linguagem de programação robusta, orientada a objetos e independente de plataforma, amplamente utilizada em sistemas corporativos e aplicações Android." },
     { name: "POO", description: "Programação Orientada a Objetos: um paradigma de programação baseado no conceito de 'objetos', que podem conter dados e código." },
     { name: "APIs REST", description: "Padrão de arquitetura para a criação de web services, focando na escalabilidade, simplicidade e na comunicação stateless entre cliente e servidor." },
+    { name: "Generative AI", description: "Campo da inteligência artificial focado na criação de novos conteúdos, como texto, imagens e código, a partir de dados existentes." },
+    { name: "LLM", description: "Modelos de IA avançados, como o GPT, treinados com grandes volumes de texto para entender e gerar linguagem natural de forma coerente e contextual." },
+    { name: "IA", description: "Área da ciência da computação dedicada a criar sistemas capazes de realizar tarefas que normalmente exigiriam inteligência humana." },
+    { name: "RAG", description: "Arquitetura de IA que combina modelos de linguagem com bases de dados externas para gerar respostas mais precisas e contextualizadas." },
+    { name: "Estrutura de Dados", description: "Organização, gerenciamento e armazenamento de formatos de dados que permitem acesso e modificação eficientes." },
+    { name: "Machine Learning", description: "Subcampo da IA que permite que os sistemas aprendam e melhorem com a experiência, sem serem explicitamente programados." },
+    { name: "Arquitetura de Software", description: "Projeto da estrutura de um sistema de software, definindo componentes, suas relações e os padrões que guiam seu desenvolvimento." },
+    { name: "Programação Lógica", description: "Paradigma de programação baseado na lógica formal, onde a execução de um programa corresponde à prova de um teorema." },
   ],
   databases: [
     { name: "PostgreSQL", description: "Sistema de gerenciamento de banco de dados relacional de código aberto, conhecido por sua robustez, extensibilidade e conformidade com o padrão SQL." },
@@ -82,12 +94,22 @@ const SKILLS_DATA = {
     { name: "AWS", description: "Amazon Web Services: plataforma de computação em nuvem que oferece uma vasta gama de serviços, como EC2 (computação) e S3 (armazenamento)." },
     { name: "Git", description: "Sistema de controle de versão distribuído, essencial para o rastreamento de alterações no código-fonte durante o desenvolvimento de software." },
     { name: "GitHub", description: "Plataforma de hospedagem de código-fonte com controle de versão usando Git, facilitando a colaboração e o gerenciamento de projetos." },
+    { name: "OCI", description: "Plataforma de nuvem da Oracle que oferece serviços de computação, armazenamento, rede e IA para construir e executar uma variedade de aplicações." },
+    { name: "Cloud Computing", description: "Fornecimento de serviços de computação — incluindo servidores, armazenamento, bancos de dados e software — pela Internet ('a nuvem')." },
+    { name: "Cibersegurança", description: "Práticas e tecnologias para proteger sistemas, redes e programas de ataques digitais." },
+    { name: "Cloud Security", description: "Conjunto de políticas e tecnologias para proteger dados, aplicações e infraestrutura em ambientes de computação em nuvem." },
+    { name: "Amazon S3", description: "Serviço de armazenamento de objetos da AWS que oferece escalabilidade, disponibilidade de dados, segurança e performance." },
+    { name: "Amazon EC2", description: "Serviço da AWS que fornece capacidade computacional segura e redimensionável na nuvem, conhecido como instâncias ou máquinas virtuais." },
+    { name: "AWS IAM", description: "Serviço da AWS que ajuda a gerenciar o acesso aos recursos da AWS de forma segura, controlando quem é autenticado e autorizado a usá-los." },
+    { name: "IaaS", description: "Modelo de computação em nuvem que fornece recursos de computação, rede e armazenamento virtualizados pela internet." },
   ],
   tools: [
     { name: "VS Code", description: "Editor de código-fonte leve e poderoso da Microsoft, com suporte a depuração, controle Git integrado e um vasto ecossistema de extensões." },
     { name: "Postman", description: "Plataforma de colaboração para desenvolvimento de APIs, utilizada para projetar, testar, documentar e monitorar APIs RESTful." },
     { name: "Swagger", description: "Ferramenta para projetar, construir, documentar e consumir serviços web RESTful, gerando documentação interativa automaticamente." },
     { name: "Scrum", description: "Framework ágil para gerenciamento de projetos complexos, focado em entregas incrementais e colaboração em equipe." },
+    { name: "Metodologias Ágeis", description: "Abordagens iterativas para o gerenciamento de projetos e desenvolvimento de software que ajudam as equipes a entregar valor aos clientes com mais rapidez." },
+    { name: "Cypress", description: "Ferramenta de teste de front-end de nova geração, construída para a web moderna, que permite escrever testes de integração e ponta a ponta." },
   ]
 };
 
@@ -526,7 +548,7 @@ export function OSDesktop({
                      <button
                         onClick={() => {
                            window.open(openedProject, "_blank"); // Abre a Credly em nova aba
-                           setOpenedProject("/curriculo-joao-vilela.pdf"); // Muda o iframe interno para o Currículo
+                           setOpenedProject("/Resume_Joao_Marcos_Vilela.pdf"); // Muda o iframe interno para o Currículo
                         }}
                         className={`px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-widest transition-all hover:scale-105 active:scale-95 ${
                            isDark ? "bg-white text-black hover:bg-zinc-200" : "bg-black text-white hover:bg-zinc-800"
@@ -599,7 +621,7 @@ export function OSDesktop({
                                João Marcos Ferreira Vilela
                             </h1>
                             <p className={`text-base md:text-xl font-light leading-relaxed max-w-sm ${isDark ? "text-zinc-300" : "text-zinc-700"}`}>
-                               Desenvolvedor <strong>Full Stack</strong> especializado em ecossistemas back-end com <span className="underline decoration-1 underline-offset-4 decoration-blue-500/50">Python</span> (FastAPI) e na construção de interfaces reativas com <span className="underline decoration-1 underline-offset-4 decoration-purple-500/50">React</span> e TypeScript.
+                               Desenvolvedor <strong>Full-Stack</strong> com foco em produto. Transformo requisitos complexos em aplicações de alta performance, unindo a robustez do Back-end com <span className="underline decoration-1 underline-offset-4 decoration-blue-500/50">Python</span> à interfaces imersivas com <span className="underline decoration-1 underline-offset-4 decoration-purple-500/50">React</span>.
                             </p>
                          </div>
                       </div>
@@ -617,9 +639,21 @@ export function OSDesktop({
                             </div>
                          </div>
                          <div className="mt-auto pt-4 border-t border-dashed border-gray-500/20">
-                            <a href="/curriculo-joao-vilela.pdf" download className={`flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-all active:scale-95 ${isDark ? "bg-white text-black hover:bg-zinc-200" : "bg-black text-white hover:bg-zinc-800"}`}>
-                               <Download size={14}/> Baixar CV
-                            </a>
+                            <div className="flex flex-col gap-2">
+                                <button
+                                    onClick={() => setOpenedProject("/Resume_Joao_Marcos_Vilela.pdf")}
+                                    className={`flex items-center justify-center gap-2 w-full py-3 rounded-xl text-xs font-bold uppercase tracking-widest transition-all active:scale-95 ${
+                                        isDark 
+                                        ? "bg-white/10 text-white hover:bg-white/20" 
+                                        : "bg-black/5 text-black hover:bg-black/10"
+                                    }`}
+                                >
+                                    Ver CV
+                                </button>
+                                <a href="/Resume_Joao_Marcos_Vilela.pdf" download className={`flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-all active:scale-95 ${isDark ? "bg-white text-black hover:bg-zinc-200" : "bg-black text-white hover:bg-zinc-800"}`}>
+                                   <Download size={14}/> Baixar CV
+                                </a>
+                            </div>
                          </div>
                       </div>
 
@@ -631,18 +665,18 @@ export function OSDesktop({
                          </div>
                          <div className="space-y-8">
                             <ExpItem 
-                               title="Gnomon - PWA de Navegação Acadêmica" 
+                               title="Gnomon - Engenheiro & Arquiteto (Co-Founder)" 
                                year="2025" 
-                               desc="Liderei o desenvolvimento de um PWA (TCC) para navegação no campus, sendo responsável pela arquitetura, 50% do design, e o desenvolvimento full-stack. Criei a API REST e a interface em React para oferecer um mapa interativo e autônomo aos alunos."
-                               tags={["React", "TypeScript", "PWA", "API REST", "Swagger"]}
+                               desc="Como co-fundador, fui responsável pela arquitetura e desenvolvimento integral da startup. Atuei como o único desenvolvedor do núcleo do sistema, criando algoritmos de rotas, a API e a UI em React, além de implementar testes E2E com Cypress."
+                               tags={["React", "TypeScript", "PWA", "Arquitetura", "Cypress"]}
                                isDark={isDark}
                             />
                             <div className={`w-full h-px ${isDark ? "bg-white/10" : "bg-black/5"}`} />
                             <ExpItem 
-                               title="Mundo Manso - App de Bem-Estar Infantil" 
+                               title="Sede Digital - Portfólio Interativo" 
                                year="2025" 
-                               desc="Como principal contribuidor (66% do projeto), desenvolvi o back-end em Java e estruturei o banco de dados (MySQL) para um aplicativo focado em conteúdo digital saudável para crianças, aplicando Padrões de Projeto para garantir uma base segura e robusta."
-                               tags={["Java", "MySQL", "Design Patterns", "Trabalho em Equipe"]}
+                               desc="Desenvolvi uma aplicação de alta performance (95/100 no Lighthouse) que simula um SO. Usei Next.js, Framer Motion para animações fluidas (60fps) e um Design System modular para uma UX imersiva e totalmente responsiva."
+                               tags={["Next.js", "Framer Motion", "Web Performance", "SEO", "Design System"]}
                                isDark={isDark}
                             />
                          </div>
@@ -714,7 +748,7 @@ export function OSDesktop({
               {activeTab === "skills" && (
                 <motion.div key="skills" variants={contentVariant} initial="hidden" animate="visible" exit="exit" className="max-w-5xl mx-auto">
                    <h2 className={`text-3xl md:text-5xl font-serif mb-8 ${isDark ? "text-white" : "text-black"}`}>Competências Técnicas</h2>
-                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <SkillBox icon={<Cpu/>} title="Front-end" items={SKILLS_DATA.frontend} isDark={isDark}/>
                       <SkillBox icon={<Terminal/>} title="Back-end" items={SKILLS_DATA.backend} isDark={isDark}/>
                       <SkillBox icon={<Database/>} title="Bancos de Dados" items={SKILLS_DATA.databases} isDark={isDark}/>
@@ -927,10 +961,12 @@ function SkillBox({ icon, title, items, isDark }: any) {
               <button 
                 key={skill.name} 
                 onClick={() => setSelectedSkill(selectedSkill?.name === skill.name ? null : skill)}
-                className={`text-[10px] px-2.5 py-1 rounded-md border transition-all ${
+                className={`text-xs font-medium px-3 py-1.5 rounded-full transition-colors ${
                   selectedSkill?.name === skill.name
-                    ? isDark ? 'bg-blue-500/20 border-blue-500 text-white' : 'bg-blue-500 text-white border-blue-500'
-                    : isDark ? "border-white/10 bg-white/5 text-zinc-300 hover:border-white/20" : "border-black/10 bg-white/50 text-zinc-700 hover:bg-black/5"
+                    ? 'bg-sky-500 text-white shadow-md'
+                    : isDark 
+                        ? "bg-zinc-800 text-zinc-300 hover:bg-zinc-700" 
+                        : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
                 }`}
               >
                 {skill.name}
