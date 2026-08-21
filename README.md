@@ -1,3 +1,5 @@
+[![CI](https://github.com/JaoVile/PortfolioJM/actions/workflows/ci.yml/badge.svg)](https://github.com/JaoVile/PortfolioJM/actions/workflows/ci.yml)
+
 # Portfolio João Vilela
 
 Este é o repositório do meu portfólio pessoal, desenvolvido com **Next.js** e **React**. O projeto apresenta uma interface interativa estilo sistema operacional (OS Desktop), mostrando meus projetos, habilidades e certificações.
