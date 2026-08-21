@@ -49,11 +49,11 @@ export function OperationsSection({ theme, lang }: { theme: Theme; lang: Languag
               />
               <span>
                 {s.role[lang]}
-                <span className={`block text-xs mt-1 font-light ${suave}`}>{s.detail[lang]}</span>
+                <span className={`block text-[13px] md:text-xs mt-1 font-light ${suave}`}>{s.detail[lang]}</span>
               </span>
             </span>
-            <span className="font-mono text-xs text-gray-500 md:pl-0 pl-4">{s.runtime}</span>
-            <span className="font-mono text-xs text-accent md:pl-0 pl-4">{s.platform}</span>
+            <span className="font-mono text-[13px] md:text-xs text-gray-500 md:pl-0 pl-4">{s.runtime}</span>
+            <span className="font-mono text-[13px] md:text-xs text-accent md:pl-0 pl-4">{s.platform}</span>
           </div>
         ))}
       </div>
