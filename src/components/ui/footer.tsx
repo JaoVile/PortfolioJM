@@ -60,7 +60,7 @@ export const Footer: React.FC<FooterProps> = ({ theme, lang }) => {
         <div className="flex flex-col gap-4 items-center md:items-end text-center md:text-right relative">
           <h4 className="font-mono text-xs text-accent tracking-widest uppercase mb-2 font-bold">{f.where}</h4>
           <p className={`text-sm flex items-center justify-center md:justify-end gap-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-            Lajedo, PE — Brasil <Globe size={14} />
+            Caruaru, PE — Brasil <Globe size={14} />
           </p>
           <div className={`text-sm font-mono mt-auto ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
             <span className="font-mono">{time}</span>
