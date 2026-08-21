@@ -2,14 +2,30 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import type { Language } from "../../lib/translations";
 
-export function NavigationDots() {
+/**
+ * A lista de secoes fica aqui e em UM lugar so. Antes ela aparecia duas vezes
+ * no arquivo — uma no scroll spy, outra no map do render — e as secoes novas
+ * entraram na pagina sem entrar em nenhuma das duas: o ponto ativo travava em
+ * "projects" enquanto voce lia operations.
+ */
+const SECOES = [
+  { id: "top", label: { en: "Start", pt: "Inicio" } },
+  { id: "about", label: { en: "About", pt: "Sobre mim" } },
+  { id: "operations", label: { en: "Operations", pt: "Operacoes" } },
+  { id: "projects", label: { en: "Work", pt: "Trabalhos" } },
+  { id: "method", label: { en: "Method", pt: "Metodo" } },
+  { id: "contact", label: { en: "Contact", pt: "Contato" } },
+] as const;
+
+export function NavigationDots({ lang }: { lang: Language }) {
   const [activeSection, setActiveSection] = useState("top");
   const [showLabel, setShowLabel] = useState<string | null>("top");
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["top", "about", "projects", "contact"];
+      const sections = SECOES.map((s) => s.id);
       const scrollPosition = window.scrollY + window.innerHeight / 2;
 
       for (const section of sections) {
@@ -47,13 +63,6 @@ export function NavigationDots() {
     }
   };
 
-  const labels: Record<string, string> = {
-    top: "Início",
-    about: "Sobre mim",
-    projects: "Projetos",
-    contact: "Contato",
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -63,7 +72,7 @@ export function NavigationDots() {
     >
       <ul className="relative flex flex-col gap-6 pl-3 -ml-3">
         <div className="absolute left-[15px] top-0 h-full w-0.5 bg-zinc-700/50 -z-10" />
-        {["top", "about", "projects", "contact"].map((item) => (
+        {SECOES.map(({ id: item, label }) => (
           <li key={item}>
             <button
               onClick={() => scrollTo(item)}
@@ -81,7 +90,7 @@ export function NavigationDots() {
                 text-right right-full mr-4
                 ${showLabel === item ? "opacity-100" : "opacity-0"}`}
               >
-                {labels[item]}
+                {label[lang]}
               </span>
             </button>
           </li>

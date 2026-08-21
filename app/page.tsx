@@ -450,7 +450,7 @@ export default function Home() {
 
       <RotationLock />
       <ThemeTransition isVisible={isTransitioning} targetTheme={targetTheme} />
-      <NavigationDots />
+      <NavigationDots lang={lang} />
       <NoiseOverlay />
       <CustomCursor isVisible={isCursorVisible} />
       <GlobalNav lang={lang} setLang={setLang} theme={theme} setTheme={setTheme} />
@@ -464,7 +464,7 @@ export default function Home() {
       <MemoizedWorksSection theme={theme} lang={lang} openDesktop={openDesktop} />
       <MethodSection theme={theme} lang={lang} />
       <MemoizedContactSection theme={theme} lang={lang} />
-      <MemoizedFooter theme={theme} />
+      <MemoizedFooter theme={theme} lang={lang} />
     </main>
   );
 }

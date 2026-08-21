@@ -20,8 +20,10 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "João Vilela | Desenvolvedor Full Stack",
-  description: "Portfólio de João Vilela. Especialista em React, Next.js e Python.",
+  title: "João Marcos Vilela | Technical Operations Analyst",
+  description:
+    "I keep production systems running and automate the work that used to be manual. Docker Swarm, Postgres, Next.js — and the monitoring I built myself.",
+  alternates: { languages: { en: "/", "pt-BR": "/" } },
   icons: {
     icon: "/favicon.ico",
   },
@@ -33,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-br" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body className={`${manrope.variable} ${jetbrains.variable} ${playfair.variable} font-sans antialiased bg-background text-foreground`}>
         <ThemeScript />
         <div className="noise-overlay" />
