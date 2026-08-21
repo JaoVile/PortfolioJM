@@ -61,13 +61,13 @@ export function NavigationDots() {
       transition={{ delay: 1.5, duration: 1 }}
       className="fixed bottom-8 right-5 z-50 mix-blend-difference text-white"
     >
-      <ul className="relative flex flex-col gap-6">
-        <div className="absolute left-[3px] top-0 h-full w-0.5 bg-zinc-700/50 -z-10" />
+      <ul className="relative flex flex-col gap-6 pl-3 -ml-3">
+        <div className="absolute left-[15px] top-0 h-full w-0.5 bg-zinc-700/50 -z-10" />
         {["top", "about", "projects", "contact"].map((item) => (
           <li key={item}>
             <button
               onClick={() => scrollTo(item)}
-              className="group flex items-center gap-4 focus:outline-none relative"
+              className="group flex items-center gap-4 focus:outline-none relative py-3 pl-3 -my-3 -ml-3"
             >
               <span
                 className={`block w-2 h-2 rounded-full transition-all duration-300 ${
