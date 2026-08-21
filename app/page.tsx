@@ -17,6 +17,7 @@ import { ContactAnimation } from "@/components/ui/ContactAnimation";
 import { Footer } from "@/components/ui/footer";
 import { RotationLock } from "@/components/ui/RotationLock";
 import { clientWork } from "@/lib/content/work";
+import { disciplines } from "@/lib/content/process";
 import { OperationsSection } from "@/components/sections/Operations";
 import { MethodSection } from "@/components/sections/Method";
 import { CaseStudies } from "@/components/sections/CaseStudies";
@@ -88,8 +89,8 @@ ThemeTransition.displayName = 'ThemeTransition';
 // mover pro arquivo de traducao junto com o resto.
 
 const HERO_COPY = {
-  en: { role: "TECHNICAL OPERATIONS ANALYST /", spec: "PRODUCTION SYSTEMS & AUTOMATION." },
-  pt: { role: "ANALISTA DE OPERACOES TECNICAS /", spec: "SISTEMAS EM PRODUCAO & AUTOMACAO." },
+  en: { role: "DEVOPS · FULL-STACK · AI ENGINEERING /", spec: "I BUILD IT, I SHIP IT, I KEEP IT RUNNING." },
+  pt: { role: "DEVOPS · FULL-STACK · ENGENHARIA DE IA /", spec: "EU CONSTRUO, EU SUBO, EU MANTENHO NO AR." },
 } as const;
 
 const ABOUT_COPY = {
@@ -97,6 +98,7 @@ const ABOUT_COPY = {
     eyebrow: "ABOUT ME",
     title: "I keep production systems running, and I automate the work that used to be manual.",
     text: "I take care of production systems that integrate third-party APIs and automate business processes \u2014 daily reports, billing, customer support. My focus is reducing manual work and making sure that what's running in production stays running. Every system I run has a health check, a backup, or a dry run.",
+    disciplines: "WHERE I WORK",
     more: "MORE ABOUT ME",
     cv: "DOWNLOAD CV",
   },
@@ -104,6 +106,7 @@ const ABOUT_COPY = {
     eyebrow: "SOBRE MIM",
     title: "Eu mantenho sistemas em producao no ar, e automatizo o que antes era feito na mao.",
     text: "Cuido de sistemas em producao que integram APIs de terceiros e automatizam processos de negocio \u2014 relatorios diarios, cobranca, atendimento. Meu foco e reduzir trabalho manual e garantir que o que esta rodando em producao continue rodando. Todo sistema que eu opero tem health check, backup ou dry run.",
+    disciplines: "ONDE EU ATUO",
     more: "SAIBA MAIS",
     cv: "BAIXAR CV",
   },
@@ -282,7 +285,21 @@ const AboutSection = ({ theme, lang, openDesktop }: { theme: "light" | "dark"; l
                 <span className="hidden md:block absolute top-10 right-4 md:top-27 md:left-[45.99rem] md:right-auto text-accent text-sm tracking-widest mb-4 font-bold text-right">{c.eyebrow}</span>
                 <h2 className="text-2xl md:text-3xl font-serif leading-tight mb-6 text-center">{c.title}</h2>
                 <p className={`leading-relaxed mb-6 font-light transition-colors duration-700 text-center ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>{c.text}</p>
-                <div className="flex flex-wrap gap-8 mt-8 items-center justify-center">
+                {/* As frentes. Cada uma so entra com a evidencia que a sustenta:
+                    a pagina inteira depende de nenhuma alegacao ser chute. */}
+                <div className="mt-10 text-left">
+                    <span className="block text-accent text-xs tracking-widest mb-4 font-bold text-center md:text-left">{c.disciplines}</span>
+                    <ul>
+                        {disciplines.map((d) => (
+                            <li key={d.name.en} className={`py-3 border-t ${theme === 'dark' ? 'border-white/10' : 'border-black/10'}`}>
+                                <p className="text-[15px] font-serif leading-snug">{d.name[lang]}</p>
+                                <p className={`text-[13px] leading-relaxed font-light mt-1 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>{d.proof[lang]}</p>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                <div className="flex flex-wrap gap-8 mt-10 items-center justify-center">
                     <button onClick={() => openDesktop("bio")} className={`group flex items-center gap-3 text-sm tracking-widest py-3 transition-colors ${theme === 'dark' ? 'hover:text-gray-300' : 'hover:text-gray-600'}`}>
                         {c.more}
                         <span className={`block h-px w-12 group-hover:w-20 transition-all ${theme === 'dark' ? 'bg-white' : 'bg-black'}`}></span>

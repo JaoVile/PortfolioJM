@@ -1,38 +1,48 @@
 /**
- * Sistemas em produção e o monitoramento por baixo deles.
+ * Sistemas em produção, descritos pela função e não pelo nome.
  *
- * Tudo aqui foi lido do repositório que descreve, não estimado: contagem de
- * commit veio de `git log`, teste veio de rodar a suíte, migração veio de
- * contar arquivo. Número que eu não consegui verificar não entrou.
+ * Os nomes reais saíram de propósito: um deles é cliente, outro é produto
+ * interno, e hostname de produção num portfólio público é detalhe de
+ * infraestrutura que não ajuda o leitor e ajuda quem procura superfície.
+ * O que prova competência é a arquitetura e o que a guarda — isso ficou.
  */
 
 export type Bi = { en: string; pt: string };
 
 export const systems = [
   {
-    host: "api.atomosgestao.com.br",
-    what: { en: "Financial management ERP", pt: "ERP de gestão financeira" },
+    role: { en: "Financial management ERP", pt: "ERP de gestão financeira" },
+    detail: {
+      en: "Accounting core with time-series data, serving daily operations.",
+      pt: "Núcleo contábil com dados de série temporal, servindo a operação diária.",
+    },
     runtime: ".NET · Postgres / TimescaleDB",
     platform: "Docker Swarm + Traefik",
   },
   {
-    host: "centraldoconsultor",
-    what: {
-      en: "Multi-tenant SaaS over a fleet management API",
-      pt: "SaaS multi-tenant sobre uma API de gestão de frota",
+    role: { en: "Multi-tenant fleet management SaaS", pt: "SaaS multi-tenant de gestão de frota" },
+    detail: {
+      en: "Integrates a third-party fleet API and delivers daily reports over WhatsApp, with per-tenant credentials encrypted at rest.",
+      pt: "Integra uma API de frota de terceiro e entrega relatórios diários por WhatsApp, com credencial por inquilino criptografada em repouso.",
     },
-    runtime: "TypeScript · Postgres",
+    runtime: "TypeScript · Postgres · Prisma",
     platform: "Docker Swarm + Traefik",
   },
   {
-    host: "nacional",
-    what: { en: "Customer-facing web application", pt: "Aplicação web voltada ao cliente" },
-    runtime: "Next.js",
+    role: { en: "Customer-facing web application", pt: "Aplicação web voltada ao cliente" },
+    detail: {
+      en: "Public product surface, running clustered so a single worker crash is not an outage.",
+      pt: "Superfície pública do produto, rodando em cluster pra que a queda de um worker não seja uma queda.",
+    },
+    runtime: "Next.js · Node",
     platform: "PM2 cluster mode",
   },
   {
-    host: "aguides",
-    what: { en: "In-product guided tours", pt: "Tours guiados dentro do produto" },
+    role: { en: "In-product guided tours", pt: "Tours guiados dentro do produto" },
+    detail: {
+      en: "Onboarding walkthroughs embedded into other products.",
+      pt: "Passo a passo de onboarding embarcado em outros produtos.",
+    },
     runtime: "Node · PM2",
     platform: "Fly.io",
   },

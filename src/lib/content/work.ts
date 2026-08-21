@@ -170,6 +170,53 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
   {
+    slug: "slidecoop",
+    name: "slidecoop",
+    year: "2026",
+    tech: "Next.js · Zod · Supabase",
+    tagline: {
+      en: "Present a deck with private speaker notes, then hand clients a revocable link where they comment slide by slide.",
+      pt: "Apresente um deck com notas privadas de orador e entregue ao cliente um link revogável onde ele comenta slide a slide.",
+    },
+    problem: {
+      en: "Feedback on a deck arrives as a message saying \"slide 4 is confusing\" three days later, detached from the slide. And the notes the presenter needs must never reach the audience.",
+      pt: "Retorno sobre um deck chega como mensagem dizendo \"o slide 4 está confuso\" três dias depois, solto do slide. E as notas que o apresentador precisa não podem chegar à plateia.",
+    },
+    approach: {
+      en: "One deck, two surfaces: the producer view carries the private notes, and a token URL exposes only the slides plus a per-slide comment box. The token is revocable, so access ends when the engagement does. With no Supabase credentials the whole thing runs on a seeded in-memory deck, which means the demo path is the same code as production.",
+      pt: "Um deck, duas superfícies: a visão do produtor carrega as notas privadas, e uma URL com token expõe só os slides mais uma caixa de comentário por slide. O token é revogável, então o acesso acaba quando o trabalho acaba. Sem credencial de Supabase tudo roda num deck em memória, ou seja, o caminho de demonstração é o mesmo código da produção.",
+    },
+    metrics: [
+      { label: { en: "Passing tests", pt: "Testes passando" }, value: "52" },
+      { label: { en: "Test files", pt: "Arquivos de teste" }, value: "10" },
+      { label: { en: "Commits", pt: "Commits" }, value: "16" },
+      { label: { en: "Credentials to demo", pt: "Credencial pra demonstrar" }, value: "0" },
+    ],
+    hard: [
+      {
+        title: { en: "The rate limiter fails closed", pt: "O rate limit falha fechado" },
+        detail: {
+          en: "A request with no identifiable IP has no bucket to charge, so the naive branch lets it through — and that is exactly the request an abuser sends. It is refused instead. Failing open is the default you get by accident; failing closed is the one you have to write.",
+          pt: "Uma requisição sem IP identificável não tem balde pra debitar, então o caminho ingênuo deixa passar — e é exatamente a requisição que um abusador manda. Ela é recusada. Falhar aberto é o padrão que você ganha por acidente; falhar fechado é o que você precisa escrever.",
+        },
+      },
+      {
+        title: { en: "A wrong token gets a plain 404", pt: "Token errado recebe um 404 seco" },
+        detail: {
+          en: "Not \"expired\", not \"revoked\", not \"no such deck\". Distinguishing those tells someone probing tokens which guesses were close, which turns a share link into an enumeration oracle.",
+          pt: "Não \"expirado\", não \"revogado\", não \"deck inexistente\". Distinguir isso conta a quem sonda tokens quais palpites chegaram perto, o que transforma um link de compartilhamento num oráculo de enumeração.",
+        },
+      },
+      {
+        title: { en: "Typing must not trigger the deck", pt: "Digitar não pode acionar o deck" },
+        detail: {
+          en: "Arrow keys navigate slides — until the visitor is writing a comment, when the same keys have to move the caret instead. A presenter shortcut that hijacks a text field looks like the app eating your feedback.",
+          pt: "As setas navegam entre slides — até o visitante estar escrevendo um comentário, quando as mesmas teclas precisam mover o cursor. Um atalho de apresentação que sequestra um campo de texto parece que o app está comendo o seu comentário.",
+        },
+      },
+    ],
+  },
+  {
     slug: "cobraflow",
     name: "cobraflow",
     year: "2026",

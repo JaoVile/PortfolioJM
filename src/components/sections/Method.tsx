@@ -2,6 +2,7 @@
 
 import React from "react";
 import {
+  agentSample,
   agentThesis,
   agents,
   aiPosition,
@@ -30,6 +31,11 @@ const COPY = {
   },
   noCi: { en: "local only", pt: "só local" },
   ai: { en: "On the AI in my commits", pt: "Sobre a IA nos meus commits" },
+  sample: { en: "One of them, in full", pt: "Um deles, por inteiro" },
+  sampleLede: {
+    en: "Listing ten agents is a claim. Here is one of the files, so the design decisions can be read \u2014 and argued with.",
+    pt: "Listar dez agentes \u00e9 alega\u00e7\u00e3o. Aqui est\u00e1 um dos arquivos, pra que as decis\u00f5es de projeto possam ser lidas \u2014 e contestadas.",
+  },
 } as const;
 
 export function MethodSection({ theme, lang }: { theme: Theme; lang: Language }) {
@@ -97,6 +103,42 @@ export function MethodSection({ theme, lang }: { theme: Theme; lang: Language })
               </div>
             );
           })}
+        </div>
+      </div>
+
+      {/* Um agente de verdade, mostrado o bastante pra ser julgado. */}
+      <div className="mt-16">
+        <span className="block text-accent text-sm tracking-widest mb-3 font-bold">
+          {COPY.sample[lang]}
+        </span>
+        <p className={`text-sm leading-relaxed font-light max-w-2xl mb-6 ${suave}`}>
+          {COPY.sampleLede[lang]}
+        </p>
+
+        <figure className={`border ${linha}`}>
+          <figcaption
+            className={`flex items-baseline justify-between gap-4 px-4 py-2.5 border-b ${linha} font-mono text-[11px]`}
+          >
+            <span className="text-accent break-all">{agentSample.file}</span>
+            <span className="text-gray-500 shrink-0">{agentSample.lines} L</span>
+          </figcaption>
+          <pre
+            className={`overflow-x-auto px-4 py-4 text-[11.5px] leading-relaxed font-mono ${
+              isDark ? "text-gray-400" : "text-gray-600"
+            }`}
+          >
+            <code>{agentSample.excerpt}</code>
+          </pre>
+        </figure>
+
+        <div className="grid md:grid-cols-2 gap-x-12 gap-y-6 mt-8">
+          {agentSample.notes.map((n) => (
+            <div key={n.title.en}>
+              <span className="block h-px w-6 bg-accent mb-3" aria-hidden />
+              <p className="text-[15px] font-serif leading-snug mb-2">{n.title[lang]}</p>
+              <p className={`text-sm leading-relaxed font-light ${suave}`}>{n.detail[lang]}</p>
+            </div>
+          ))}
         </div>
       </div>
 

@@ -39,14 +39,19 @@ export function OperationsSection({ theme, lang }: { theme: Theme; lang: Languag
         </div>
         {systems.map((s) => (
           <div
-            key={s.host}
-            className={`grid grid-cols-1 md:grid-cols-[1.1fr_1.4fr_1fr_1.1fr] gap-1 md:gap-6 py-4 border-b ${linha} items-baseline`}
+            key={s.role.en}
+            className={`grid grid-cols-1 md:grid-cols-[1.5fr_1fr_1.1fr] gap-1 md:gap-6 py-4 border-b ${linha} items-baseline`}
           >
-            <span className="font-mono text-sm md:text-[15px] flex items-center gap-2.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" aria-hidden />
-              {s.host}
+            <span className="text-[15px] flex items-start gap-2.5">
+              <span
+                className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0 translate-y-2"
+                aria-hidden
+              />
+              <span>
+                {s.role[lang]}
+                <span className={`block text-xs mt-1 font-light ${suave}`}>{s.detail[lang]}</span>
+              </span>
             </span>
-            <span className={`text-sm md:pl-0 pl-4 ${suave}`}>{s.what[lang]}</span>
             <span className="font-mono text-xs text-gray-500 md:pl-0 pl-4">{s.runtime}</span>
             <span className="font-mono text-xs text-accent md:pl-0 pl-4">{s.platform}</span>
           </div>

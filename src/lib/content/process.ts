@@ -175,3 +175,115 @@ export const aiPosition = {
     pt: "Isso é julgamento. Nenhuma ferramenta faz por você, e o sistema que sobe sem isso é o que te acorda às 3h.",
   },
 } as const;
+
+/**
+ * Um agente de verdade, mostrado inteiro o bastante pra ser julgado.
+ *
+ * Listar dez agentes é alegação. Mostrar o arquivo é prova — dá pra ler as
+ * decisões de projeto e discordar delas, que é justamente o que um
+ * entrevistador técnico quer poder fazer.
+ */
+export const agentSample = {
+  file: "Touvie/.claude/agents/auditor-supabase-rls.md",
+  lines: 75,
+  excerpt: `---
+name: auditor-supabase-rls
+description: Auditor de segurança de dados. Use PROATIVAMENTE ao criar/alterar
+  tabela, policy, Server Action ou qualquer uso de service_role.
+tools: Read, Grep, Glob, Bash
+disallowedTools: Write, Edit, NotebookEdit
+model: inherit
+---
+
+O modelo de ameaça é concreto: um usuário autenticado tentando ler/escrever
+dados de OUTRO usuário, e segredo de servidor (service_role) alcançando código
+que roda no browser. Você NÃO comenta estilo — só o que abre brecha de acesso.
+
+## Contexto da stack (memorize)
+- lib/supabase/server.ts — respeita RLS.
+- lib/supabase/admin.ts  — service_role, BYPASSA RLS. NUNCA no browser.
+
+RLS é a última linha de defesa: se uma Server Action com admin.ts esquece de
+filtrar por user_id, o RLS não salva — o admin bypassa.
+
+## Formato de saída (obrigatório)
+### 🔴/🟡/🔵 [a brecha]
+- **Onde:** caminho:linha ou migration NNNN
+- **Cenário de ataque:** quem faz o quê → que dado de quem ele lê ou escreve
+- **Correção sugerida:** a mudança mínima que fecha
+- **Confiança:** CONFIRMADO (li o código) ou PLAUSÍVEL
+
+Se nada, diga o que você verificou. NUNCA invente.`,
+  notes: [
+    {
+      title: { en: "The tool grant is the guardrail", pt: "O grant de ferramentas é a trava" },
+      detail: {
+        en: "disallowedTools blocks Write and Edit outright. A security auditor that can edit code can also quietly \"fix\" what it found, and then nobody reviews the fix. Read-only is not a limitation here, it is the design.",
+        pt: "disallowedTools bloqueia Write e Edit de saída. Um auditor de segurança que pode editar código também pode \"consertar\" em silêncio o que achou, e aí ninguém revisa o conserto. Só-leitura não é limitação aqui, é o projeto.",
+      },
+    },
+    {
+      title: { en: "A threat model, not a vibe", pt: "Um modelo de ameaça, não uma vibe" },
+      detail: {
+        en: "\"Audit for security\" produces style comments. Naming the two attacks — one user reading another's rows, and a server secret reaching the browser — is what makes the output about access instead of about formatting.",
+        pt: "\"Audite a segurança\" produz comentário de estilo. Nomear os dois ataques — um usuário lendo linha de outro, e segredo de servidor chegando ao browser — é o que faz a saída ser sobre acesso, não sobre formatação.",
+      },
+    },
+    {
+      title: { en: "It has to say how sure it is", pt: "Ele é obrigado a dizer o quanto tem certeza" },
+      detail: {
+        en: "Every finding carries CONFIRMADO or PLAUSÍVEL, plus a concrete attack scenario. A report that cannot separate what it read from what it suspects is a report you have to re-audit yourself.",
+        pt: "Todo achado carrega CONFIRMADO ou PLAUSÍVEL, mais um cenário de ataque concreto. Relatório que não separa o que leu do que suspeita é relatório que você tem que reauditar na mão.",
+      },
+    },
+    {
+      title: { en: "Empty results still have to show work", pt: "Resultado vazio também presta contas" },
+      detail: {
+        en: "Finding nothing requires listing what was checked — tables mapped, admin.ts imports traced. \"All clear\" with no evidence is indistinguishable from a scan that never ran.",
+        pt: "Não achar nada exige listar o que foi verificado — tabelas mapeadas, imports de admin.ts rastreados. \"Tudo certo\" sem evidência é indistinguível de uma varredura que nunca rodou.",
+      },
+    },
+  ],
+} as const;
+
+/**
+ * As quatro frentes, cada uma com a evidência que a sustenta. Sem evidência
+ * a frente não entra — a página inteira depende de nenhum número ser chute.
+ */
+export const disciplines = [
+  {
+    name: { en: "DevOps & Operations", pt: "DevOps e Operações" },
+    proof: {
+      en: "Docker Swarm with Traefik, PM2 cluster, Fly.io, systemd units. Monitoring, backup rotation and post-deploy health checks I wrote myself.",
+      pt: "Docker Swarm com Traefik, PM2 em cluster, Fly.io, unidades systemd. Monitoramento, rotação de backup e health check pós-deploy escritos por mim.",
+    },
+  },
+  {
+    name: { en: "Full-stack engineering", pt: "Engenharia full-stack" },
+    proof: {
+      en: "TypeScript and Next.js, Python and FastAPI, C# and .NET. Six systems in this page, from the API to the deploy.",
+      pt: "TypeScript e Next.js, Python e FastAPI, C# e .NET. Seis sistemas nesta página, da API ao deploy.",
+    },
+  },
+  {
+    name: { en: "AI engineering", pt: "Engenharia de IA" },
+    proof: {
+      en: "Ten scoped subagents with explicit tool grants, RAG with guardrails, tool calling that mutates real data, and fallbacks tested with the API key deliberately blank.",
+      pt: "Dez subagentes escopados com grant explícito de ferramentas, RAG com guardrails, tool calling que altera dado real, e fallback testado com a chave de API vazia de propósito.",
+    },
+  },
+  {
+    name: { en: "Data & databases", pt: "Dados e bancos" },
+    proof: {
+      en: "PostgreSQL throughout — TimescaleDB for time series, Supabase with row-level security, full-text search in Portuguese. Versioned migrations with Prisma and Alembic. SQLite locally, MongoDB on one service.",
+      pt: "PostgreSQL em tudo — TimescaleDB para série temporal, Supabase com row-level security, busca full-text em português. Migrações versionadas com Prisma e Alembic. SQLite local, MongoDB num serviço.",
+    },
+  },
+  {
+    name: { en: "Interface design", pt: "Design de interface" },
+    proof: {
+      en: "This site is mine, end to end. Accessibility is a test that fails the build, not an intention.",
+      pt: "Este site é meu, de ponta a ponta. Acessibilidade é um teste que quebra o build, não uma intenção.",
+    },
+  },
+] as const;
