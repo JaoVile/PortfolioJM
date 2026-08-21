@@ -122,12 +122,15 @@ export function MethodSection({ theme, lang }: { theme: Theme; lang: Language })
             <span className="text-accent break-all">{agentSample.file}</span>
             <span className="text-gray-500 shrink-0">{agentSample.lines} L</span>
           </figcaption>
+          <p className="px-4 pt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-gray-500">
+            {agentSample.translated[lang]}
+          </p>
           <pre
-            className={`overflow-x-auto px-4 py-4 text-[11.5px] leading-relaxed font-mono ${
+            className={`overflow-x-auto px-4 pb-4 pt-3 text-[11.5px] leading-relaxed font-mono ${
               isDark ? "text-gray-400" : "text-gray-600"
             }`}
           >
-            <code>{agentSample.excerpt}</code>
+            <code>{agentSample.excerpt[lang]}</code>
           </pre>
         </figure>
 

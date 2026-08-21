@@ -40,6 +40,7 @@ const Page = dynamic(() => import('react-pdf').then((mod) => mod.Page), {
 });
 
 import { PROJECTS as BASE_PROJECTS } from "@/lib/projects";
+import { catalogGroups } from "@/lib/content/catalog";
 
 const PROJECTS = [
   ...BASE_PROJECTS,
@@ -739,6 +740,39 @@ export function OSDesktop({
                               </button>
                            </div>
                          </div>
+                       </div>
+                     ))}
+                   </div>
+
+                   {/* Arquivo completo. Fica aqui de proposito: a pagina
+                       principal defende quatro casos, este e o resto. */}
+                   <div className="mt-14">
+                     {catalogGroups.map((g) => (
+                       <div key={g.title.en} className="mb-10">
+                         <h3 className={`font-mono text-[11px] uppercase tracking-[0.18em] mb-4 ${isDark ? "text-zinc-500" : "text-zinc-500"}`}>
+                           {g.title.en}
+                         </h3>
+                         <ul className={`border-t ${isDark ? "border-white/10" : "border-black/10"}`}>
+                           {g.items.map((it) => (
+                             <li key={it.name} className={`py-4 border-b ${isDark ? "border-white/10" : "border-black/10"}`}>
+                               <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1.5">
+                                 <span className={`text-base font-medium ${isDark ? "text-white" : "text-black"}`}>{it.name}</span>
+                                 <span className="font-mono text-[11px] text-zinc-500">{it.tech}</span>
+                                 <span className="ml-auto flex items-center gap-3">
+                                   {it.repo ? (
+                                     <a href={it.repo} target="_blank" rel="noopener noreferrer" className="font-mono text-[11px] uppercase tracking-wider text-accent hover:underline">code</a>
+                                   ) : (
+                                     <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">private</span>
+                                   )}
+                                   {it.live && (
+                                     <a href={it.live} target="_blank" rel="noopener noreferrer" className="font-mono text-[11px] uppercase tracking-wider text-accent hover:underline">live</a>
+                                   )}
+                                 </span>
+                               </div>
+                               <p className={`text-sm leading-relaxed ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{it.desc.en}</p>
+                             </li>
+                           ))}
+                         </ul>
                        </div>
                      ))}
                    </div>

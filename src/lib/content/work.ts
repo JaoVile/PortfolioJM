@@ -174,7 +174,9 @@ export const caseStudies: CaseStudy[] = [
     name: "cobraflow",
     year: "2026",
     tech: "Next.js 16 · SSE · WhatsApp Cloud API",
-    repo: "https://github.com/JaoVile/cobraflow",
+    // Repositorio privado: link daria 404 pra quem visita, que e pior que
+    // link nenhum. O card mostra o aviso no lugar do botao.
+    repo: undefined,
     tagline: {
       en: "Collections dispatch over WhatsApp, with the brakes built in before the accelerator.",
       pt: "Disparo de cobrança por WhatsApp, com o freio construído antes do acelerador.",

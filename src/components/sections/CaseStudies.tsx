@@ -13,6 +13,7 @@ const COPY = {
   repo: { en: "Repository", pt: "Repositório" },
   live: { en: "Live", pt: "No ar" },
   open: { en: "Read the case", pt: "Ler o caso" },
+  private: { en: "Private repository — walkthrough on request", pt: "Repositório privado — apresento a arquitetura a pedido" },
   close: { en: "Close", pt: "Fechar" },
 } as const;
 
@@ -107,7 +108,12 @@ export function CaseStudies({ theme, lang }: { theme: Theme; lang: Language }) {
                   ))}
                 </div>
 
-                <div className="flex flex-wrap gap-3 mt-10">
+                <div className="flex flex-wrap items-center gap-3 mt-10">
+                  {!p.repo && !p.live && (
+                    <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-gray-500">
+                      {COPY.private[lang]}
+                    </span>
+                  )}
                   {p.repo && (
                     <a
                       href={p.repo}

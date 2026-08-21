@@ -186,7 +186,46 @@ export const aiPosition = {
 export const agentSample = {
   file: "Touvie/.claude/agents/auditor-supabase-rls.md",
   lines: 75,
-  excerpt: `---
+  /**
+   * O arquivo é escrito em português, que é como eu trabalho. Na versão em
+   * inglês do site ele aparece traduzido e dito como traduzido — mostrar um
+   * bloco em português pra quem está lendo em inglês desperdiça justamente a
+   * prova que ele deveria dar.
+   */
+  translated: {
+    en: "Translated from the original, which is written in Portuguese.",
+    pt: "Trecho do arquivo original.",
+  },
+  excerpt: {
+    en: `---
+name: auditor-supabase-rls
+description: Data security auditor. Use PROACTIVELY when creating or changing a
+  table, a policy, a Server Action, or any use of service_role.
+tools: Read, Grep, Glob, Bash
+disallowedTools: Write, Edit, NotebookEdit
+model: inherit
+---
+
+The threat model is concrete: an authenticated user trying to read or write
+ANOTHER user's data, and a server secret (service_role) reaching code that runs
+in the browser. You do NOT comment on style — only on what opens an access hole.
+
+## Stack context (memorise)
+- lib/supabase/server.ts — respects RLS.
+- lib/supabase/admin.ts  — service_role, BYPASSES RLS. NEVER in the browser.
+
+RLS is the last line of defence: if a Server Action using admin.ts forgets to
+filter by user_id, RLS does not save you — admin bypasses it.
+
+## Output format (mandatory)
+### 🔴/🟡/🔵 [the hole]
+- **Where:** path:line, or migration NNNN
+- **Attack scenario:** who does what → whose data they read or write
+- **Suggested fix:** the smallest change that closes it
+- **Confidence:** CONFIRMED (I read the code) or PLAUSIBLE
+
+If nothing, say what you checked. NEVER make things up.`,
+    pt: `---
 name: auditor-supabase-rls
 description: Auditor de segurança de dados. Use PROATIVAMENTE ao criar/alterar
   tabela, policy, Server Action ou qualquer uso de service_role.
@@ -214,6 +253,7 @@ filtrar por user_id, o RLS não salva — o admin bypassa.
 - **Confiança:** CONFIRMADO (li o código) ou PLAUSÍVEL
 
 Se nada, diga o que você verificou. NUNCA invente.`,
+  },
   notes: [
     {
       title: { en: "The tool grant is the guardrail", pt: "O grant de ferramentas é a trava" },
