@@ -11,12 +11,11 @@ type Theme = "light" | "dark";
 
 interface GlobalNavProps {
   lang: Language;
-  setLang: (lang: Language) => void;
   theme: Theme;
   setTheme: (theme: Theme) => void;
 }
 
-export function GlobalNav({ lang, setLang, theme, setTheme }: GlobalNavProps) {
+export function GlobalNav({ lang, theme, setTheme }: GlobalNavProps) {
   const [isOpen, setIsOpen] = useState(false);
   const t = translations[lang];
 
@@ -116,24 +115,6 @@ export function GlobalNav({ lang, setLang, theme, setTheme }: GlobalNavProps) {
                     >
                         <Moon size={20} strokeWidth={theme === 'dark' ? 2.5 : 2} />
                     </button>
-                </div>
-              </div>
-
-              {/* --- SELETOR DE IDIOMA --- */}
-              <div className="flex items-center gap-6">
-                <span className="text-xs font-mono uppercase text-muted-foreground tracking-widest hidden md:block">Language</span>
-                <div className="flex items-center gap-2 p-1 border border-border rounded-full bg-background/50 backdrop-blur-sm">
-                    {(["en", "pt"] as const).map((code) => (
-                      <button
-                        key={code}
-                        onClick={() => setLang(code)}
-                        aria-pressed={lang === code}
-                        className={`px-4 py-2.5 rounded-full text-xs font-mono uppercase tracking-widest transition-all duration-300 ${lang === code ? 'bg-foreground text-background shadow-lg' : 'text-muted-foreground hover:text-foreground'}`}
-                        title={code === "en" ? "English" : "Português"}
-                      >
-                        {code}
-                      </button>
-                    ))}
                 </div>
               </div>
 
