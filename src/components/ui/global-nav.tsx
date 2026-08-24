@@ -11,11 +11,12 @@ type Theme = "light" | "dark";
 
 interface GlobalNavProps {
   lang: Language;
+  setLang: (lang: Language) => void;
   theme: Theme;
   setTheme: (theme: Theme) => void;
 }
 
-export function GlobalNav({ lang, theme, setTheme }: GlobalNavProps) {
+export function GlobalNav({ lang, setLang, theme, setTheme }: GlobalNavProps) {
   const [isOpen, setIsOpen] = useState(false);
   const t = translations[lang];
 
@@ -94,13 +95,13 @@ export function GlobalNav({ lang, theme, setTheme }: GlobalNavProps) {
               transition={{ delay: 0.6 }}
               className="w-full flex flex-col md:flex-row justify-between items-center gap-8 border-t border-border/30 pt-8"
             >
-              {/* --- NOVO SELETOR DE TEMA (APENAS SOL E LUA) --- */}
+              {/* --- SELETORES: TEMA E IDIOMA --- */}
               <div className="flex items-center gap-6">
                 <span className="text-xs font-mono uppercase text-muted-foreground tracking-widest hidden md:block">Mode</span>
                 <div className="flex items-center gap-2 p-1 border border-border rounded-full bg-background/50 backdrop-blur-sm">
                     {/* Botão Light */}
-                    <button 
-                        onClick={() => setTheme('light')} 
+                    <button
+                        onClick={() => setTheme('light')}
                         className={`p-3 rounded-full transition-all duration-300 ${theme === 'light' ? 'bg-foreground text-background shadow-lg' : 'text-muted-foreground hover:text-foreground'}`}
                         title="Light Mode"
                     >
@@ -108,12 +109,30 @@ export function GlobalNav({ lang, theme, setTheme }: GlobalNavProps) {
                     </button>
 
                     {/* Botão Dark */}
-                    <button 
-                        onClick={() => setTheme('dark')} 
+                    <button
+                        onClick={() => setTheme('dark')}
                         className={`p-3 rounded-full transition-all duration-300 ${theme === 'dark' ? 'bg-foreground text-background shadow-lg' : 'text-muted-foreground hover:text-foreground'}`}
                         title="Dark Mode"
                     >
                         <Moon size={20} strokeWidth={theme === 'dark' ? 2.5 : 2} />
+                    </button>
+                </div>
+
+                <span className="text-xs font-mono uppercase text-muted-foreground tracking-widest hidden md:block">Language</span>
+                <div className="flex items-center gap-1 p-1 border border-border rounded-full bg-background/50 backdrop-blur-sm">
+                    <button
+                        onClick={() => setLang('en')}
+                        className={`px-3 py-2 rounded-full text-xs font-bold tracking-widest transition-all duration-300 ${lang === 'en' ? 'bg-foreground text-background shadow-lg' : 'text-muted-foreground hover:text-foreground'}`}
+                        title="English"
+                    >
+                        EN
+                    </button>
+                    <button
+                        onClick={() => setLang('pt')}
+                        className={`px-3 py-2 rounded-full text-xs font-bold tracking-widest transition-all duration-300 ${lang === 'pt' ? 'bg-foreground text-background shadow-lg' : 'text-muted-foreground hover:text-foreground'}`}
+                        title="Português"
+                    >
+                        PT
                     </button>
                 </div>
               </div>

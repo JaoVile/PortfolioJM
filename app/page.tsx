@@ -8,7 +8,7 @@ import { Cloud1, Cloud2, Cloud3 } from "@/components/ui/CloudIcons";
 import { ArrowUpRight, Download, Github, Linkedin, Instagram, Phone } from "lucide-react";
 import { motion, useScroll, useTransform, useSpring, AnimatePresence, useMotionValue } from "framer-motion";
 import { GlobalNav } from "@/components/ui/global-nav";
-import { translations, Language } from "@/lib/translations";
+import { Language } from "@/lib/translations";
 import { Preloader } from "@/components/ui/preloader";
 import { NavigationDots } from "@/components/ui/navigation-dots";
 import { BranchVisual } from "@/components/ui/BranchVisual";
@@ -80,7 +80,44 @@ ThemeTransition.displayName = 'ThemeTransition';
 
 // --- SECTIONS ---
 
-const HeroSection = ({ theme, toggleTheme }: { theme: "light" | "dark", toggleTheme: () => void }) => {
+const HERO_COPY = {
+  en: { taglineTop: "FULL STACK DEVELOPER /", taglineBottom: "AI-AUGMENTED ENGINEER." },
+  pt: { taglineTop: "FULL STACK DEVELOPER /", taglineBottom: "ENGENHARIA COM IA APLICADA." },
+} as const;
+
+const ABOUT_COPY = {
+  en: {
+    eyebrow: "ABOUT ME",
+    title: "I keep production systems running, and automate the work that used to be manual.",
+    text: "I build and operate the integrations that connect business systems to WhatsApp — billing, invoices, PIX — and the AI agents that handle support for them 24/7. Currently a Technical Operations Analyst, with a strong base in Python and TypeScript, I work end to end: from API design to what keeps running after deploy. No excess — just well-structured, tested code doing a real job.",
+    more: "LEARN MORE",
+    cv: "DOWNLOAD CV",
+    photoSmiling: "João Vilela, smiling.",
+    photoLooking: "João Vilela, looking at the camera.",
+  },
+  pt: {
+    eyebrow: "SOBRE MIM",
+    title: "Eu mantenho sistemas em produção no ar, e automatizo o que antes era feito na mão.",
+    text: "Construo e opero as integrações que ligam sistemas de negócio ao WhatsApp — cobrança, boletos, PIX — e os agentes de IA que atendem por eles 24/7. Hoje Analista de Operações Técnicas, com base forte em Python e TypeScript, atuo de ponta a ponta: da concepção da API ao que continua rodando depois do deploy. Sem excessos, só código bem estruturado e testado fazendo um trabalho de verdade.",
+    more: "SAIBA MAIS",
+    cv: "BAIXAR CV",
+    photoSmiling: "João Vilela, sorrindo.",
+    photoLooking: "João Vilela, olhando para a câmera.",
+  },
+} as const;
+
+const WORKS_COPY = {
+  en: { eyebrow: "RECENT PROJECTS", title: "Selected Work", seeAll: "SEE ALL WORK" },
+  pt: { eyebrow: "PROJETOS RECENTES", title: "Trabalhos Selecionados", seeAll: "VER TODOS OS TRABALHOS" },
+} as const;
+
+const CONTACT_COPY = {
+  en: { eyebrow: "GET IN TOUCH" },
+  pt: { eyebrow: "ENTRE EM CONTATO" },
+} as const;
+
+const HeroSection = ({ theme, lang, toggleTheme }: { theme: "light" | "dark", lang: Language, toggleTheme: () => void }) => {
+  const hc = HERO_COPY[lang];
   const ref = useRef(null);
   const isDark = theme === "dark";
   const [stars, setStars] = useState<Array<{ top: string; left: string; width: string; height: string; opacity: number; animationDuration: string }>>([]);
@@ -149,7 +186,7 @@ const HeroSection = ({ theme, toggleTheme }: { theme: "light" | "dark", toggleTh
                     </h1>
                     <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.5, duration: 0.8, ease: "circOut" }} className={`w-24 h-1 mb-6 origin-left transition-colors duration-700 ${isDark ? "bg-white" : "bg-[#1a1a1a]"}`} />
                     <p className={`text-sm md:text-base font-mono tracking-[0.2em] uppercase max-w-md transition-colors duration-700 ${isDark ? "text-gray-400" : "text-gray-600"}`}>
-                    FULL STACK DEVELOPER /<br />ESPECIALISTA EM REACT & PYTHON.
+                    {hc.taglineTop}<br />{hc.taglineBottom}
                     </p>
                 </motion.div>
             </div>
@@ -210,34 +247,35 @@ const HeroSection = ({ theme, toggleTheme }: { theme: "light" | "dark", toggleTh
 };
 const MemoizedHeroSection = React.memo(HeroSection);
 
-const AboutSection = ({ theme, openDesktop }: { theme: "light" | "dark"; openDesktop: (tab: "bio" | "projetos" | "skills" | "certificados", projectUrl?: string | null) => void; }) => {
+const AboutSection = ({ theme, lang, openDesktop }: { theme: "light" | "dark"; lang: Language; openDesktop: (tab: "bio" | "projetos" | "skills" | "certificados", projectUrl?: string | null) => void; }) => {
     const [isProfilePicHovered, setProfilePicHovered] = useState(false);
     const [showAlternatePic, setShowAlternatePic] = useState(false);
-  
+    const ac = ABOUT_COPY[lang];
+
     return (
       <section id="about" className={`py-32 px-6 md:px-20 relative overflow-hidden transition-colors duration-700 ${theme === 'dark' ? 'bg-[#111]' : 'bg-[#F5F5F5]'}`}>
         <span className={`absolute -left-4 md:-left-10 top-0 text-[20vw] font-bold leading-none select-none z-0 pointer-events-none transition-colors duration-700 ${theme === 'dark' ? 'text-[#1a1a1a]' : 'text-black/5'}`}>01</span>
         <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }} viewport={{ once: true, margin: "-10%" }} className="max-w-5xl mx-auto relative z-10 flex flex-col md:flex-row gap-16 items-center">
             <div className="w-full md:w-1/2">
                 <div onMouseEnter={() => setProfilePicHovered(true)} onMouseLeave={() => setProfilePicHovered(false)} onClick={() => setShowAlternatePic(!showAlternatePic)} className={`relative w-full aspect-3/4 bg-zinc-800 rounded-sm transition-all duration-500 overflow-hidden cursor-pointer ${isProfilePicHovered ? '' : 'grayscale'}`}>
-                    <Image src="/eu.jpg" alt="Foto de perfil de João Vilela, um homem branco de cabelo escuro sorrindo." fill className={`object-cover transition-opacity duration-300 ${showAlternatePic ? 'opacity-0' : 'opacity-100'}`} />
-                    <Image src="/euolhando.jpg" alt="Foto de perfil de João Vilela, um homem branco de cabelo escuro olhando para a câmera." fill className={`object-cover transition-opacity duration-300 ${showAlternatePic ? 'opacity-100' : 'opacity-0'}`} />
+                    <Image src="/eu.jpg" alt={ac.photoSmiling} fill className={`object-cover transition-opacity duration-300 ${showAlternatePic ? 'opacity-0' : 'opacity-100'}`} />
+                    <Image src="/euolhando.jpg" alt={ac.photoLooking} fill className={`object-cover transition-opacity duration-300 ${showAlternatePic ? 'opacity-100' : 'opacity-0'}`} />
                 </div>
             </div>
             <div className="w-full md:w-1/2">
-                <span className="block md:hidden absolute -top-8 left-1/2 -translate-x-1/2 text-center text-accent text-sm tracking-widest mb-4 font-bold">SOBRE MIM</span>
+                <span className="block md:hidden absolute -top-8 left-1/2 -translate-x-1/2 text-center text-accent text-sm tracking-widest mb-4 font-bold">{ac.eyebrow}</span>
                 <h2 className={`text-[12vw] md:text-[8vw] font-serif leading-none opacity-10 select-none absolute top-64 md:top-125 left-0 w-full text-center md:left-85 pointer-events-none mix-blend-overlay transition-colors duration-700 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>ABOUT ME</h2>
-                <span className="hidden md:block absolute top-10 right-4 md:top-27 md:left-[45.99rem] md:right-auto text-accent text-sm tracking-widest mb-4 font-bold text-right">SOBRE MIM</span>
-                <h2 className="text-2xl md:text-3xl font-serif leading-tight mb-6 text-center">Tecnologia como Ferramenta de Solução e Desenvolvimento</h2>
-                <p className={`leading-relaxed mb-6 font-light transition-colors duration-700 text-center ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Sou um desenvolvedor jovem que acredita na eficiência técnica. Meu trabalho é transformar necessidades complexas em software funcional e intuitivo. Com uma base forte em Python e TypeScript, atuo de ponta a ponta no ciclo de desenvolvimento: da concepção da API até o deploy final. Sem excessos, apenas código bem estruturado, testado e pronto para resolver o problema do seu negócio.</p>
+                <span className="hidden md:block absolute top-10 right-4 md:top-27 md:left-[45.99rem] md:right-auto text-accent text-sm tracking-widest mb-4 font-bold text-right">{ac.eyebrow}</span>
+                <h2 className="text-2xl md:text-3xl font-serif leading-tight mb-6 text-center">{ac.title}</h2>
+                <p className={`leading-relaxed mb-6 font-light transition-colors duration-700 text-center ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>{ac.text}</p>
                 <div className="flex flex-wrap gap-8 mt-8 items-center justify-center">
                     <button onClick={() => openDesktop("bio")} className={`group flex items-center gap-3 text-sm tracking-widest transition-colors ${theme === 'dark' ? 'hover:text-gray-300' : 'hover:text-gray-600'}`}>
-                        SAIBA MAIS
+                        {ac.more}
                         <span className={`block h-px w-12 group-hover:w-20 transition-all ${theme === 'dark' ? 'bg-white' : 'bg-black'}`}></span>
                     </button>
                     <a href="/Resume_Joao_Marcos_Vilela.pdf" download className={`flex items-center gap-2 text-sm tracking-widest border px-6 py-3 rounded-full transition-all hover:scale-105 ${theme === 'dark' ? 'border-white/20 hover:bg-white hover:text-black' : 'border-black/20 hover:bg-black hover:text-white'}`}>
                         <Download size={16} />
-                        DOWNLOAD CV
+                        {ac.cv}
                     </a>
                 </div>
             </div>
@@ -247,9 +285,10 @@ const AboutSection = ({ theme, openDesktop }: { theme: "light" | "dark"; openDes
 };
 const MemoizedAboutSection = React.memo(AboutSection);
 
-const WorksSection = ({ theme, openDesktop }: { theme: "light" | "dark"; openDesktop: (tab: "bio" | "projetos" | "skills" | "certificados", projectUrl?: string | null) => void; }) => {
+const WorksSection = ({ theme, lang, openDesktop }: { theme: "light" | "dark"; lang: Language; openDesktop: (tab: "bio" | "projetos" | "skills" | "certificados", projectUrl?: string | null) => void; }) => {
     const [isCelestialMode, setIsCelestialMode] = useState(false);
-  
+    const wc = WORKS_COPY[lang];
+
     return (
       <section id="projects" className={`py-32 px-6 md:px-20 relative z-10 overflow-hidden transition-colors duration-700 ${theme === 'dark' ? 'bg-[#0a0a0a]' : 'bg-[#E5E5E5]'}`}>
         <div className={`absolute inset-0 transition-opacity duration-1000 pointer-events-none ${isCelestialMode && theme !== 'dark' ? 'opacity-100' : 'opacity-0'}`} style={{ background: 'linear-gradient(to bottom, #E0F2FE 0%, #E5E5E5 100%)' }} />
@@ -259,8 +298,8 @@ const WorksSection = ({ theme, openDesktop }: { theme: "light" | "dark"; openDes
             <h2 className={`text-[12vw] md:text-[8vw] font-serif leading-none opacity-10 select-none absolute -top-20 left-0 pointer-events-none mix-blend-overlay transition-colors duration-700 w-full text-center md:w-auto md:text-left translate-x-[24%] md:translate-x-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>WORKS</h2>
             <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-20 relative">
                 <div className="md:pl-32">
-                    <span className="block text-accent text-sm tracking-widest mb-4 font-bold">PROJETOS RECENTES</span>
-                    <h3 className="text-4xl md:text-6xl font-serif">Trabalhos Selecionados</h3>
+                    <span className="block text-accent text-sm tracking-widest mb-4 font-bold">{wc.eyebrow}</span>
+                    <h3 className="text-4xl md:text-6xl font-serif">{wc.title}</h3>
                 </div>
                 <BranchVisual theme={theme} onToggle={setIsCelestialMode} />
             </div>
@@ -280,14 +319,14 @@ const WorksSection = ({ theme, openDesktop }: { theme: "light" | "dark"; openDes
                                     <h4 className="text-2xl font-serif mb-1 group-hover:text-gray-300 transition-colors">{project.title}</h4>
                                     <p className="text-sm text-gray-500 font-mono">{project.tech}</p>
                                 </div>
-                                <span className="text-xs border border-white/20 px-2 py-1 rounded-full text-gray-400">2025</span>
+                                <span className="text-xs border border-white/20 px-2 py-1 rounded-full text-gray-400">{project.year}</span>
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
             <div className="mt-24 text-center">
-                <button onClick={() => openDesktop("projetos")} className={`text-sm tracking-[0.2em] border-b pb-1 hover:text-gray-400 hover:border-gray-400 transition-all ${theme === 'dark' ? 'border-white/30' : 'border-black/30'}`}>VER TODOS OS TRABALHOS</button>
+                <button onClick={() => openDesktop("projetos")} className={`text-sm tracking-[0.2em] border-b pb-1 hover:text-gray-400 hover:border-gray-400 transition-all ${theme === 'dark' ? 'border-white/30' : 'border-black/30'}`}>{wc.seeAll}</button>
                 <div className="md:hidden">
                     <BranchVisualMobile theme={theme} />
                 </div>
@@ -298,14 +337,15 @@ const WorksSection = ({ theme, openDesktop }: { theme: "light" | "dark"; openDes
 };
 const MemoizedWorksSection = React.memo(WorksSection);
 
-const ContactSection = ({ theme }: { theme: "light" | "dark" }) => {
+const ContactSection = ({ theme, lang }: { theme: "light" | "dark"; lang: Language }) => {
+    const cc = CONTACT_COPY[lang];
     return (
         <section id="contact" className={`py-40 px-6 md:px-20 relative flex flex-col items-center justify-center text-center transition-colors duration-700 ${theme === 'dark' ? 'bg-[#0e0e0e]' : 'bg-[#EDEDED]'}`}>
             <ContactAnimation theme={theme} />
             <span className={`absolute -left-4 md:-left-10 top-24 text-[20vw] font-bold leading-none select-none z-0 pointer-events-none transition-colors duration-700 ${theme === 'dark' ? 'text-[#141414]' : 'text-black/5'}`}>03</span>
             <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }} viewport={{ once: true, margin: "-10%" }} className="relative z-10">
                 <h2 className={`text-[12vw] md:text-[8vw] font-serif leading-none opacity-10 select-none absolute -top-24 left-0 md:left-100 w-full text-center pointer-events-none mix-blend-overlay transition-colors duration-700 translate-x-[26%] md:translate-x-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>CONTACT</h2>
-                <span className="text-accent text-sm tracking-widest block mb-8 font-bold">ENTRE EM CONTATO</span>
+                <span className="text-accent text-sm tracking-widest block mb-8 font-bold">{cc.eyebrow}</span>
                 <a href="mailto:jaomarfervil@gmail.com" className={`wrap-break-word text-2xl sm:text-4xl md:text-6xl font-serif hover:italic transition-all duration-300 ${theme === 'dark' ? 'hover:text-gray-300' : 'hover:text-gray-600'}`}>jaomarfervil@gmail.com</a>
                 <div className="flex justify-center gap-6 md:gap-8 mt-12">
                     <a href="https://github.com/JaoVile" target="_blank" rel="noopener noreferrer" className="text-foreground/70 hover:text-foreground transition-colors"><Github size={32} /></a>
@@ -326,7 +366,7 @@ export default function Home() {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [targetTheme, setTargetTheme] = useState<"light" | "dark" | null>(null);
-  const [lang, setLang] = useState<Language>("pt");
+  const [lang, setLang] = useState<Language>("en");
   const [isLoading, setIsLoading] = useState(true);
   const [isDesktopOpen, setDesktopOpen] = useState(false);
   const [isCursorVisible, setCursorVisible] = useState(true);
@@ -356,8 +396,7 @@ export default function Home() {
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1200);
-    document.documentElement.lang = "pt-BR";
-    
+
     const currentHour = new Date().getHours();
     setTheme(currentHour >= 6 && currentHour < 18 ? "light" : "dark");
 
@@ -370,6 +409,11 @@ export default function Home() {
   }, [theme]);
 
   useEffect(() => {
+    document.documentElement.lang = lang === "pt" ? "pt-BR" : "en";
+    localStorage.setItem("lang", lang);
+  }, [lang]);
+
+  useEffect(() => {
     if (isDesktopOpen) lenis?.stop();
     else lenis?.start();
   }, [isDesktopOpen, lenis]);
@@ -379,25 +423,25 @@ export default function Home() {
       <AnimatePresence>{isLoading && <Preloader />}</AnimatePresence>
       <AnimatePresence>
         {isDesktopOpen && (
-          <OSDesktop onClose={() => setDesktopOpen(false)} theme={theme} setCursorVisible={setCursorVisible} initialTab={initialTab} initialProject={initialProject} />
+          <OSDesktop onClose={() => setDesktopOpen(false)} theme={theme} lang={lang} setCursorVisible={setCursorVisible} initialTab={initialTab} initialProject={initialProject} />
         )}
       </AnimatePresence>
 
-      <RotationLock />
+      <RotationLock lang={lang} />
       <ThemeTransition isVisible={isTransitioning} targetTheme={targetTheme} />
-      <NavigationDots />
+      <NavigationDots lang={lang} />
       <NoiseOverlay />
       <CustomCursor isVisible={isCursorVisible} />
-      <GlobalNav lang={lang} theme={theme} setTheme={setTheme} />
-      
+      <GlobalNav lang={lang} setLang={setLang} theme={theme} setTheme={setTheme} />
+
       <div id="top">
-        <MemoizedHeroSection theme={theme} toggleTheme={handleThemeSwitch} />
+        <MemoizedHeroSection theme={theme} lang={lang} toggleTheme={handleThemeSwitch} />
       </div>
 
-      <MemoizedAboutSection theme={theme} openDesktop={openDesktop} />
-      <MemoizedWorksSection theme={theme} openDesktop={openDesktop} />
-      <MemoizedContactSection theme={theme} />
-      <MemoizedFooter theme={theme} />
+      <MemoizedAboutSection theme={theme} lang={lang} openDesktop={openDesktop} />
+      <MemoizedWorksSection theme={theme} lang={lang} openDesktop={openDesktop} />
+      <MemoizedContactSection theme={theme} lang={lang} />
+      <MemoizedFooter theme={theme} lang={lang} />
     </main>
   );
 }

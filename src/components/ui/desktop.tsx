@@ -23,7 +23,8 @@ import {
   Globe,
   CakeSlice,
   Database,
-  Wrench
+  Wrench,
+  Bot
 } from "lucide-react";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
@@ -39,78 +40,247 @@ const Page = dynamic(() => import('react-pdf').then((mod) => mod.Page), {
   ssr: false,
 });
 
-import { PROJECTS as BASE_PROJECTS } from "@/lib/projects";
+import { Language } from "@/lib/translations";
+import { systems, systemsGroupTitle, clientWork, clientWorkGroupTitle, type SystemItem } from "@/lib/content/systems";
 
-const PROJECTS = [
-  ...BASE_PROJECTS,
-  {
-    title: "Gnomon",
-    desc: "PWA de navegação indoor para o campus universitário. Solução completa de mapas digitais interativos e autônomos.",
-    tech: "React • Python • FastAPI",
-    image: "/projects/gnomon.png",
-    url: "https://white-gate-478903-h3.web.app"
-  }
-];
+const DESKTOP_COPY = {
+  en: {
+    nav: { bio: "Profile / Bio", projects: "Projects", stack: "Tech Stack", certs: "Certificates" },
+    projects: { openApp: "Open App", code: "code", live: "live", private: "private repo" },
+    bio: {
+      eyebrow: "// Profile",
+      intro: (
+        <>
+          Full-Stack <strong>Developer</strong> and Technical Operations Analyst. I build the integrations that connect business systems to{" "}
+          <span className="underline decoration-1 underline-offset-4 decoration-green-500/50">WhatsApp</span>, and the{" "}
+          <span className="underline decoration-1 underline-offset-4 decoration-purple-500/50">multi-agent AI</span> that answers through them — on a stack of{" "}
+          <span className="underline decoration-1 underline-offset-4 decoration-blue-500/50">Python</span> and React.
+        </>
+      ),
+      location: "Location",
+      age: "Age",
+      ageSuffix: "years old",
+      email: "Email",
+      available: "Available",
+      viewCv: "View Resume",
+      downloadCv: "Download Resume",
+      experience: "Experience",
+      education: "Education",
+      exp: [
+        {
+          title: "Technical Operations Analyst — Átomo Soluções e Gestão",
+          year: "2026 — Present",
+          desc: "I build and maintain in production the integrations connecting vehicle-protection ERPs (Hinova SGA, South, DevSul) and Conta Azul to WhatsApp — automated billing, invoices, PIX and tax notices. I built a multi-tenant SaaS platform that pulls fleet management data and sends daily reports. I also designed the 24/7 WhatsApp support architecture with 8+ specialized AI agents and a routing supervisor (LLMs, RAG).",
+          tags: ["Node.js", "TypeScript", "WhatsApp API", "Multi-Agent AI", "ERP Integrations"],
+        },
+        {
+          title: "Gnomon - Engineer & Architect (Co-Founder)",
+          year: "2025 — 2026",
+          desc: "As co-founder, I was responsible for the startup's architecture and full-stack development. I was the sole developer of the system's core, building the routing algorithms, the API and the React UI, plus E2E tests with Cypress.",
+          tags: ["React", "TypeScript", "PWA", "Architecture", "Cypress"],
+        },
+        {
+          title: "Sede Digital - Interactive Portfolio",
+          year: "2025",
+          desc: "Built a high-performance application (95/100 on Lighthouse) that simulates an OS. Used Next.js, Framer Motion for smooth 60fps animations and a modular Design System for an immersive, fully responsive UX.",
+          tags: ["Next.js", "Framer Motion", "Web Performance", "SEO", "Design System"],
+        },
+      ],
+      edu: [
+        {
+          year: "2024-2025",
+          title: "Systems Analysis & Development",
+          school: "UNINASSAU",
+          desc: "Solid foundation in software engineering, logic, OOP and databases (SQL/NoSQL). Practical application of agile methodologies (Scrum), QA, Docker and Git.",
+        },
+        {
+          year: "2025",
+          title: "Python Back-end Bootcamp",
+          school: "DIO & Santander",
+          desc: "Intensive training (58h) focused on APIs with Python, FastAPI, Docker and databases.",
+        },
+      ],
+    },
+  },
+  pt: {
+    nav: { bio: "Perfil / Bio", projects: "Projetos", stack: "Tech Stack", certs: "Certificados" },
+    projects: { openApp: "Abrir App", code: "código", live: "no ar", private: "repositório privado" },
+    bio: {
+      eyebrow: "// Perfil",
+      intro: (
+        <>
+          Desenvolvedor <strong>Full-Stack</strong> e Analista de Operações Técnicas. Construo as integrações que ligam sistemas de negócio ao{" "}
+          <span className="underline decoration-1 underline-offset-4 decoration-green-500/50">WhatsApp</span>, e a{" "}
+          <span className="underline decoration-1 underline-offset-4 decoration-purple-500/50">IA multi-agente</span> que atende por eles — numa stack de{" "}
+          <span className="underline decoration-1 underline-offset-4 decoration-blue-500/50">Python</span> e React.
+        </>
+      ),
+      location: "Localização",
+      age: "Idade",
+      ageSuffix: "anos",
+      email: "Email",
+      available: "Disponível",
+      viewCv: "Ver CV",
+      downloadCv: "Baixar CV",
+      experience: "Experiência",
+      education: "Educação",
+      exp: [
+        {
+          title: "Analista de Operações Técnicas — Átomo Soluções e Gestão",
+          year: "2026 — Atual",
+          desc: "Desenvolvo e mantenho em produção as integrações que ligam ERPs de proteção veicular (Hinova SGA, South, DevSul) e Conta Azul ao WhatsApp — cobrança, boletos, PIX e notas fiscais automatizados. Construí uma plataforma SaaS multi-tenant que extrai dados de gestão de frotas e dispara relatórios diários. Também projetei a arquitetura de atendimento 24/7 no WhatsApp com 8+ agentes de IA especializados e supervisor roteador (LLMs, RAG).",
+          tags: ["Node.js", "TypeScript", "WhatsApp API", "IA Multi-Agente", "Integrações ERP"],
+        },
+        {
+          title: "Gnomon - Engenheiro & Arquiteto (Co-Founder)",
+          year: "2025 — 2026",
+          desc: "Como co-fundador, fui responsável pela arquitetura e desenvolvimento integral da startup. Atuei como o único desenvolvedor do núcleo do sistema, criando algoritmos de rotas, a API e a UI em React, além de implementar testes E2E com Cypress.",
+          tags: ["React", "TypeScript", "PWA", "Arquitetura", "Cypress"],
+        },
+        {
+          title: "Sede Digital - Portfólio Interativo",
+          year: "2025",
+          desc: "Desenvolvi uma aplicação de alta performance (95/100 no Lighthouse) que simula um SO. Usei Next.js, Framer Motion para animações fluidas (60fps) e um Design System modular para uma UX imersiva e totalmente responsiva.",
+          tags: ["Next.js", "Framer Motion", "Web Performance", "SEO", "Design System"],
+        },
+      ],
+      edu: [
+        {
+          year: "2024-2025",
+          title: "Análise e Des. de Sistemas",
+          school: "UNINASSAU",
+          desc: "Base sólida em engenharia de software, lógica, POO e bancos de dados (SQL/NoSQL). Aplicação prática de metodologias ágeis (Scrum), QA, Docker e Git.",
+        },
+        {
+          year: "2025",
+          title: "Bootcamp Python Back-end",
+          school: "DIO & Santander",
+          desc: "Formação intensiva (58h) focada em APIs com Python, FastAPI, Docker e bancos de dados.",
+        },
+      ],
+    },
+  },
+} as const;
 
 // --- DADOS ---
-const SKILLS_DATA = {
-  frontend: [
-    { name: "React", description: "Biblioteca JavaScript para criar interfaces de usuário interativas e componentizadas, amplamente utilizada para Single-Page Applications (SPAs)." },
-    { name: "Next.js", description: "Framework React para produção, que oferece renderização do lado do servidor (SSR), geração de sites estáticos (SSG) e otimizações de performance." },
-    { name: "TypeScript", description: "Superset do JavaScript que adiciona tipagem estática opcional, melhorando a robustez e a manutenibilidade do código em grandes projetos." },
-    { name: "JavaScript", description: "Linguagem de programação fundamental da web, essencial para criar interatividade e dinamismo em páginas e aplicações." },
-    { name: "HTML5", description: "Linguagem de marcação padrão para a criação de páginas web, definindo a estrutura e o conteúdo semântico." },
-    { name: "CSS3", description: "Linguagem de folha de estilos usada para descrever a apresentação de um documento escrito em HTML, controlando layout, cores e fontes." },
-    { name: "Tailwind CSS", description: "Framework CSS utility-first que permite construir designs customizados rapidamente sem sair do HTML, aplicando classes utilitárias." },
-    { name: "Framer", description: "Ferramenta de design e prototipagem que permite criar interfaces interativas com animações e transições complexas, integrando-se ao React." },
-    { name: "Web Performance", description: "Otimização da velocidade e responsividade de sites, focando em métricas como Core Web Vitals para melhorar a experiência do usuário." },
-    { name: "UX", description: "Princípios de design focados em criar produtos digitais que sejam fáceis de usar, eficientes e agradáveis para o usuário final." },
-    { name: "PWA", description: "Aplicações web que utilizam tecnologias modernas para oferecer uma experiência semelhante a de aplicativos nativos, incluindo funcionalidades offline." },
-  ],
-  backend: [
-    { name: "Python", description: "Linguagem de programação versátil e de alto nível, conhecida por sua sintaxe clara e legibilidade, amplamente usada em desenvolvimento web e ciência de dados." },
-    { name: "FastAPI", description: "Framework web moderno e de alta performance para Python, ideal para construir APIs rápidas com tipagem de dados e documentação automática (Swagger)." },
-    { name: "Node.js", description: "Ambiente de execução JavaScript no lado do servidor, permitindo a construção de aplicações de rede escaláveis e eficientes." },
-    { name: "Java", description: "Linguagem de programação robusta, orientada a objetos e independente de plataforma, amplamente utilizada em sistemas corporativos e aplicações Android." },
-    { name: "POO", description: "Programação Orientada a Objetos: um paradigma de programação baseado no conceito de 'objetos', que podem conter dados e código." },
-    { name: "APIs REST", description: "Padrão de arquitetura para a criação de web services, focando na escalabilidade, simplicidade e na comunicação stateless entre cliente e servidor." },
-    { name: "Generative AI", description: "Campo da inteligência artificial focado na criação de novos conteúdos, como texto, imagens e código, a partir de dados existentes." },
-    { name: "LLM", description: "Modelos de IA avançados, como o GPT, treinados com grandes volumes de texto para entender e gerar linguagem natural de forma coerente e contextual." },
-    { name: "IA", description: "Área da ciência da computação dedicada a criar sistemas capazes de realizar tarefas que normalmente exigiriam inteligência humana." },
-    { name: "RAG", description: "Arquitetura de IA que combina modelos de linguagem com bases de dados externas para gerar respostas mais precisas e contextualizadas." },
-    { name: "Estrutura de Dados", description: "Organização, gerenciamento e armazenamento de formatos de dados que permitem acesso e modificação eficientes." },
-    { name: "Machine Learning", description: "Subcampo da IA que permite que os sistemas aprendam e melhorem com a experiência, sem serem explicitamente programados." },
-    { name: "Arquitetura de Software", description: "Projeto da estrutura de um sistema de software, definindo componentes, suas relações e os padrões que guiam seu desenvolvimento." },
-    { name: "Programação Lógica", description: "Paradigma de programação baseado na lógica formal, onde a execução de um programa corresponde à prova de um teorema." },
-  ],
-  databases: [
-    { name: "PostgreSQL", description: "Sistema de gerenciamento de banco de dados relacional de código aberto, conhecido por sua robustez, extensibilidade e conformidade com o padrão SQL." },
-    { name: "MongoDB", description: "Banco de dados NoSQL orientado a documentos, que armazena dados em estruturas flexíveis do tipo JSON, ideal para aplicações escaláveis e ágeis." },
-    { name: "SQL", description: "Linguagem de consulta estruturada, padrão para gerenciar e manipular dados em bancos de dados relacionais." },
-    { name: "NoSQL", description: "Categoria de bancos de dados que não utilizam o modelo relacional tradicional, oferecendo maior flexibilidade e escalabilidade para grandes volumes de dados." },
-  ],
-  devops: [
-    { name: "Docker", description: "Plataforma para desenvolver, implantar e executar aplicações em contêineres, garantindo consistência de ambiente e portabilidade." },
-    { name: "AWS", description: "Amazon Web Services: plataforma de computação em nuvem que oferece uma vasta gama de serviços, como EC2 (computação) e S3 (armazenamento)." },
-    { name: "Git", description: "Sistema de controle de versão distribuído, essencial para o rastreamento de alterações no código-fonte durante o desenvolvimento de software." },
-    { name: "GitHub", description: "Plataforma de hospedagem de código-fonte com controle de versão usando Git, facilitando a colaboração e o gerenciamento de projetos." },
-    { name: "OCI", description: "Plataforma de nuvem da Oracle que oferece serviços de computação, armazenamento, rede e IA para construir e executar uma variedade de aplicações." },
-    { name: "Cloud Computing", description: "Fornecimento de serviços de computação — incluindo servidores, armazenamento, bancos de dados e software — pela Internet ('a nuvem')." },
-    { name: "Cibersegurança", description: "Práticas e tecnologias para proteger sistemas, redes e programas de ataques digitais." },
-    { name: "Cloud Security", description: "Conjunto de políticas e tecnologias para proteger dados, aplicações e infraestrutura em ambientes de computação em nuvem." },
-    { name: "Amazon S3", description: "Serviço de armazenamento de objetos da AWS que oferece escalabilidade, disponibilidade de dados, segurança e performance." },
-    { name: "Amazon EC2", description: "Serviço da AWS que fornece capacidade computacional segura e redimensionável na nuvem, conhecido como instâncias ou máquinas virtuais." },
-    { name: "AWS IAM", description: "Serviço da AWS que ajuda a gerenciar o acesso aos recursos da AWS de forma segura, controlando quem é autenticado e autorizado a usá-los." },
-    { name: "IaaS", description: "Modelo de computação em nuvem que fornece recursos de computação, rede e armazenamento virtualizados pela internet." },
-  ],
-  tools: [
-    { name: "VS Code", description: "Editor de código-fonte leve e poderoso da Microsoft, com suporte a depuração, controle Git integrado e um vasto ecossistema de extensões." },
-    { name: "Postman", description: "Plataforma de colaboração para desenvolvimento de APIs, utilizada para projetar, testar, documentar e monitorar APIs RESTful." },
-    { name: "Swagger", description: "Ferramenta para projetar, construir, documentar e consumir serviços web RESTful, gerando documentação interativa automaticamente." },
-    { name: "Scrum", description: "Framework ágil para gerenciamento de projetos complexos, focado em entregas incrementais e colaboração em equipe." },
-    { name: "Metodologias Ágeis", description: "Abordagens iterativas para o gerenciamento de projetos e desenvolvimento de software que ajudam as equipes a entregar valor aos clientes com mais rapidez." },
-    { name: "Cypress", description: "Ferramenta de teste de front-end de nova geração, construída para a web moderna, que permite escrever testes de integração e ponta a ponta." },
-  ]
+const SKILLS_COPY = {
+  en: {
+    title: "Technical Skills",
+    categories: [
+      {
+        key: "frontend", title: "Front-end", items: [
+          { name: "React", description: "Built the customer-facing dashboards and e-commerce UI for client projects like Renova and SolarTech." },
+          { name: "Next.js", description: "Main framework for everything I ship in production — Touvie, cobraflow, this site. App Router, SSR, performance as a build gate." },
+          { name: "TypeScript", description: "End to end, front and back — catches integration bugs before they hit deploy." },
+          { name: "Tailwind CSS", description: "Styling system for every interface I build, from client sites to internal dashboards." },
+          { name: "Framer Motion", description: "60fps animations and page transitions — used it to hit a 95/100 Lighthouse score on Sede Digital." },
+        ]
+      },
+      {
+        key: "backend", title: "Back-end", items: [
+          { name: "Python (FastAPI)", description: "REST APIs in production — from the Santander/DIO bootcamp to personal projects like Workout_API." },
+          { name: "Node.js (Hono & Express)", description: "Engine behind the ERP-to-WhatsApp integrations at Átomo — Hono where performance matters, Express for legacy services." },
+          { name: "C# / .NET", description: "Core of a financial ERP running in production, backed by time-series data." },
+          { name: "REST APIs", description: "Design the contract between ERPs, WhatsApp and internal dashboards — auth, rate limits and retries included." },
+        ]
+      },
+      {
+        key: "ai", title: "AI Engineering", items: [
+          { name: "Claude & GPT (applied)", description: "I use them like a linter or a debugger — architecture, trade-offs and validating the output stay mine." },
+          { name: "Multi-agent systems", description: "Designed a 24/7 WhatsApp support architecture with 8+ specialized agents and a routing supervisor." },
+          { name: "RAG", description: "Retrieval with guardrails, feeding both a customer-support agent and internal automations." },
+          { name: "Prompt Engineering", description: "Scoped subagents with explicit tool grants — permissions as the real guardrail, not the prompt wording." },
+        ]
+      },
+      {
+        key: "databases", title: "Data & Databases", items: [
+          { name: "PostgreSQL", description: "Primary database on almost every project — including a replication monitor I wrote myself (lag, WAL, offline slots)." },
+          { name: "TimescaleDB", description: "Time-series layer under a financial ERP that runs daily operations." },
+          { name: "Supabase (RLS)", description: "Row-level security that's actually enforced — Touvie has E2E tests proving one user can't read another's data." },
+          { name: "Prisma & Alembic", description: "Versioned migrations across the TypeScript and Python halves of my stack." },
+        ]
+      },
+      {
+        key: "devops", title: "DevOps & Cloud", items: [
+          { name: "Docker Swarm + Traefik", description: "Orchestrate containers in production without reaching for Kubernetes I don't actually need at this scale." },
+          { name: "PM2 (cluster mode)", description: "Clusters the web app so one crashed worker doesn't take the whole product down." },
+          { name: "AWS & OCI", description: "S3, EC2 and Oracle Cloud — Oracle 2025 Certified Generative AI Professional." },
+          { name: "systemd", description: "Replaced a flaky polling script with an event-driven service to fix a recurring audio-device bug in production." },
+        ]
+      },
+      {
+        key: "integrations", title: "Integrations & Automation", items: [
+          { name: "ERP Integrations", description: "Connect vehicle-protection and accounting ERPs (Hinova, South, DevSul, Conta Azul) to WhatsApp — billing, invoices, PIX, all automated." },
+          { name: "WhatsApp Business API", description: "Approved Meta templates driving billing reminders, invoices and support at Átomo." },
+          { name: "n8n & Typebot", description: "Internal automation and conversational flows that don't need a full custom backend." },
+          { name: "Chatwoot & Helena CRM", description: "Bulk conversation management with a CSV audit trail and a safe preview mode before anything sends." },
+        ]
+      },
+    ],
+  },
+  pt: {
+    title: "Competências Técnicas",
+    categories: [
+      {
+        key: "frontend", title: "Front-end", items: [
+          { name: "React", description: "Construí os dashboards e a UI de e-commerce de projetos como Renova e SolarTech." },
+          { name: "Next.js", description: "Framework principal de tudo que eu boto em produção — Touvie, cobraflow, este site. App Router, SSR, performance como critério de build." },
+          { name: "TypeScript", description: "De ponta a ponta, front e back — pega erro de integração antes do deploy." },
+          { name: "Tailwind CSS", description: "Sistema de estilo de toda interface que eu construo, de site de cliente a dashboard interno." },
+          { name: "Framer Motion", description: "Animações a 60fps e transições de página — usei pra bater 95/100 no Lighthouse do Sede Digital." },
+        ]
+      },
+      {
+        key: "backend", title: "Back-end", items: [
+          { name: "Python (FastAPI)", description: "APIs REST em produção — do bootcamp Santander/DIO a projetos pessoais como o Workout_API." },
+          { name: "Node.js (Hono & Express)", description: "Motor das integrações ERP↔WhatsApp na Átomo — Hono onde performance importa, Express pros serviços legados." },
+          { name: "C# / .NET", description: "Núcleo de um ERP financeiro em produção, com dados de série temporal." },
+          { name: "APIs REST", description: "Desenho o contrato entre ERPs, WhatsApp e dashboards internos — auth, rate limit e retry inclusos." },
+        ]
+      },
+      {
+        key: "ai", title: "Engenharia de IA", items: [
+          { name: "Claude & GPT (aplicado)", description: "Uso como uso um linter ou um debugger — arquitetura, trade-offs e validação do resultado continuam sendo minhas decisões." },
+          { name: "Sistemas multi-agente", description: "Projetei uma arquitetura de atendimento 24/7 no WhatsApp com 8+ agentes especializados e supervisor roteador." },
+          { name: "RAG", description: "Recuperação com limites de segurança, alimentando tanto um agente de atendimento quanto automações internas." },
+          { name: "Engenharia de Prompt", description: "Subagentes com escopo e permissões explícitas de ferramenta — a permissão é a guarda real, não a redação do prompt." },
+        ]
+      },
+      {
+        key: "databases", title: "Dados & Bancos de Dados", items: [
+          { name: "PostgreSQL", description: "Banco principal em quase todo projeto — incluindo um monitor de replicação que eu mesmo escrevi (lag, WAL, slots offline)." },
+          { name: "TimescaleDB", description: "Camada de série temporal por baixo de um ERP financeiro que roda operação diária." },
+          { name: "Supabase (RLS)", description: "Row-level security que funciona de verdade — o Touvie tem teste E2E provando que um usuário não lê dado de outro." },
+          { name: "Prisma & Alembic", description: "Migração versionada nas duas metades do meu stack, TypeScript e Python." },
+        ]
+      },
+      {
+        key: "devops", title: "DevOps & Cloud", items: [
+          { name: "Docker Swarm + Traefik", description: "Orquestro containers em produção sem recorrer a um Kubernetes que eu não preciso nessa escala." },
+          { name: "PM2 (cluster mode)", description: "Clusteriza a aplicação web pra um worker que crasha não derrubar o produto inteiro." },
+          { name: "AWS & OCI", description: "S3, EC2 e Oracle Cloud — Oracle 2025 Certified Generative AI Professional." },
+          { name: "systemd", description: "Troquei um script de polling instável por um serviço event-driven pra resolver um bug recorrente de áudio em produção." },
+        ]
+      },
+      {
+        key: "integrations", title: "Integrações & Automação", items: [
+          { name: "Integrações com ERPs", description: "Conecto ERPs de proteção veicular e contábil (Hinova, South, DevSul, Conta Azul) ao WhatsApp — cobrança, boletos, PIX, tudo automatizado." },
+          { name: "WhatsApp Business API", description: "Templates aprovados pela Meta puxando lembrete de cobrança, nota fiscal e atendimento na Átomo." },
+          { name: "n8n & Typebot", description: "Automação interna e fluxo conversacional que não precisa de um backend próprio." },
+          { name: "Chatwoot & Helena CRM", description: "Gestão em massa de conversas com auditoria em CSV e modo seguro de pré-visualização antes de qualquer envio." },
+        ]
+      },
+    ],
+  },
+} as const;
+
+const SKILL_ICONS: Record<string, React.ReactNode> = {
+  frontend: <Cpu/>,
+  backend: <Terminal/>,
+  ai: <Bot/>,
+  databases: <Database/>,
+  devops: <Cloud/>,
+  integrations: <Wrench/>,
 };
 
 // --- HOOKS ---
@@ -321,17 +491,20 @@ VectorSky.displayName = "VectorSky";
 export function OSDesktop({
   onClose,
   theme,
+  lang,
   setCursorVisible,
   initialTab = "bio",
   initialProject = null,
 }: {
   onClose: () => void;
   theme: "light" | "dark";
+  lang: Language;
   setCursorVisible: (visible: boolean) => void;
   initialTab?: "bio" | "projetos" | "skills" | "certificados";
   initialProject?: string | null;
 }) {
   const isDark = theme === "dark";
+  const c = DESKTOP_COPY[lang];
   const dragControls = useDragControls();
   const [activeTab, setActiveTab] = useState(initialTab);
   const [isMaximized, setIsMaximized] = useState(false);
@@ -591,10 +764,10 @@ export function OSDesktop({
              </div>
 
              <nav className="flex flex-col gap-1">
-                <NavItem icon={<User size={18}/>} label="Perfil / Bio" active={activeTab === "bio"} onClick={() => setActiveTab("bio")} isDark={isDark} />
-                <NavItem icon={<FolderGit2 size={18}/>} label="Projetos" active={activeTab === "projetos"} onClick={() => setActiveTab("projetos")} isDark={isDark} />
-                <NavItem icon={<Code2 size={18}/>} label="Tech Stack" active={activeTab === "skills"} onClick={() => setActiveTab("skills")} isDark={isDark} />
-                <NavItem icon={<FileText size={18}/>} label="Certificados" active={activeTab === "certificados"} onClick={() => setActiveTab("certificados")} isDark={isDark} />
+                <NavItem icon={<User size={18}/>} label={c.nav.bio} active={activeTab === "bio"} onClick={() => setActiveTab("bio")} isDark={isDark} />
+                <NavItem icon={<FolderGit2 size={18}/>} label={c.nav.projects} active={activeTab === "projetos"} onClick={() => setActiveTab("projetos")} isDark={isDark} />
+                <NavItem icon={<Code2 size={18}/>} label={c.nav.stack} active={activeTab === "skills"} onClick={() => setActiveTab("skills")} isDark={isDark} />
+                <NavItem icon={<FileText size={18}/>} label={c.nav.certs} active={activeTab === "certificados"} onClick={() => setActiveTab("certificados")} isDark={isDark} />
              </nav>
           </div>
 
@@ -616,12 +789,12 @@ export function OSDesktop({
                       {/* CARD 1: Intro */}
                       <div className={`md:col-span-2 p-6 md:p-8 rounded-3xl border relative overflow-hidden flex flex-col justify-between min-h-[260px] md:min-h-[320px] ${isDark ? "border-white/10 bg-zinc-900/40" : "border-black/5 bg-white/60 shadow-sm"}`}>
                          <div className="relative z-10">
-                            <p className={`text-[10px] font-mono uppercase tracking-widest mb-4 opacity-60 ${isDark ? "text-white" : "text-black"}`}>// Perfil</p>
+                            <p className={`text-[10px] font-mono uppercase tracking-widest mb-4 opacity-60 ${isDark ? "text-white" : "text-black"}`}>{c.bio.eyebrow}</p>
                             <h1 className={`text-5xl md:text-7xl font-serif font-medium tracking-tight mb-4 md:mb-6 ${isDark ? "text-white" : "text-black"}`}>
                                João Marcos Ferreira Vilela
                             </h1>
                             <p className={`text-base md:text-xl font-light leading-relaxed max-w-sm ${isDark ? "text-zinc-300" : "text-zinc-700"}`}>
-                               Desenvolvedor <strong>Full-Stack</strong> com foco em produto. Transformo requisitos complexos em aplicações de alta performance, unindo a robustez do Back-end com <span className="underline decoration-1 underline-offset-4 decoration-blue-500/50">Python</span> à interfaces imersivas com <span className="underline decoration-1 underline-offset-4 decoration-purple-500/50">React</span>.
+                               {c.bio.intro}
                             </p>
                          </div>
                       </div>
@@ -629,12 +802,12 @@ export function OSDesktop({
                       {/* CARD 2: Status */}
                       <div className={`md:col-span-1 p-5 md:p-6 rounded-3xl border flex flex-col gap-4 ${isDark ? "border-white/10 bg-zinc-900/40" : "border-black/5 bg-white/60 shadow-sm"}`}>
                          <div className="flex-1 space-y-5">
-                            <InfoRow label="Localização" value="Caruaru, PE" icon={<MapPin size={16}/>} isDark={isDark}/>
-                            <InfoRow label="Idade" value={`${age} anos`} icon={<CakeSlice size={16}/>} isDark={isDark}/>
-                            <InfoRow label="Email" value="jaomarfervil@gmail.com" icon={<User size={16}/>} isDark={isDark} isLink/>
+                            <InfoRow label={c.bio.location} value="Caruaru, PE" icon={<MapPin size={16}/>} isDark={isDark}/>
+                            <InfoRow label={c.bio.age} value={`${age} ${c.bio.ageSuffix}`} icon={<CakeSlice size={16}/>} isDark={isDark}/>
+                            <InfoRow label={c.bio.email} value="jaomarfervil@gmail.com" icon={<User size={16}/>} isDark={isDark} isLink/>
                             <div className="pt-2">
                                <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide border ${isDark ? "border-green-500/30 bg-green-500/10 text-green-400" : "border-green-600/20 bg-green-100 text-green-700"}`}>
-                                  <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse"/> Disponível
+                                  <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse"/> {c.bio.available}
                                </span>
                             </div>
                          </div>
@@ -648,37 +821,34 @@ export function OSDesktop({
                                         : "bg-black/5 text-black hover:bg-black/10"
                                     }`}
                                 >
-                                    Ver CV
+                                    {c.bio.viewCv}
                                 </button>
                                 <a href="/Resume_Joao_Marcos_Vilela.pdf" download className={`flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-all active:scale-95 ${isDark ? "bg-white text-black hover:bg-zinc-200" : "bg-black text-white hover:bg-zinc-800"}`}>
-                                   <Download size={14}/> Baixar CV
+                                   <Download size={14}/> {c.bio.downloadCv}
                                 </a>
                             </div>
                          </div>
                       </div>
 
-                      {/* CARD 3: Projetos em Destaque */}
+                      {/* CARD 3: Experiência */}
                       <div className={`md:col-span-2 p-6 md:p-8 rounded-3xl border ${isDark ? "border-white/10 bg-zinc-900/40" : "border-black/5 bg-white/60 shadow-sm"}`}>
                          <div className="flex items-center gap-2 mb-8 opacity-60">
                             <Briefcase size={16}/>
-                            <span className={`text-xs font-bold uppercase tracking-widest ${isDark ? "text-white" : "text-black"}`}>Projetos em Destaque</span>
+                            <span className={`text-xs font-bold uppercase tracking-widest ${isDark ? "text-white" : "text-black"}`}>{c.bio.experience}</span>
                          </div>
                          <div className="space-y-8">
-                            <ExpItem 
-                               title="Gnomon - Engenheiro & Arquiteto (Co-Founder)" 
-                               year="2025" 
-                               desc="Como co-fundador, fui responsável pela arquitetura e desenvolvimento integral da startup. Atuei como o único desenvolvedor do núcleo do sistema, criando algoritmos de rotas, a API e a UI em React, além de implementar testes E2E com Cypress."
-                               tags={["React", "TypeScript", "PWA", "Arquitetura", "Cypress"]}
-                               isDark={isDark}
-                            />
-                            <div className={`w-full h-px ${isDark ? "bg-white/10" : "bg-black/5"}`} />
-                            <ExpItem 
-                               title="Sede Digital - Portfólio Interativo" 
-                               year="2025" 
-                               desc="Desenvolvi uma aplicação de alta performance (95/100 no Lighthouse) que simula um SO. Usei Next.js, Framer Motion para animações fluidas (60fps) e um Design System modular para uma UX imersiva e totalmente responsiva."
-                               tags={["Next.js", "Framer Motion", "Web Performance", "SEO", "Design System"]}
-                               isDark={isDark}
-                            />
+                            {c.bio.exp.map((item, i) => (
+                               <React.Fragment key={item.title}>
+                                  {i > 0 && <div className={`w-full h-px ${isDark ? "bg-white/10" : "bg-black/5"}`} />}
+                                  <ExpItem
+                                     title={item.title}
+                                     year={item.year}
+                                     desc={item.desc}
+                                     tags={item.tags}
+                                     isDark={isDark}
+                                  />
+                               </React.Fragment>
+                            ))}
                          </div>
                       </div>
 
@@ -686,25 +856,21 @@ export function OSDesktop({
                       <div className={`md:col-span-1 p-6 rounded-3xl border ${isDark ? "border-white/10 bg-zinc-900/40" : "border-black/5 bg-white/60 shadow-sm"}`}>
                          <div className="flex items-center gap-2 mb-8 opacity-60">
                             <GraduationCap size={16}/>
-                            <span className={`text-xs font-bold uppercase tracking-widest ${isDark ? "text-white" : "text-black"}`}>Educação</span>
+                            <span className={`text-xs font-bold uppercase tracking-widest ${isDark ? "text-white" : "text-black"}`}>{c.bio.education}</span>
                          </div>
                          <div className="space-y-8 relative">
                             <div className={`absolute left-[5px] top-2 bottom-2 w-px ${isDark ? "bg-white/10" : "bg-black/5"}`} />
-                            <EduItem 
-                               year="2024-2025" 
-                               title="Análise e Des. de Sistemas" 
-                               school="UNINASSAU" 
-                               desc="Base sólida em engenharia de software, lógica, POO e bancos de dados (SQL/NoSQL). Aplicação prática de metodologias ágeis (Scrum), QA, Docker e Git."
-                               isDark={isDark} 
-                            />
-                            <EduItem 
-                               year="2025" 
-                               title="Bootcamp Python Back-end" 
-                               school="DIO & Santander" 
-                               desc="Formação intensiva (58h) focada em APIs com Python, FastAPI, Docker e bancos de dados."
-                               isDark={isDark} 
-                               onClick={() => setOpenedProject("/SANTANDERPYTHONFULL.pdf")}
-                            />
+                            {c.bio.edu.map((item, i) => (
+                               <EduItem
+                                  key={item.title}
+                                  year={item.year}
+                                  title={item.title}
+                                  school={item.school}
+                                  desc={item.desc}
+                                  isDark={isDark}
+                                  onClick={i === 1 ? () => setOpenedProject("/SANTANDERPYTHONFULL.pdf") : undefined}
+                               />
+                            ))}
                          </div>
                       </div>
 
@@ -715,45 +881,45 @@ export function OSDesktop({
               {/* --- OUTRAS ABAS --- */}
               {activeTab === "projetos" && (
                 <motion.div key="projetos" variants={contentVariant} initial="hidden" animate="visible" exit="exit" className="max-w-5xl mx-auto">
-                   <h2 className={`text-3xl md:text-5xl font-serif mb-8 ${isDark ? "text-white" : "text-black"}`}>Projetos</h2>
-                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                     {PROJECTS.map((project, i) => (
-                       <div key={i} className={`group rounded-3xl overflow-hidden border flex flex-col ${isDark ? "border-white/10 bg-zinc-900/40" : "border-black/5 bg-white/60 shadow-sm"}`}>
-                         <div className="relative h-56 bg-zinc-800">
-                           <Image src={project.image} alt={project.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
-                         </div>
-                         <div className="p-6 md:p-8 flex flex-col flex-1">
-                           <div className="flex justify-between items-start mb-3">
-                              <h3 className={`text-2xl font-bold ${isDark ? "text-white" : "text-black"}`}>{project.title}</h3>
-                           </div>
-                           <p className={`text-sm mb-6 leading-relaxed ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{project.desc}</p>
-                           <div className="mt-auto flex items-center justify-between">
-                              <span className={`text-[10px] px-3 py-1.5 rounded-full border uppercase tracking-wider font-medium ${isDark ? "border-white/20 text-zinc-300" : "border-black/10 text-zinc-600"}`}>
-                                 {project.tech}
-                              </span>
-                              <button 
-                                 onClick={() => setOpenedProject(project.url)}
-                                 className={`flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-lg transition-all border ${isDark ? "bg-zinc-800 text-white border-white/10 hover:bg-zinc-700" : "bg-black text-white border-transparent hover:bg-zinc-800"}`}
-                              >
-                                 Abrir App <ExternalLink size={12} />
-                              </button>
-                           </div>
-                         </div>
-                       </div>
-                     ))}
+                   <h2 className={`text-3xl md:text-5xl font-serif mb-8 ${isDark ? "text-white" : "text-black"}`}>{c.nav.projects}</h2>
+
+                   {/* Sistemas que eu construi e opero. Os que tem screenshot
+                       viram card; o resto fica na lista logo abaixo. */}
+                   <ProjectGroup
+                     title={systemsGroupTitle[lang]}
+                     items={systems}
+                     lang={lang}
+                     isDark={isDark}
+                     copy={c.projects}
+                     onOpen={setOpenedProject}
+                   />
+
+                   <div className="mt-14">
+                     <ProjectGroup
+                       title={clientWorkGroupTitle[lang]}
+                       items={clientWork}
+                       lang={lang}
+                       isDark={isDark}
+                       copy={c.projects}
+                       onOpen={setOpenedProject}
+                     />
                    </div>
                 </motion.div>
               )}
 
               {activeTab === "skills" && (
                 <motion.div key="skills" variants={contentVariant} initial="hidden" animate="visible" exit="exit" className="max-w-5xl mx-auto">
-                   <h2 className={`text-3xl md:text-5xl font-serif mb-8 ${isDark ? "text-white" : "text-black"}`}>Competências Técnicas</h2>
+                   <h2 className={`text-3xl md:text-5xl font-serif mb-8 ${isDark ? "text-white" : "text-black"}`}>{SKILLS_COPY[lang].title}</h2>
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <SkillBox icon={<Cpu/>} title="Front-end" items={SKILLS_DATA.frontend} isDark={isDark}/>
-                      <SkillBox icon={<Terminal/>} title="Back-end" items={SKILLS_DATA.backend} isDark={isDark}/>
-                      <SkillBox icon={<Database/>} title="Bancos de Dados" items={SKILLS_DATA.databases} isDark={isDark}/>
-                      <SkillBox icon={<Cloud/>} title="DevOps & Cloud" items={SKILLS_DATA.devops} isDark={isDark}/>
-                      <SkillBox icon={<Wrench/>} title="Ferramentas & Metodologias" items={SKILLS_DATA.tools} isDark={isDark}/>
+                      {SKILLS_COPY[lang].categories.map((cat) => (
+                         <SkillBox
+                            key={cat.key}
+                            icon={SKILL_ICONS[cat.key]}
+                            title={cat.title}
+                            items={cat.items}
+                            isDark={isDark}
+                         />
+                      ))}
                    </div>
                 </motion.div>
               )}
@@ -781,10 +947,19 @@ export function OSDesktop({
                         org="Microsoft" isDark={isDark} color="blue" 
                         onClick={() => setOpenedProject("/AZURE900.pdf")}
                       />
-                      <CertItem 
-                        title="Introdução Prática ao Azure AI e Azure OpenAI Models" 
-                        org="Microsoft" isDark={isDark} color="blue" 
+                      <CertItem
+                        title="Introdução Prática ao Azure AI e Azure OpenAI Models"
+                        org="Microsoft" isDark={isDark} color="blue"
                         onClick={() => setOpenedProject("/OPENAIAZURE.pdf")}
+                      />
+                      <CertItem
+                        title="CS50: Introduction to Computer Science"
+                        org="Harvard"
+                        isDark={isDark}
+                        color="crimson"
+                        status="Em andamento"
+                        year="2026"
+                        onClick={() => setOpenedProject("https://cs50.harvard.edu/x/")}
                       />
                    </div>
                 </motion.div>
@@ -803,13 +978,13 @@ export function OSDesktop({
                 className="md:hidden absolute bottom-6 left-1/2 -translate-x-1/2 w-[90%] h-16 rounded-2xl flex items-center justify-evenly px-2 z-50 backdrop-blur-2xl border shadow-[0_8px_32px_rgba(0,0,0,0.12)] transition-all duration-300"
                 style={{ backgroundColor: isDark ? "rgba(20,20,20,0.85)" : "rgba(255,255,255,0.85)", borderColor: isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.05)" }}
               >
-                <MobileNavItem icon={<User size={20}/>} label="Bio" active={activeTab === "bio"} onClick={() => setActiveTab("bio")} isDark={isDark} />
+                <MobileNavItem icon={<User size={20}/>} label={c.nav.bio.split(" / ")[1] ?? c.nav.bio} active={activeTab === "bio"} onClick={() => setActiveTab("bio")} isDark={isDark} />
                 <div className={`w-px h-6 ${isDark ? "bg-white/10" : "bg-black/5"}`} />
-                <MobileNavItem icon={<FolderGit2 size={20}/>} label="Projetos" active={activeTab === "projetos"} onClick={() => setActiveTab("projetos")} isDark={isDark} />
+                <MobileNavItem icon={<FolderGit2 size={20}/>} label={c.nav.projects} active={activeTab === "projetos"} onClick={() => setActiveTab("projetos")} isDark={isDark} />
                 <div className={`w-px h-6 ${isDark ? "bg-white/10" : "bg-black/5"}`} />
                 <MobileNavItem icon={<Code2 size={20}/>} label="Skills" active={activeTab === "skills"} onClick={() => setActiveTab("skills")} isDark={isDark} />
                 <div className={`w-px h-6 ${isDark ? "bg-white/10" : "bg-black/5"}`} />
-                <MobileNavItem icon={<FileText size={20}/>} label="Certificados" active={activeTab === "certificados"} onClick={() => setActiveTab("certificados")} isDark={isDark} />
+                <MobileNavItem icon={<FileText size={20}/>} label={c.nav.certs} active={activeTab === "certificados"} onClick={() => setActiveTab("certificados")} isDark={isDark} />
               </motion.div>
             )}
           </AnimatePresence>
@@ -875,6 +1050,89 @@ function PdfViewer({ file, setCursorVisible, isDark }: { file: string; setCursor
   );
 }
 
+/**
+ * Um grupo de projetos. Quem tem screenshot vira card com a imagem; quem nao
+ * tem cai numa lista de texto logo abaixo — placeholder cinza nao prova nada
+ * e ainda ocupa o espaco que o card com prova real ocuparia.
+ */
+function ProjectGroup({ title, items, lang, isDark, copy, onOpen }: {
+  title: string;
+  items: SystemItem[];
+  lang: Language;
+  isDark: boolean;
+  copy: { openApp: string; code: string; live: string; private: string };
+  onOpen: (url: string) => void;
+}) {
+   const withImage = items.filter((i) => i.image);
+   const listed = items.filter((i) => !i.image);
+
+   return (
+      <div>
+         <h3 className={`font-mono text-[11px] uppercase tracking-[0.18em] mb-4 ${isDark ? "text-zinc-500" : "text-zinc-500"}`}>
+            {title}
+         </h3>
+
+         {withImage.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+               {withImage.map((item) => (
+                  <div key={item.name} className={`group rounded-3xl overflow-hidden border flex flex-col ${isDark ? "border-white/10 bg-zinc-900/40" : "border-black/5 bg-white/60 shadow-sm"}`}>
+                     <div className="relative h-56 bg-zinc-800">
+                        <Image src={item.image!} alt={item.name} fill className="object-cover object-top group-hover:scale-105 transition-transform duration-700" />
+                     </div>
+                     <div className="p-6 md:p-8 flex flex-col flex-1">
+                        <h4 className={`text-2xl font-bold mb-3 ${isDark ? "text-white" : "text-black"}`}>{item.name}</h4>
+                        <p className={`text-sm mb-6 leading-relaxed ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{item.desc[lang]}</p>
+                        <div className="mt-auto flex flex-wrap items-center gap-3 justify-between">
+                           <span className={`text-[10px] px-3 py-1.5 rounded-full border uppercase tracking-wider font-medium ${isDark ? "border-white/20 text-zinc-300" : "border-black/10 text-zinc-600"}`}>
+                              {item.tech}
+                           </span>
+                           <span className="flex items-center gap-3">
+                              {item.repo && (
+                                 <a href={item.repo} target="_blank" rel="noopener noreferrer" className="font-mono text-[11px] uppercase tracking-wider text-accent hover:underline">{copy.code}</a>
+                              )}
+                              {item.live && (
+                                 <button
+                                    onClick={() => onOpen(item.live!)}
+                                    className={`flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-lg transition-all border ${isDark ? "bg-zinc-800 text-white border-white/10 hover:bg-zinc-700" : "bg-black text-white border-transparent hover:bg-zinc-800"}`}
+                                 >
+                                    {copy.openApp} <ExternalLink size={12} />
+                                 </button>
+                              )}
+                           </span>
+                        </div>
+                     </div>
+                  </div>
+               ))}
+            </div>
+         )}
+
+         {listed.length > 0 && (
+            <ul className={`border-t ${isDark ? "border-white/10" : "border-black/10"}`}>
+               {listed.map((item) => (
+                  <li key={item.name} className={`py-4 border-b ${isDark ? "border-white/10" : "border-black/10"}`}>
+                     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1.5">
+                        <span className={`text-base font-medium ${isDark ? "text-white" : "text-black"}`}>{item.name}</span>
+                        <span className="font-mono text-[11px] text-zinc-500">{item.tech}</span>
+                        <span className="ml-auto flex items-center gap-3">
+                           {item.repo ? (
+                              <a href={item.repo} target="_blank" rel="noopener noreferrer" className="font-mono text-[11px] uppercase tracking-wider text-accent hover:underline">{copy.code}</a>
+                           ) : (
+                              <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">{copy.private}</span>
+                           )}
+                           {item.live && (
+                              <a href={item.live} target="_blank" rel="noopener noreferrer" className="font-mono text-[11px] uppercase tracking-wider text-accent hover:underline">{copy.live}</a>
+                           )}
+                        </span>
+                     </div>
+                     <p className={`text-sm leading-relaxed ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{item.desc[lang]}</p>
+                  </li>
+               ))}
+            </ul>
+         )}
+      </div>
+   );
+}
+
 function NavItem({ icon, label, active, onClick, isDark }: any) {
    return (
       <button onClick={onClick} className={`group flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-sm font-medium w-full text-left ${active ? isDark ? "bg-zinc-800 text-white shadow-lg border border-white/10" : "bg-black text-white shadow-lg" : isDark ? "text-zinc-400 hover:bg-white/10" : "text-zinc-600 hover:bg-black/5"}`}>
@@ -908,9 +1166,9 @@ function InfoRow({ label, value, icon, isDark, isLink }: any) {
 function ExpItem({ title, year, desc, tags, isDark }: any) {
    return (
       <div className="group">
-         <div className="flex justify-between items-baseline mb-1">
+         <div className="flex justify-between items-baseline gap-3 mb-1">
             <h4 className={`text-base md:text-lg font-serif ${isDark ? "text-white" : "text-black"}`}>{title}</h4>
-            <span className={`text-[10px] font-mono px-2 py-0.5 rounded ${isDark ? "bg-white/10 text-zinc-300" : "bg-black/5 text-zinc-600"}`}>{year}</span>
+            <span className={`shrink-0 whitespace-nowrap text-[10px] font-mono px-2 py-0.5 rounded ${isDark ? "bg-white/10 text-zinc-300" : "bg-black/5 text-zinc-600"}`}>{year}</span>
          </div>
          <p className={`text-xs md:text-sm leading-relaxed mb-3 ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{desc}</p>
          <div className="flex gap-2">
@@ -991,17 +1249,18 @@ function SkillBox({ icon, title, items, isDark }: any) {
    )
 }
 
-function CertItem({ title, org, isDark, color, onClick }: any) {
+function CertItem({ title, org, isDark, color, status = "Validado", year = "2025", onClick }: any) {
    return (
       <button onClick={onClick} className={`w-full flex items-center gap-4 p-5 rounded-2xl border transition-all hover:scale-[1.01] text-left ${isDark ? "border-white/10 bg-zinc-900/40 hover:bg-zinc-800/60" : "border-black/5 bg-white/60 hover:bg-zinc-100"}`}>
          <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-[10px] shadow-sm shrink-0 ${
             color === 'red' ? 'bg-red-500' :
             color === 'orange' ? 'bg-orange-500' :
+            color === 'crimson' ? 'bg-[#A51C30]' :
             'bg-blue-500'
          }`}>{org.substring(0,2)}</div>
          <div className="flex-1 min-w-0">
             <h4 className={`font-bold text-sm truncate ${isDark ? "text-white" : "text-black"}`}>{title}</h4>
-            <p className="text-xs opacity-60">Validado • 2025</p>
+            <p className="text-xs opacity-60">{status} • {year}</p>
          </div>
          <ExternalLink size={14} className={`ml-auto opacity-30 shrink-0 ${isDark ? "text-white" : "text-black"}`} />
       </button>

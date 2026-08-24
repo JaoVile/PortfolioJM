@@ -3,12 +3,20 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Globe, Lightbulb, X } from "lucide-react";
+import { Language } from "@/lib/translations";
 
 interface FooterProps {
   theme: "light" | "dark";
+  lang: Language;
 }
 
-export const Footer: React.FC<FooterProps> = ({ theme }) => {
+const FOOTER_COPY = {
+  en: { nav: "Navigation", home: "Home", about: "About", projects: "Projects", social: "Social", location: "Location" },
+  pt: { nav: "Navegação", home: "Início", about: "Sobre", projects: "Projetos", social: "Social", location: "Localização" },
+} as const;
+
+export const Footer: React.FC<FooterProps> = ({ theme, lang }) => {
+  const f = FOOTER_COPY[lang];
   const [showTips, setShowTips] = useState(false);
   const isDark = theme === "dark";
   const [time, setTime] = useState("");
@@ -16,7 +24,7 @@ export const Footer: React.FC<FooterProps> = ({ theme }) => {
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
-      setTime(now.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }));
+      setTime(now.toLocaleTimeString(lang === "pt" ? "pt-BR" : "en-GB", { hour: "2-digit", minute: "2-digit" }));
     };
     updateTime();
     const interval = setInterval(updateTime, 1000);
@@ -29,15 +37,15 @@ export const Footer: React.FC<FooterProps> = ({ theme }) => {
         
         {/* Navegação */}
         <div className="flex flex-col gap-4 items-center md:items-start text-center md:text-left">
-          <h4 className="font-mono text-xs text-accent tracking-widest uppercase mb-2 font-bold">Navegação</h4>
-          <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className={`text-sm hover:underline ${isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'}`}>Home</a>
-          <button className={`text-sm hover:underline ${isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'}`}>Sobre</button>
-          <a href="#projects" onClick={(e) => { e.preventDefault(); document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); }} className={`text-sm hover:underline ${isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'}`}>Projetos</a>
+          <h4 className="font-mono text-xs text-accent tracking-widest uppercase mb-2 font-bold">{f.nav}</h4>
+          <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className={`text-sm hover:underline ${isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'}`}>{f.home}</a>
+          <a href="#about" onClick={(e) => { e.preventDefault(); document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }); }} className={`text-sm hover:underline ${isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'}`}>{f.about}</a>
+          <a href="#projects" onClick={(e) => { e.preventDefault(); document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); }} className={`text-sm hover:underline ${isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'}`}>{f.projects}</a>
         </div>
 
         {/* Social */}
         <div className="flex flex-col gap-4 relative items-center md:items-start text-center md:text-left">
-          <h4 className="font-mono text-xs text-accent tracking-widest uppercase mb-2 font-bold">Social</h4>
+          <h4 className="font-mono text-xs text-accent tracking-widest uppercase mb-2 font-bold">{f.social}</h4>
           <div className="flex gap-4">
             <a href="https://www.linkedin.com/in/joao-marcos-ferreira-vilela/" target="_blank" rel="noreferrer" className={`text-sm hover:underline ${isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'}`}>LinkedIn</a>
             <a href="https://github.com/JaoVile" target="_blank" rel="noreferrer" className={`text-sm hover:underline ${isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'}`}>GitHub</a>
@@ -50,9 +58,9 @@ export const Footer: React.FC<FooterProps> = ({ theme }) => {
 
         {/* Localização & Lâmpada */}
         <div className="flex flex-col gap-4 items-center md:items-end text-center md:text-right relative">
-          <h4 className="font-mono text-xs text-accent tracking-widest uppercase mb-2 font-bold">Localização</h4>
+          <h4 className="font-mono text-xs text-accent tracking-widest uppercase mb-2 font-bold">{f.location}</h4>
           <p className={`text-sm flex items-center justify-center md:justify-end gap-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-            Lajedo, PE — Brasil <Globe size={14} />
+            Caruaru, PE — Brasil <Globe size={14} />
           </p>
           <div className={`text-sm font-mono mt-auto ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
             <span className="font-mono">{time}</span>

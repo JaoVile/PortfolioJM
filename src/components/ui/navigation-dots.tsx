@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Language } from "@/lib/translations";
 
-export function NavigationDots() {
+export function NavigationDots({ lang }: { lang: Language }) {
   const [activeSection, setActiveSection] = useState("top");
   const [showLabel, setShowLabel] = useState<string | null>("top");
 
@@ -47,11 +48,9 @@ export function NavigationDots() {
     }
   };
 
-  const labels: Record<string, string> = {
-    top: "Início",
-    about: "Sobre mim",
-    projects: "Projetos",
-    contact: "Contato",
+  const labels: Record<Language, Record<string, string>> = {
+    en: { top: "Start", about: "About me", projects: "Projects", contact: "Contact" },
+    pt: { top: "Início", about: "Sobre mim", projects: "Projetos", contact: "Contato" },
   };
 
   return (
@@ -81,7 +80,7 @@ export function NavigationDots() {
                 text-right right-full mr-4
                 ${showLabel === item ? "opacity-100" : "opacity-0"}`}
               >
-                {labels[item]}
+                {labels[lang][item]}
               </span>
             </button>
           </li>
