@@ -90,6 +90,7 @@ export const systems: SystemItem[] = [
     },
     tech: "Chrome MV3 · JavaScript",
     repo: "https://github.com/JaoVile/zaptutor",
+    live: "https://zaptutor.vercel.app",
     image: "/projects/zaptutor.png",
   },
   {
@@ -100,6 +101,7 @@ export const systems: SystemItem[] = [
     },
     tech: "Next.js 16 · SSE · WhatsApp Cloud API",
     repo: null,
+    live: "https://cobraflow-chi.vercel.app",
     image: "/projects/cobraflow.png",
   },
 ];
