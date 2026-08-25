@@ -4,6 +4,8 @@ export type SystemItem = {
   name: string;
   desc: Bi;
   tech: string;
+  /** O ano fica ao lado do card na home: a vitrine mistura épocas. */
+  year: string;
   repo: string | null;
   live?: string;
   /** Screenshot real do produto rodando. Sem imagem o item vira linha de lista
@@ -30,6 +32,7 @@ export const clientWorkGroupTitle: Bi = {
 export const systems: SystemItem[] = [
   {
     name: "Touvie",
+    year: "2026",
     desc: {
       en: "Personal life OS: routine, goals, journal, finance, workout and diet in one installable PWA, with a Telegram bot and an assistant that writes to real data.",
       pt: "Life OS pessoal: rotina, metas, diário, finanças, treino e dieta num PWA instalável, com bot de Telegram e um assistente que escreve em dado real.",
@@ -41,6 +44,7 @@ export const systems: SystemItem[] = [
   },
   {
     name: "allchats",
+    year: "2026",
     desc: {
       en: "Multi-tenant WhatsApp automation: a support bot answering from a knowledge base with guardrails, escalating to a human via tool use. Runs with no API key — CI exercises that deterministic fallback on purpose.",
       pt: "Automação multi-tenant de WhatsApp: um bot de atendimento que responde a partir de uma base de conhecimento com limites de segurança e escala pra humano via tool use. Roda sem chave de API — o CI exercita esse fallback determinístico de propósito.",
@@ -52,6 +56,7 @@ export const systems: SystemItem[] = [
   },
   {
     name: "ezguide",
+    year: "2026",
     desc: {
       en: "Turns product screenshots into a clickable, shareable tour — tooltips or click-only areas, branding, lead capture and a real funnel (started, per-step views, completed, CTA clicks).",
       pt: "Transforma screenshots de produto num tour clicável e compartilhável — tooltip ou área só de clique, marca própria, captura de lead e funil de verdade (início, visualização por etapa, conclusão, cliques de CTA).",
@@ -63,6 +68,7 @@ export const systems: SystemItem[] = [
   },
   {
     name: "Caçador de Ofertas",
+    year: "2026",
     desc: {
       en: "Scrapes Brazilian Telegram deal channels, archives to Postgres and alerts only when a tracked product enters its price range. Cron run log behind a password.",
       pt: "Coleta canais de promoção do Telegram, arquiva em Postgres e alerta só quando o produto entra na faixa de preço. Log de rodadas do cron atrás de senha.",
@@ -74,6 +80,7 @@ export const systems: SystemItem[] = [
   },
   {
     name: "agendapp",
+    year: "2026",
     desc: {
       en: "Appointment scheduling PWA: instant Google Meet booking with two-way Google Calendar sync, and a test that proves two people cannot win the same slot.",
       pt: "PWA de agendamento: reserva com Google Meet na hora e sincronização bidirecional com o Google Calendar, mais um teste que prova que duas pessoas não ganham o mesmo horário.",
@@ -84,6 +91,7 @@ export const systems: SystemItem[] = [
   },
   {
     name: "Zaptutor",
+    year: "2026",
     desc: {
       en: "Chrome extension that prefixes the attendant's name onto every message sent from a WhatsApp Web number shared by several people.",
       pt: "Extensão do Chrome que prefixa o nome do atendente em toda mensagem enviada de um número de WhatsApp Web compartilhado por várias pessoas.",
@@ -95,6 +103,7 @@ export const systems: SystemItem[] = [
   },
   {
     name: "cobraflow",
+    year: "2026",
     desc: {
       en: "Collections dispatch dashboard over WhatsApp: batch cascade, cron scheduling, two-layer blocklist and an audit log. Clean-room build on synthetic data.",
       pt: "Painel de disparo de cobrança por WhatsApp: cascata em lote, agendamento por cron, blocklist em duas camadas e log de auditoria. Clean-room com dados sintéticos.",
@@ -110,6 +119,7 @@ export const systems: SystemItem[] = [
 export const clientWork: SystemItem[] = [
   {
     name: "SolarTech",
+    year: "2025",
     desc: {
       en: "Energy savings platform with simulation and dashboards.",
       pt: "Plataforma de economia de energia com simulação e dashboards.",
@@ -121,6 +131,7 @@ export const clientWork: SystemItem[] = [
   },
   {
     name: "Renova Aesthetic",
+    year: "2025",
     desc: {
       en: "Full e-commerce for an aesthetics clinic.",
       pt: "E-commerce completo para clínica de estética.",
@@ -132,6 +143,7 @@ export const clientWork: SystemItem[] = [
   },
   {
     name: "Gnomon",
+    year: "2025",
     desc: {
       en: "Indoor wayfinding PWA for complex venues — campuses, hospitals, event centres — with interactive maps and point-of-interest search.",
       pt: "PWA de wayfinding indoor para espaços complexos — campi, hospitais, centros de eventos — com mapas interativos e busca por pontos de interesse.",

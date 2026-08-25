@@ -16,7 +16,7 @@ import { BranchVisualMobile } from "@/components/ui/BranchVisualMobile";
 import { ContactAnimation } from "@/components/ui/ContactAnimation";
 import { Footer } from "@/components/ui/footer";
 import { RotationLock } from "@/components/ui/RotationLock";
-import { PROJECTS } from "@/lib/projects";
+import { systems, clientWork } from "@/lib/content/systems";
 
 const OSDesktop = dynamic(() => import("@/components/ui/desktop").then(mod => mod.OSDesktop), { ssr: false });
 
@@ -288,6 +288,10 @@ const MemoizedAboutSection = React.memo(AboutSection);
 const WorksSection = ({ theme, lang, openDesktop }: { theme: "light" | "dark"; lang: Language; openDesktop: (tab: "bio" | "projetos" | "skills" | "certificados", projectUrl?: string | null) => void; }) => {
     const [isCelestialMode, setIsCelestialMode] = useState(false);
     const wc = WORKS_COPY[lang];
+    // A home mostra tudo que tem screenshot: sistema que eu opero primeiro,
+    // trabalho de cliente depois. A janela continua sendo o aprofundamento,
+    // com descricao longa e link de codigo — nao o esconderijo.
+    const vitrine = [...systems, ...clientWork].filter((p) => p.image);
 
     return (
       <section id="projects" className={`py-32 px-6 md:px-20 relative z-10 overflow-hidden transition-colors duration-700 ${theme === 'dark' ? 'bg-[#0a0a0a]' : 'bg-[#E5E5E5]'}`}>
@@ -305,10 +309,10 @@ const WorksSection = ({ theme, lang, openDesktop }: { theme: "light" | "dark"; l
             </div>
             <div className="max-w-5xl mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-8">
-                    {PROJECTS.map((project) => (
-                        <div key={project.title} className="group cursor-pointer" onClick={() => openDesktop("projetos", project.url)}>
+                    {vitrine.map((project) => (
+                        <div key={project.name} className="group cursor-pointer" onClick={() => openDesktop("projetos", project.live ?? null)}>
                             <div className="relative overflow-hidden mb-6 rounded-sm">
-                                <Image src={project.image} alt={project.title} width={1920} height={1080} className="group-hover:scale-105 transition-transform duration-700" />
+                                <Image src={project.image!} alt={project.name} width={1920} height={1080} className="group-hover:scale-105 transition-transform duration-700" />
                                 <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
                                 <div className="absolute bottom-8 right-8 w-12 h-12 bg-white rounded-full flex items-center justify-center text-black opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
                                     <ArrowUpRight size={20} />
@@ -316,7 +320,7 @@ const WorksSection = ({ theme, lang, openDesktop }: { theme: "light" | "dark"; l
                             </div>
                             <div className="flex justify-between items-start">
                                 <div>
-                                    <h4 className="text-2xl font-serif mb-1 group-hover:text-gray-300 transition-colors">{project.title}</h4>
+                                    <h4 className="text-2xl font-serif mb-1 group-hover:text-gray-300 transition-colors">{project.name}</h4>
                                     <p className="text-sm text-gray-500 font-mono">{project.tech}</p>
                                 </div>
                                 <span className="text-xs border border-white/20 px-2 py-1 rounded-full text-gray-400">{project.year}</span>
