@@ -1,83 +1,86 @@
-JOÃO MARCOS FERREIRA VILELA
+# JOÃO MARCOS FERREIRA VILELA
 
-Full-Stack Developer & Technical Operations Analyst · WhatsApp Automation, ERP Integrations & Multi-Agent AI
-Location: Caruaru, PE — Brazil | Phone: +55 (87) 99609-3326 | Email: jaomarfervil@gmail.com
+**Full-Stack Engineer — AI Integrations, Messaging Automation & Production Operations**
 
-LinkedIn: linkedin.com/in/joao-marcos-ferreira-vilela · GitHub: github.com/JaoVile · Portfolio: joaovilela.vercel.app
+Caruaru, Brazil (UTC−3) · **Open to remote — full US/EU morning overlap**
+jaomarfervil@gmail.com · +55 87 99609-3326
+[linkedin.com/in/joao-marcos-ferreira-vilela](https://linkedin.com/in/joao-marcos-ferreira-vilela) · [github.com/JaoVile](https://github.com/JaoVile) · [joaovilela.vercel.app](https://joaovilela.vercel.app)
 
-Languages: Portuguese (Native) · English — Advanced C1 (Duolingo English Test: 130, 2026) · Spanish & French (basic reading)
+English — C1 Advanced (Duolingo English Test 130, 2026) · Portuguese — Native
 
-PROFESSIONAL SUMMARY
-Full-stack developer and technical operations analyst with an Oracle Generative AI certification, building the integrations that connect business systems to WhatsApp and the multi-agent AI that answers through them. In production today: ERP-to-WhatsApp integrations (Hinova SGA, South, DevSul, Conta Azul) automating billing, PIX/boletos and invoice notices; a multi-tenant fleet-management SaaS delivering daily WhatsApp reports; and a 24/7 WhatsApp support architecture with 8+ specialized AI agents and a routing supervisor (LLMs, RAG). I also own the operations layer behind these systems — container orchestration, database replication monitoring, automated backups and health checks — not just the application code. Main stack: TypeScript/Next.js, Node.js (Hono/Express), Python (FastAPI), PostgreSQL/Supabase, Prisma, Docker.
+---
 
-PROFESSIONAL EXPERIENCE
+## SUMMARY
 
-Technical Operations Analyst — Mar 2026 – Present
-Átomo Soluções e Gestão — B2B services & automation · Full-time | Caruaru, Brazil
+I build the integrations that connect business systems to WhatsApp, the automated support that runs on top of them, and the operations layer that keeps both alive. Currently shipping ERP↔WhatsApp automation for the vehicle-protection and accounting sectors. Oracle-certified in Generative AI, and I use an LLM agent workflow as part of how I develop. I own what happens after deploy — replication monitoring, backup verification, health checks — not just application code.
 
-• ERP–WhatsApp integrations: build and maintain in production integrations between vehicle-protection ERPs (Hinova SGA, South, DevSul) and Conta Azul and WhatsApp — automated billing, boleto/PIX delivery, invoice and tax notices (Node.js, TypeScript, Hono, Supabase).
-• Multi-tenant SaaS: built a platform that extracts fleet-management data daily and dispatches personalized WhatsApp reports (Node.js, Express, PostgreSQL, Prisma).
-• Conta Azul WhatsApp: architected an integration for an accounting firm — automatic poller + billing panel with PDF preview and a dunning sequence (new invoice, reminder, overdue, paid).
-• Multi-agent AI support: designed a 24/7 WhatsApp support architecture (8+ specialized agents + a routing supervisor) with a knowledge base and safety guardrails (LLMs, RAG).
-• Operations & reliability: wrote a Postgres replication monitor (lag, WAL retention, offline-slot alerting), automated backup rotation to S3, and health-check endpoints consumed by load balancers — the same operational discipline applied to a financial ERP (.NET, Postgres/TimescaleDB, Docker Swarm + Traefik) and a customer-facing app running in PM2 cluster mode.
-• Internal automation: Python automations for bulk conversation management in Chatwoot, with CSV auditing and a safe preview mode.
+**Stack:** TypeScript · Next.js · Node.js · Python/FastAPI · PostgreSQL · Docker · LLM tool-calling & RAG
 
-Co-Founder & Full-Stack Engineer — Oct 2025 – Jun 2026
-Gnomon — Indoor-navigation startup · Caruaru, Brazil (Hybrid)
+---
 
-• Sole developer of the system's core: routing algorithms, API and React UI for an indoor-wayfinding PWA covering university campuses, hospitals and event venues.
-• Full TypeScript architecture across front-end and back-end; end-to-end testing with Cypress.
-• Mobile-first UI and interactive maps overcoming traditional GPS limitations indoors.
-• Recognition: ranked 1st among all ADS cohorts and advanced through the Centelha 3 government innovation program.
+## EXPERIENCE
 
-Freelance Web Developer — 2023 – 2025
-Independent · Front-End & Web Solutions
+### Technical Operations Analyst · Átomo Soluções e Gestão
+*Mar 2026 – Present · Full-time · Caruaru, Brazil — B2B services & automation*
 
-• Delivered production sites for paying clients, including SolarTech (energy-savings platform with simulation dashboards, React + Vite) and Renova Aesthetic (full e-commerce for an aesthetics clinic, Next.js + Stripe).
-• All projects delivered on time and approved on first review.
+- **WhatsApp support automation:** build and run the chatbots that answer members of vehicle-protection associations, mapping the questions that actually recur into deterministic flows. Prototyped an identity-aware layer — CPF lookup against the ERP — so the bot answers with the member's real situation instead of a generic script. `‹impact: messages handled/month or minutes saved per ticket›`
+- **ERP↔WhatsApp integrations:** built and maintain in production the integrations between 4 ERPs (Hinova SGA, South, DevSul, Conta Azul) and WhatsApp, automating billing, boleto/PIX delivery and invoice notices. `‹impact: messages/month or manual hours removed›` *(Node.js, TypeScript, Hono, Supabase)*
+- **Multi-tenant SaaS:** built a platform that pulls fleet-management data daily and dispatches personalized WhatsApp reports, with per-tenant credentials encrypted at rest. *(Node.js, Express, PostgreSQL, Prisma)*
+- **Reliability engineering:** wrote a Postgres replication monitor (lag, apply delay, retained WAL, offline-slot alerting), automated 2-hourly backups with 24-copy rotation and S3 mirroring, and a target-verification check that aborts a backup pointing at the wrong destination.
+- **Production platform:** operate a financial ERP (.NET, PostgreSQL/TimescaleDB) on Docker Swarm + Traefik and a customer-facing app in PM2 cluster mode, with `/healthz` endpoints consumed by the load balancer.
+- **Internal automation:** Python tooling for bulk conversation management in Chatwoot, with CSV audit trails and a mandatory dry-run before any destructive action.
 
-SYSTEMS I BUILT AND OPERATE (personal projects, running in production)
+### Co-Founder & Full-Stack Engineer · Gnomon
+*Oct 2025 – Jun 2026 · Indoor-navigation startup · Caruaru, Brazil*
 
-Touvie — Personal Life OS · Next.js 15, Supabase (RLS), Telegram Bot, PWA · 2026 – Present
-Personal life-management system — routines, goals, journal, finances, workouts and diet in one installable PWA, with a Telegram bot for logging and an AI assistant that calls real tools against real data (create/edit/complete goals, log transactions) rather than just answering questions. Device-trust middleware via signed HMAC-SHA256 cookies, Supabase row-level security enforced and proven with E2E tests, documented fallbacks for LLM provider outages. 320+ commits, 40+ SQL migrations, Playwright test suite.
+- Sole developer of the system core: routing algorithms, API and React UI for an indoor-wayfinding PWA for campuses, hospitals and event venues.
+- Full-TypeScript architecture front to back, with end-to-end coverage in Cypress.
+- Ranked **1st among all Systems Analysis cohorts** and advanced through **Centelha 3**, a Brazilian government innovation program.
 
-Caçador de Ofertas — Deal-Hunting Bot · Next.js, Supabase, Telegram Bot · 2026 – Present
-Scrapes Brazilian Telegram deal channels, parses price/coupon/store from free-form Portuguese text, and alerts via Telegram only when a tracked product enters its price range. Includes a price-floor heuristic calibrated on real collected data and a dead-man's-switch canary to detect a broken scraper. 470+ passing tests.
+### Freelance Web Developer
+*2023 – 2025 · Independent*
 
-cobraflow — WhatsApp Collections Dashboard · Next.js 16, SSE, WhatsApp Cloud API · 2026 – Present
-Collections dispatch dashboard over WhatsApp: batch engine with live progress via Server-Sent Events, cron scheduling, a two-layer blocklist in front of every send, and a full audit log on mutating actions. Built clean-room on synthetic data.
+- Delivered production sites for paying clients: **SolarTech** (energy-savings platform with simulation dashboards, React + Vite) and **Renova Aesthetic** (e-commerce for an aesthetics clinic, Next.js + Stripe).
 
-allchats — Multi-Tenant WhatsApp Support Bot · Next.js 16, React 19, Claude SDK · 2026 – Present
-Multi-tenant WhatsApp automation answering from a knowledge base with safety guardrails, escalating to a human via tool use. Runs safely with no API key configured — CI exercises that deterministic fallback on purpose.
+---
 
-Zaptutor — Chrome Extension · Chrome MV3, JavaScript · 2026
-Prefixes the attendant's name onto every outgoing message on a WhatsApp Web number shared by multiple people, so customers always know who they're talking to. Zero network calls, formatting logic covered by unit tests.
+## SELECTED PROJECTS
 
-agendapp — Appointment Scheduling PWA · Next.js 16, Supabase, Google APIs · 2026
-Instant Google Meet booking with two-way Google Calendar sync; concurrency-tested to guarantee two people can never win the same slot.
+Systems I built and operate in production. Full catalogue with live demos at [joaovilela.vercel.app](https://joaovilela.vercel.app).
 
-Gnomon — Indoor Wayfinding PWA · TypeScript, React, PWA · 2025
-Interactive-map wayfinding for complex venues, built during the Gnomon startup.
+**Touvie** — Personal life OS · *Next.js 15, Supabase, Telegram, PWA*
+An AI assistant that **writes to real data** through tool calls — creating goals, logging transactions — not just answering questions. Device-trust middleware on signed HMAC-SHA256 cookies; Supabase row-level security proven by E2E tests that assert one user cannot read another's records. 320+ commits, 40+ migrations, Playwright suite.
 
-TECHNICAL SKILLS
+**Caçador de Ofertas** — Deal-hunting bot · *Next.js, Supabase, Telegram*
+Parses price, coupon and store out of free-form Portuguese across 25 Telegram channels every 5 minutes. Separating coupon values from product prices is what made the alerts trustworthy — read naively, "R$30 OFF" becomes a R$30 product and satisfies every hunt. Ships a dead-man's-switch canary that catches a silently broken scraper. **470+ passing tests.**
 
-• Languages: TypeScript, JavaScript, Python, SQL, C#.
-• Front-end: React, Next.js (App Router, SSR), Tailwind CSS, Framer Motion.
-• Back-end: Node.js (Hono, Express), Python (FastAPI), .NET, REST API design, OOP.
-• AI & Automation: Claude & GPT APIs (applied, tool-calling), multi-agent systems, RAG with guardrails, prompt engineering, n8n, Typebot.
-• Data & Databases: PostgreSQL, TimescaleDB, Supabase (RLS enforced with E2E tests), Prisma, Alembic.
-• Integrations & Messaging: ERP integrations (Hinova SGA, South, DevSul, Conta Azul), WhatsApp Business API & Cloud API (Meta-approved templates), Chatwoot, Helena CRM, Google Calendar API.
-• DevOps & Cloud: Docker Swarm + Traefik, PM2 (cluster mode), systemd, AWS (S3, EC2), Oracle Cloud (OCI), Vercel, Fly.io.
-• Reliability engineering: database replication monitoring, automated backup rotation, health-check endpoints, dry-run/blocklist patterns for irreversible actions.
-• Tools: Git/GitHub, Cypress & Playwright (E2E), CI/CD, Scrum/Kanban, Linux.
+**allchats** — Multi-tenant WhatsApp support bot · *Next.js 16, React 19, Claude SDK*
+RAG-grounded answers with guardrails and human escalation via tool use. Runs correctly with **no API key configured** — CI exercises that deterministic fallback path on purpose, so a provider outage degrades instead of breaking.
 
-EDUCATION & CERTIFICATIONS
+*Also:* **cobraflow** (WhatsApp collections dispatch — SSE batch engine, two-layer blocklist, audit log) · **agendapp** (booking PWA, concurrency-tested so two people can never win the same slot) · **Zaptutor** (Chrome MV3 extension, zero network calls).
 
-Associate Degree in Systems Analysis and Development — Jan 2024 – Dec 2025
-UNINASSAU — Caruaru, Brazil · GPA 8.6/10
-• Perfect scores (10.0) in Software Architecture, Cloud Computing and Machine Learning. Gnomon ranked 1st among all ADS cohorts (2025).
+---
 
-• Harvard CS50 (2026, in progress) — Introduction to Computer Science, studied fully in English.
-• Python Back-End Bootcamp — DIO & Santander (2025, 58h) — FastAPI, Docker, SQL, MongoDB.
-• Oracle 2025 Certified Generative AI Professional — Oracle, Sep 2025 (LLMs, Generative AI).
-• AWS Educate — Introduction to Cloud 101 — Amazon Web Services, Jul 2025.
+## TECHNICAL SKILLS
+
+**Languages** TypeScript · JavaScript · Python · SQL · C#
+**AI Engineering** LLM tool-calling (Claude, GPT) · RAG with guardrails · prompt engineering · agent-assisted development workflow
+**Back-end** Node.js (Hono, Express) · FastAPI · .NET · REST API design · Server-Sent Events
+**Front-end** React · Next.js (App Router, SSR) · Tailwind CSS
+**Data** PostgreSQL · TimescaleDB · Supabase (RLS) · Prisma · Alembic
+**Integrations** WhatsApp Business & Cloud API (Meta templates) · ERP APIs · Google Calendar API · Chatwoot · n8n
+**Infrastructure** Docker Swarm + Traefik · PM2 cluster mode · systemd · AWS (S3, EC2) · Oracle Cloud · Vercel · Fly.io
+**Reliability** replication monitoring · backup rotation & verification · health-check endpoints · dry-run and blocklist patterns for irreversible actions
+**Testing** Playwright · Cypress · Vitest · concurrency and cross-tenant isolation testing
+
+---
+
+## EDUCATION & CERTIFICATIONS
+
+**Associate Degree, Systems Analysis and Development** — UNINASSAU, Brazil · *Jan 2024 – Dec 2025* · GPA 8.6/10
+Perfect scores in Software Architecture, Cloud Computing and Machine Learning.
+
+- **Oracle Certified Generative AI Professional** — Oracle, Sep 2025
+- **CS50: Introduction to Computer Science** — Harvard, 2026 *(in progress)*
+- **Python Back-End Bootcamp** — DIO & Santander, 2025 (58h)
+- **AWS Educate: Introduction to Cloud 101** — AWS, Jul 2025

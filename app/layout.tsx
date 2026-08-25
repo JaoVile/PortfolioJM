@@ -26,14 +26,14 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "João Vilela | Full-Stack Developer & AI-Augmented Engineer",
   description:
-    "I build and operate the integrations that connect business systems to WhatsApp, and the multi-agent AI that answers through them. TypeScript, Python, Postgres, Docker.",
+    "I build and operate the integrations that connect business systems to WhatsApp, and the automated support that answers through them. TypeScript, Python, Postgres, Docker.",
   icons: {
     icon: "/favicon.ico",
   },
   openGraph: {
     title: "João Vilela | Full-Stack Developer & AI-Augmented Engineer",
     description:
-      "Integrations that connect business systems to WhatsApp, and the multi-agent AI that answers through them.",
+      "Integrations that connect business systems to WhatsApp, and the automated support that answers through them.",
     type: "profile",
     locale: "en_US",
   },

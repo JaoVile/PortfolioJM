@@ -53,7 +53,7 @@ const DESKTOP_COPY = {
         <>
           Full-Stack <strong>Developer</strong> and Technical Operations Analyst. I build the integrations that connect business systems to{" "}
           <span className="underline decoration-1 underline-offset-4 decoration-green-500/50">WhatsApp</span>, and the{" "}
-          <span className="underline decoration-1 underline-offset-4 decoration-purple-500/50">multi-agent AI</span> that answers through them — on a stack of{" "}
+          <span className="underline decoration-1 underline-offset-4 decoration-purple-500/50">automated support</span> that answers through them — on a stack of{" "}
           <span className="underline decoration-1 underline-offset-4 decoration-blue-500/50">Python</span> and React.
         </>
       ),
@@ -75,8 +75,8 @@ const DESKTOP_COPY = {
         {
           title: "Technical Operations Analyst — Átomo Soluções e Gestão",
           year: "2026 — Present",
-          desc: "I build and maintain in production the integrations connecting vehicle-protection ERPs (Hinova SGA, South, DevSul) and Conta Azul to WhatsApp — automated billing, invoices, PIX and tax notices. I built a multi-tenant SaaS platform that pulls fleet management data and sends daily reports. I also designed the 24/7 WhatsApp support architecture with 8+ specialized AI agents and a routing supervisor (LLMs, RAG).",
-          tags: ["Node.js", "TypeScript", "WhatsApp API", "Multi-Agent AI", "ERP Integrations"],
+          desc: "I build and maintain in production the integrations connecting vehicle-protection ERPs (Hinova SGA, South, DevSul) and Conta Azul to WhatsApp — automated billing, invoices, PIX and tax notices. I built a multi-tenant SaaS platform that pulls fleet management data and sends daily reports. I also build the WhatsApp chatbots that answer association members, and prototyped an identity-aware layer — CPF lookup against the ERP — so the bot replies with the member\u2019s real situation instead of a generic script.",
+          tags: ["Node.js", "TypeScript", "WhatsApp API", "Chatbots", "ERP Integrations"],
         },
         {
           title: "Gnomon - Engineer & Architect (Co-Founder)",
@@ -116,7 +116,7 @@ const DESKTOP_COPY = {
         <>
           Desenvolvedor <strong>Full-Stack</strong> e Analista de Operações Técnicas. Construo as integrações que ligam sistemas de negócio ao{" "}
           <span className="underline decoration-1 underline-offset-4 decoration-green-500/50">WhatsApp</span>, e a{" "}
-          <span className="underline decoration-1 underline-offset-4 decoration-purple-500/50">IA multi-agente</span> que atende por eles — numa stack de{" "}
+          <span className="underline decoration-1 underline-offset-4 decoration-purple-500/50">o atendimento automatizado</span> que responde por eles — numa stack de{" "}
           <span className="underline decoration-1 underline-offset-4 decoration-blue-500/50">Python</span> e React.
         </>
       ),
@@ -138,8 +138,8 @@ const DESKTOP_COPY = {
         {
           title: "Analista de Operações Técnicas — Átomo Soluções e Gestão",
           year: "2026 — Atual",
-          desc: "Desenvolvo e mantenho em produção as integrações que ligam ERPs de proteção veicular (Hinova SGA, South, DevSul) e Conta Azul ao WhatsApp — cobrança, boletos, PIX e notas fiscais automatizados. Construí uma plataforma SaaS multi-tenant que extrai dados de gestão de frotas e dispara relatórios diários. Também projetei a arquitetura de atendimento 24/7 no WhatsApp com 8+ agentes de IA especializados e supervisor roteador (LLMs, RAG).",
-          tags: ["Node.js", "TypeScript", "WhatsApp API", "IA Multi-Agente", "Integrações ERP"],
+          desc: "Desenvolvo e mantenho em produção as integrações que ligam ERPs de proteção veicular (Hinova SGA, South, DevSul) e Conta Azul ao WhatsApp — cobrança, boletos, PIX e notas fiscais automatizados. Construí uma plataforma SaaS multi-tenant que extrai dados de gestão de frotas e dispara relatórios diários. Também construo os chatbots de WhatsApp que atendem os associados, e prototipei uma camada de identidade — consulta de CPF no ERP — pra resposta sair com a situação real do associado em vez de um roteiro genérico.",
+          tags: ["Node.js", "TypeScript", "WhatsApp API", "Chatbots", "Integrações ERP"],
         },
         {
           title: "Gnomon - Engenheiro & Arquiteto (Co-Founder)",
@@ -197,7 +197,7 @@ const SKILLS_COPY = {
       {
         key: "ai", title: "AI Engineering", items: [
           { name: "Claude & GPT (applied)", description: "I use them like a linter or a debugger — architecture, trade-offs and validating the output stay mine." },
-          { name: "Multi-agent systems", description: "Designed a 24/7 WhatsApp support architecture with 8+ specialized agents and a routing supervisor." },
+          { name: "Agent-assisted development", description: "I run a fleet of scoped subagents with explicit tool grants while I build — research, review, debug. The permission boundary is the guardrail, not the prompt wording." },
           { name: "RAG", description: "Retrieval with guardrails, feeding both a customer-support agent and internal automations." },
           { name: "Prompt Engineering", description: "Scoped subagents with explicit tool grants — permissions as the real guardrail, not the prompt wording." },
         ]
@@ -251,7 +251,7 @@ const SKILLS_COPY = {
       {
         key: "ai", title: "Engenharia de IA", items: [
           { name: "Claude & GPT (aplicado)", description: "Uso como uso um linter ou um debugger — arquitetura, trade-offs e validação do resultado continuam sendo minhas decisões." },
-          { name: "Sistemas multi-agente", description: "Projetei uma arquitetura de atendimento 24/7 no WhatsApp com 8+ agentes especializados e supervisor roteador." },
+          { name: "Desenvolvimento assistido por agentes", description: "Rodo uma frota de subagentes com escopo e permissão explícita de ferramenta enquanto construo — pesquisa, revisão, depuração. A permissão é a guarda real, não a redação do prompt." },
           { name: "RAG", description: "Recuperação com limites de segurança, alimentando tanto um agente de atendimento quanto automações internas." },
           { name: "Engenharia de Prompt", description: "Subagentes com escopo e permissões explícitas de ferramenta — a permissão é a guarda real, não a redação do prompt." },
         ]
