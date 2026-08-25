@@ -66,6 +66,11 @@ const DESKTOP_COPY = {
       downloadCv: "Download Resume",
       experience: "Experience",
       education: "Education",
+      certs: {
+        title: "Certifications",
+        validated: "Verified",
+        ongoing: "In progress",
+      },
       exp: [
         {
           title: "Technical Operations Analyst — Átomo Soluções e Gestão",
@@ -124,6 +129,11 @@ const DESKTOP_COPY = {
       downloadCv: "Baixar CV",
       experience: "Experiência",
       education: "Educação",
+      certs: {
+        title: "Certificações",
+        validated: "Validado",
+        ongoing: "Em andamento",
+      },
       exp: [
         {
           title: "Analista de Operações Técnicas — Átomo Soluções e Gestão",
@@ -273,6 +283,73 @@ const SKILLS_COPY = {
     ],
   },
 } as const;
+
+/**
+ * Os certificados. O titulo de prova internacional fica igual nos dois idiomas
+ * — "AWS Educate Introduction to Cloud 101" e o nome do documento, nao uma
+ * frase pra traduzir. So o que e descricao muda.
+ */
+const CERTIFICADOS: {
+  title: { en: string; pt: string };
+  org: string;
+  color: "red" | "orange" | "blue" | "crimson";
+  year: string;
+  /** Ausente = concluido. Só o que ainda está rolando declara isso. */
+  ongoing?: boolean;
+  url: string;
+}[] = [
+  {
+    title: {
+      en: "Oracle Cloud Infrastructure 2025 Certified Generative AI Professional",
+      pt: "Oracle Cloud Infrastructure 2025 Certified Generative AI Professional",
+    },
+    org: "Oracle",
+    color: "red",
+    year: "2025",
+    url: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=555B238D8DBE9D841D2528092600DAE321EF664454CC2F03264A9FC1FC8B033D",
+  },
+  {
+    title: {
+      en: "AWS Educate Introduction to Cloud 101",
+      pt: "AWS Educate Introduction to Cloud 101",
+    },
+    org: "AWS",
+    color: "orange",
+    year: "2025",
+    url: "https://www.credly.com/badges/fee549a9-9290-49a2-8c9f-ee4acbd0f3e3",
+  },
+  {
+    title: {
+      en: "Introduction to AZ-900 with Microsoft",
+      pt: "Introdução ao AZ-900 com a Microsoft",
+    },
+    org: "Microsoft",
+    color: "blue",
+    year: "2025",
+    url: "/AZURE900.pdf",
+  },
+  {
+    title: {
+      en: "Hands-on Introduction to Azure AI and Azure OpenAI Models",
+      pt: "Introdução Prática ao Azure AI e Azure OpenAI Models",
+    },
+    org: "Microsoft",
+    color: "blue",
+    year: "2025",
+    url: "/OPENAIAZURE.pdf",
+  },
+  {
+    title: {
+      en: "CS50: Introduction to Computer Science",
+      pt: "CS50: Introduction to Computer Science",
+    },
+    org: "Harvard",
+    color: "crimson",
+    year: "2026",
+    ongoing: true,
+    url: "https://cs50.harvard.edu/x/",
+  },
+];
 
 const SKILL_ICONS: Record<string, React.ReactNode> = {
   frontend: <Cpu/>,
@@ -926,41 +1003,20 @@ export function OSDesktop({
 
               {activeTab === "certificados" && (
                 <motion.div key="certs" variants={contentVariant} initial="hidden" animate="visible" exit="exit" className="max-w-3xl mx-auto">
-                   <h2 className={`text-3xl md:text-5xl font-serif mb-8 ${isDark ? "text-white" : "text-black"}`}>Certificações</h2>
+                   <h2 className={`text-3xl md:text-5xl font-serif mb-8 ${isDark ? "text-white" : "text-black"}`}>{c.bio.certs.title}</h2>
                    <div className="space-y-4">
-                      <CertItem 
-                        title="Oracle Cloud Infrastructure 2025 Certified Generative AI Professional" 
-                        org="Oracle" 
-                        isDark={isDark} 
-                        color="red" 
-                        onClick={() => setOpenedProject("https://catalog-education.oracle.com/ords/certview/sharebadge?id=555B238D8DBE9D841D2528092600DAE321EF664454CC2F03264A9FC1FC8B033D")}
-                      />
-                      <CertItem 
-                        title="AWS Educate Introduction to Cloud 101" 
-                        org="AWS" 
-                        isDark={isDark} 
-                        color="orange" 
-                        onClick={() => setOpenedProject("https://www.credly.com/badges/fee549a9-9290-49a2-8c9f-ee4acbd0f3e3")}
-                      />
-                      <CertItem 
-                        title="Introdução ao AZ-900 com a Microsoft" 
-                        org="Microsoft" isDark={isDark} color="blue" 
-                        onClick={() => setOpenedProject("/AZURE900.pdf")}
-                      />
-                      <CertItem
-                        title="Introdução Prática ao Azure AI e Azure OpenAI Models"
-                        org="Microsoft" isDark={isDark} color="blue"
-                        onClick={() => setOpenedProject("/OPENAIAZURE.pdf")}
-                      />
-                      <CertItem
-                        title="CS50: Introduction to Computer Science"
-                        org="Harvard"
-                        isDark={isDark}
-                        color="crimson"
-                        status="Em andamento"
-                        year="2026"
-                        onClick={() => setOpenedProject("https://cs50.harvard.edu/x/")}
-                      />
+                      {CERTIFICADOS.map((cert) => (
+                        <CertItem
+                          key={cert.title[lang]}
+                          title={cert.title[lang]}
+                          org={cert.org}
+                          isDark={isDark}
+                          color={cert.color}
+                          year={cert.year}
+                          status={cert.ongoing ? c.bio.certs.ongoing : c.bio.certs.validated}
+                          onClick={() => setOpenedProject(cert.url)}
+                        />
+                      ))}
                    </div>
                 </motion.div>
               )}
@@ -1249,7 +1305,9 @@ function SkillBox({ icon, title, items, isDark }: any) {
    )
 }
 
-function CertItem({ title, org, isDark, color, status = "Validado", year = "2025", onClick }: any) {
+// Sem default em `status` e `year` de proposito: um certificado sem rotulo de
+// idioma cairia em portugues fixo, que e justamente o bug que a aba tinha.
+function CertItem({ title, org, isDark, color, status, year, onClick }: any) {
    return (
       <button onClick={onClick} className={`w-full flex items-center gap-4 p-5 rounded-2xl border transition-all hover:scale-[1.01] text-left ${isDark ? "border-white/10 bg-zinc-900/40 hover:bg-zinc-800/60" : "border-black/5 bg-white/60 hover:bg-zinc-100"}`}>
          <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-[10px] shadow-sm shrink-0 ${
