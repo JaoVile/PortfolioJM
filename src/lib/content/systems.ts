@@ -87,6 +87,7 @@ export const systems: SystemItem[] = [
     },
     tech: "Next.js 16 · Supabase · Google APIs",
     repo: "https://github.com/JaoVile/agendapp",
+    live: "https://agendapp-pi.vercel.app",
     image: "/projects/agendapp.png",
   },
   {
