@@ -23,12 +23,13 @@ I build the integrations that connect business systems to WhatsApp, the automate
 ### Technical Operations Analyst · Átomo Soluções e Gestão
 *Mar 2026 – Present · Full-time · Caruaru, Brazil — B2B services & automation*
 
-- **WhatsApp support automation:** build and run the chatbots that answer members of vehicle-protection associations, mapping the questions that actually recur into deterministic flows. Prototyped an identity-aware layer — CPF lookup against the ERP — so the bot answers with the member's real situation instead of a generic script. `‹impact: messages handled/month or minutes saved per ticket›`
-- **ERP↔WhatsApp integrations:** built and maintain in production the integrations between 4 ERPs (Hinova SGA, South, DevSul, Conta Azul) and WhatsApp, automating billing, boleto/PIX delivery and invoice notices. `‹impact: messages/month or manual hours removed›` *(Node.js, TypeScript, Hono, Supabase)*
-- **Multi-tenant SaaS:** built a platform that pulls fleet-management data daily and dispatches personalized WhatsApp reports, with per-tenant credentials encrypted at rest. *(Node.js, Express, PostgreSQL, Prisma)*
-- **Reliability engineering:** wrote a Postgres replication monitor (lag, apply delay, retained WAL, offline-slot alerting), automated 2-hourly backups with 24-copy rotation and S3 mirroring, and a target-verification check that aborts a backup pointing at the wrong destination.
-- **Production platform:** operate a financial ERP (.NET, PostgreSQL/TimescaleDB) on Docker Swarm + Traefik and a customer-facing app in PM2 cluster mode, with `/healthz` endpoints consumed by the load balancer.
-- **Internal automation:** Python tooling for bulk conversation management in Chatwoot, with CSV audit trails and a mandatory dry-run before any destructive action.
+- **Chatbot platform lead — 73 of 102 platform tasks in 4 months.** Onboarded **14 new clients** onto a standardized WhatsApp bot, turning client onboarding from a bespoke project into a repeatable process. 32 of those tasks were payment and API integrations.
+- **Amora — AI agent in production** *(built with one other engineer)*: answers accounting and tax questions for a client's members and **escalates to the right human team on its own**. Prompts versioned in Git across 6 documented refinement cycles.
+- **Self-service billing over WhatsApp:** members request a boleto, a duplicate invoice or a PIX and the bot pulls it from the ERP and delivers it — 28 tasks across build, automation and fixes, the platform's most recurring flow.
+- **Dispatch system for a 24h roadside-assistance company (sole developer):** LNSoft polling, Supabase, PM2, batching, blocklists, LGPD handling and a resilient cron. Built Apr–Jun 2026, in production.
+- **ERP↔WhatsApp integrations** across 6 platforms — Hinova SGA, South, DevSul, EPTA, Conta Azul and Asaas — automating billing, boleto/PIX delivery and invoice notices. *(Node.js, TypeScript, Hono, Supabase)*
+- **Reliability engineering:** Postgres replication monitor (lag, apply delay, retained WAL, offline-slot alerting), 2-hourly backups with 24-copy rotation and S3 mirroring, and a target-verification check that aborts a backup pointing at the wrong destination. Operate a financial ERP (.NET, PostgreSQL/TimescaleDB) on Docker Swarm + Traefik and a customer-facing app in PM2 cluster mode.
+- **126 verified technical deliveries in 4 months** (Mar–Jul 2026), including 47 outside the ticket system across 11 repositories and 134 commits — counted by project-day, never by commit.
 
 ### Co-Founder & Full-Stack Engineer · Gnomon
 *Oct 2025 – Jun 2026 · Indoor-navigation startup · Caruaru, Brazil*
@@ -46,7 +47,7 @@ I build the integrations that connect business systems to WhatsApp, the automate
 
 ## SELECTED PROJECTS
 
-Systems I built and operate in production. Full catalogue with live demos at [joaovilela.vercel.app](https://joaovilela.vercel.app).
+Personal systems I run in production, plus clean-room rebuilds of patterns I shipped at work. Full catalogue with live demos at [joaovilela.vercel.app](https://joaovilela.vercel.app).
 
 **Touvie** — Personal life OS · *Next.js 15, Supabase, Telegram, PWA*
 An AI assistant that **writes to real data** through tool calls — creating goals, logging transactions — not just answering questions. Device-trust middleware on signed HMAC-SHA256 cookies; Supabase row-level security proven by E2E tests that assert one user cannot read another's records. 320+ commits, 40+ migrations, Playwright suite.
