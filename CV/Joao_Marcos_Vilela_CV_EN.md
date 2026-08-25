@@ -23,7 +23,7 @@ I build the integrations that connect business systems to WhatsApp, the automate
 ### Technical Operations Analyst · Átomo Soluções e Gestão
 *Mar 2026 – Present · Full-time · Caruaru, Brazil — B2B services & automation*
 
-- **Chatbot platform lead — 73 of 102 platform tasks in 4 months.** Onboarded **14 new clients** onto a standardized WhatsApp bot, turning client onboarding from a bespoke project into a repeatable process. 32 of those tasks were payment and API integrations.
+- **Chatbot platform lead — 23 associations running WhatsApp bots in production**, 14 of them onboarded within a single 4-month window after I standardized the base flow, turning client onboarding from a bespoke project into a repeatable process. 73 of 102 platform tasks in the period; 32 were payment and API integrations.
 - **Amora — AI agent in production** *(built with one other engineer)*: answers accounting and tax questions for a client's members and **escalates to the right human team on its own**. Prompts versioned in Git across 6 documented refinement cycles.
 - **Self-service billing over WhatsApp:** members request a boleto, a duplicate invoice or a PIX and the bot pulls it from the ERP and delivers it — 28 tasks across build, automation and fixes, the platform's most recurring flow.
 - **Dispatch system for a 24h roadside-assistance company (sole developer):** LNSoft polling, Supabase, PM2, batching, blocklists, LGPD handling and a resilient cron. Built Apr–Jun 2026, in production.
