@@ -29,7 +29,7 @@ I build the integrations that connect business systems to WhatsApp, the automate
 - **Dispatch system for a 24h roadside-assistance company (sole developer):** LNSoft polling, Supabase, PM2, batching, blocklists, LGPD handling and a resilient cron. Built Apr–Jun 2026, in production.
 - **ERP↔WhatsApp integrations** across 6 platforms — Hinova SGA, South, DevSul, EPTA, Conta Azul and Asaas — automating billing, boleto/PIX delivery and invoice notices. *(Node.js, TypeScript, Hono, Supabase)*
 - **Reliability engineering:** Postgres replication monitor (lag, apply delay, retained WAL, offline-slot alerting), 2-hourly backups with 24-copy rotation and S3 mirroring, and a target-verification check that aborts a backup pointing at the wrong destination. Operate a financial ERP (.NET, PostgreSQL/TimescaleDB) on Docker Swarm + Traefik and a customer-facing app in PM2 cluster mode.
-- **126 verified technical deliveries in 4 months** (Mar–Jul 2026), including 47 outside the ticket system across 11 repositories and 134 commits — counted by project-day, never by commit.
+- **126 verified technical deliveries in 4 months** (Mar–Jul 2026), 47 of them outside the ticket system, documented by Git history and daily check-outs — counted by project-day, never by commit.
 
 ### Co-Founder & Full-Stack Engineer · Gnomon
 *Oct 2025 – Jun 2026 · Indoor-navigation startup · Caruaru, Brazil*

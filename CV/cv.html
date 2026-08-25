@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>João Marcos Ferreira Vilela — CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* CV para impressao e leitura por ATS.
+   Coluna unica, texto real (nunca imagem), sem tabela de layout: e assim que
+   o parser le na ordem certa. A sobriedade aqui e funcional, nao estetica. */
+@page { size: A4; margin: 13mm 14mm; }
+
+:root {
+  --ink: #14181d;
+  --soft: #4b5560;
+  --rule: #d3d8dd;
+  --accent: #17506b;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, -apple-system, "Segoe UI", sans-serif;
+  font-size: 9.6pt;
+  line-height: 1.44;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+
+h1 {
+  font-size: 21pt;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin: 0 0 2pt;
+}
+.role {
+  font-size: 10.4pt;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 0 0 5pt;
+  letter-spacing: -0.005em;
+}
+.meta { font-size: 8.9pt; color: var(--soft); margin: 0 0 1.5pt; }
+.meta strong { color: var(--ink); font-weight: 600; }
+
+h2 {
+  font-size: 8.2pt;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 13pt 0 6pt;
+  padding-bottom: 3pt;
+  border-bottom: 0.8pt solid var(--rule);
+}
+
+.job { margin-bottom: 9pt; }
+.job-head {
+  display: flex; justify-content: space-between;
+  align-items: baseline; gap: 10pt;
+}
+.job h3 { font-size: 10.2pt; font-weight: 600; margin: 0; }
+.when { font-size: 8.6pt; color: var(--soft); white-space: nowrap; }
+.org { font-size: 8.8pt; color: var(--soft); margin: 0 0 4pt; }
+
+ul { margin: 0; padding-left: 11pt; }
+li { margin-bottom: 3.2pt; }
+li::marker { color: var(--rule); }
+
+.proj { margin-bottom: 6pt; }
+.proj-head { font-size: 9.5pt; margin-bottom: 1pt; }
+.proj-head b { font-weight: 600; }
+.proj-head span { color: var(--soft); font-size: 8.7pt; }
+.proj p { margin: 0; color: var(--ink); }
+
+.skills { display: grid; grid-template-columns: 78pt 1fr; gap: 2.6pt 9pt; }
+.skills dt { font-weight: 600; font-size: 8.9pt; }
+.skills dd { margin: 0; font-size: 8.9pt; color: var(--soft); }
+
+.edu-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10pt; }
+.edu-head b { font-size: 9.6pt; font-weight: 600; }
+.certs { margin-top: 4pt; }
+.certs li { margin-bottom: 2pt; }
+
+.note { color: var(--soft); font-size: 8.8pt; margin: 0 0 5pt; }
+</style>
+</head>
+<body>
+
+<h1>João Marcos Ferreira Vilela</h1>
+<p class="role">Full-Stack Engineer — AI Integrations, Messaging Automation &amp; Production Operations</p>
+<p class="meta">Caruaru, Brazil (UTC−3) · <strong>Open to remote — full US/EU morning overlap</strong></p>
+<p class="meta">jaomarfervil@gmail.com · +55 87 99609-3326 · <a href="https://joaovilela.vercel.app">joaovilela.vercel.app</a> · <a href="https://github.com/JaoVile">github.com/JaoVile</a> · <a href="https://linkedin.com/in/joao-marcos-ferreira-vilela">linkedin.com/in/joao-marcos-ferreira-vilela</a></p>
+<p class="meta">English — C1 Advanced (Duolingo English Test 130, 2026) · Portuguese — Native</p>
+
+<h2>Summary</h2>
+<p style="margin:0">I build the integrations that connect business systems to WhatsApp, the automated support that runs on top of them, and the operations layer that keeps both alive. Currently shipping ERP↔WhatsApp automation across the vehicle-protection and accounting sectors. Oracle-certified in Generative AI, and I use an LLM agent workflow as part of how I develop. I own what happens after deploy — replication monitoring, backup verification, health checks — not just application code.</p>
+
+<h2>Experience</h2>
+
+<div class="job">
+  <div class="job-head">
+    <h3>Technical Operations Analyst · Átomo Soluções e Gestão</h3>
+    <span class="when">Mar 2026 – Present</span>
+  </div>
+  <p class="org">Full-time · Caruaru, Brazil — B2B services &amp; automation</p>
+  <ul>
+    <li><b>Chatbot platform lead — 23 associations running WhatsApp bots in production</b>, 14 of them onboarded within a single 4-month window after I standardized the base flow, turning client onboarding from a bespoke project into a repeatable process. 73 of 102 platform tasks in the period; 32 were payment and API integrations.</li>
+    <li><b>Amora — AI agent in production</b> <i>(built with one other engineer)</i>: answers accounting and tax questions for a client's members and <b>escalates to the right human team on its own</b>. Prompts versioned in Git across 6 documented refinement cycles.</li>
+    <li><b>Self-service billing over WhatsApp:</b> members request a boleto, a duplicate invoice or a PIX and the bot pulls it from the ERP and delivers it — 28 tasks across build, automation and fixes, the platform's most recurring flow.</li>
+    <li><b>Dispatch system for a 24h roadside-assistance company (sole developer):</b> LNSoft polling, Supabase, PM2, batching, blocklists, LGPD handling and a resilient cron. Built Apr–Jun 2026, in production.</li>
+    <li><b>ERP↔WhatsApp integrations</b> across 6 platforms — Hinova SGA, South, DevSul, EPTA, Conta Azul and Asaas — automating billing, boleto/PIX delivery and invoice notices. <i>(Node.js, TypeScript, Hono, Supabase)</i></li>
+    <li><b>Reliability engineering:</b> Postgres replication monitor (lag, apply delay, retained WAL, offline-slot alerting), 2-hourly backups with 24-copy rotation and S3 mirroring, and a target-verification check that aborts a backup pointing at the wrong destination. Operate a financial ERP (.NET, PostgreSQL/TimescaleDB) on Docker Swarm + Traefik and a customer-facing app in PM2 cluster mode.</li>
+    <li><b>126 verified technical deliveries in 4 months</b> (Mar–Jul 2026), 47 of them outside the ticket system, documented by Git history and daily check-outs — counted by project-day, never by commit.</li>
+  </ul>
+</div>
+
+<div class="job">
+  <div class="job-head">
+    <h3>Co-Founder &amp; Full-Stack Engineer · Gnomon</h3>
+    <span class="when">Oct 2025 – Jun 2026</span>
+  </div>
+  <p class="org">Indoor-navigation startup · Caruaru, Brazil</p>
+  <ul>
+    <li>Sole developer of the system core: routing algorithms, API and React UI for an indoor-wayfinding PWA for campuses, hospitals and event venues.</li>
+    <li>Full-TypeScript architecture front to back, with end-to-end coverage in Cypress.</li>
+    <li>Ranked <b>1st among all Systems Analysis cohorts</b> and advanced through <b>Centelha 3</b>, a Brazilian government innovation program.</li>
+  </ul>
+</div>
+
+<div class="job">
+  <div class="job-head">
+    <h3>Freelance Web Developer</h3>
+    <span class="when">2023 – 2025</span>
+  </div>
+  <p class="org">Independent</p>
+  <ul>
+    <li>Delivered production sites for paying clients: <b>SolarTech</b> (energy-savings platform with simulation dashboards, React + Vite) and <b>Renova Aesthetic</b> (e-commerce for an aesthetics clinic, Next.js + Stripe).</li>
+  </ul>
+</div>
+
+<h2>Selected Projects</h2>
+<p class="note">Personal systems I run in production, plus clean-room rebuilds of patterns I shipped at work. Live demos at <a href="https://joaovilela.vercel.app">joaovilela.vercel.app</a>.</p>
+
+<div class="proj">
+  <p class="proj-head"><b>Touvie</b> — Personal life OS · <span>Next.js 15, Supabase, Telegram, PWA</span></p>
+  <p>An AI assistant that <b>writes to real data</b> through tool calls — creating goals, logging transactions — not just answering questions. Device-trust middleware on signed HMAC-SHA256 cookies; Supabase row-level security proven by E2E tests asserting one user cannot read another's records. 320+ commits, 40+ migrations, Playwright suite.</p>
+</div>
+
+<div class="proj">
+  <p class="proj-head"><b>Caçador de Ofertas</b> — Deal-hunting bot · <span>Next.js, Supabase, Telegram</span></p>
+  <p>Parses price, coupon and store out of free-form Portuguese across 25 Telegram channels every 5 minutes. Separating coupon values from product prices is what made the alerts trustworthy — read naively, "R$30 OFF" becomes a R$30 product and satisfies every hunt. Ships a dead-man's-switch canary that catches a silently broken scraper. <b>470+ passing tests.</b></p>
+</div>
+
+<div class="proj">
+  <p class="proj-head"><b>allchats</b> — Multi-tenant WhatsApp support bot · <span>Next.js 16, React 19, Claude SDK</span></p>
+  <p>RAG-grounded answers with guardrails and human escalation via tool use. Runs correctly with <b>no API key configured</b> — CI exercises that deterministic fallback path on purpose, so a provider outage degrades instead of breaking.</p>
+</div>
+
+<div class="proj">
+  <p><i>Also:</i> <b>cobraflow</b> (WhatsApp collections dispatch — SSE batch engine, two-layer blocklist, audit log) · <b>agendapp</b> (booking PWA, concurrency-tested so two people can never win the same slot) · <b>Zaptutor</b> (Chrome MV3 extension, zero network calls).</p>
+</div>
+
+<h2>Technical Skills</h2>
+<dl class="skills">
+  <dt>Languages</dt><dd>TypeScript · JavaScript · Python · SQL · C#</dd>
+  <dt>AI Engineering</dt><dd>LLM tool-calling (Claude, GPT) · RAG with guardrails · prompt engineering · agent-assisted development workflow</dd>
+  <dt>Back-end</dt><dd>Node.js (Hono, Express) · FastAPI · .NET · REST API design · Server-Sent Events</dd>
+  <dt>Front-end</dt><dd>React · Next.js (App Router, SSR) · Tailwind CSS</dd>
+  <dt>Data</dt><dd>PostgreSQL · TimescaleDB · Supabase (RLS) · Prisma · Alembic</dd>
+  <dt>Integrations</dt><dd>WhatsApp Business &amp; Cloud API (Meta templates) · ERP APIs · Google Calendar API · Chatwoot · n8n</dd>
+  <dt>Infrastructure</dt><dd>Docker Swarm + Traefik · PM2 cluster mode · systemd · AWS (S3, EC2) · Oracle Cloud · Vercel · Fly.io</dd>
+  <dt>Reliability</dt><dd>replication monitoring · backup rotation &amp; verification · health-check endpoints · dry-run and blocklist patterns for irreversible actions</dd>
+  <dt>Testing</dt><dd>Playwright · Cypress · Vitest · concurrency and cross-tenant isolation testing</dd>
+</dl>
+
+<h2>Education &amp; Certifications</h2>
+<div class="edu-head">
+  <b>Associate Degree, Systems Analysis and Development — UNINASSAU, Brazil</b>
+  <span class="when">Jan 2024 – Dec 2025</span>
+</div>
+<p class="note" style="margin-top:1pt">GPA 8.6/10 · Perfect scores in Software Architecture, Cloud Computing and Machine Learning.</p>
+<ul class="certs">
+  <li><b>Oracle Certified Generative AI Professional</b> — Oracle, Sep 2025</li>
+  <li><b>CS50: Introduction to Computer Science</b> — Harvard, 2026 <i>(in progress)</i></li>
+  <li><b>Python Back-End Bootcamp</b> — DIO &amp; Santander, 2025 (58h)</li>
+  <li><b>AWS Educate: Introduction to Cloud 101</b> — AWS, Jul 2025</li>
+</ul>
+
+</body>
+</html>
