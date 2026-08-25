@@ -47,6 +47,7 @@ export const systems: SystemItem[] = [
     },
     tech: "Next.js 16 · React 19 · Claude SDK",
     repo: "https://github.com/JaoVile/allchats",
+    live: "https://allchats.vercel.app",
     image: "/projects/allchats.png",
   },
   {
@@ -57,6 +58,7 @@ export const systems: SystemItem[] = [
     },
     tech: "React 19 · Vite · Express · SQLite",
     repo: "https://github.com/JaoVile/ezguide",
+    live: "https://ezguide.vercel.app",
     image: "/projects/ezguide.png",
   },
   {
@@ -67,7 +69,8 @@ export const systems: SystemItem[] = [
     },
     tech: "Next.js · Supabase · Telegram Bot",
     repo: "https://github.com/JaoVile/VaiGerar",
-    live: "https://vai-gerar.vercel.app",
+    live: "https://vai-gerar.vercel.app/sobre",
+    image: "/projects/cacador.png",
   },
   {
     name: "agendapp",
@@ -87,6 +90,7 @@ export const systems: SystemItem[] = [
     },
     tech: "Chrome MV3 · JavaScript",
     repo: "https://github.com/JaoVile/zaptutor",
+    image: "/projects/zaptutor.png",
   },
   {
     name: "cobraflow",
@@ -96,6 +100,7 @@ export const systems: SystemItem[] = [
     },
     tech: "Next.js 16 · SSE · WhatsApp Cloud API",
     repo: null,
+    image: "/projects/cobraflow.png",
   },
 ];
 
